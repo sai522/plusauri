@@ -17,7 +17,14 @@ void main(List<String> args) {
   addTask('analyze_test',
       createAnalyzerTask([
         "test/test_date.dart",
-        "test/test_date_value.dart"
+        "test/test_date_value.dart",
+        "test/test_date_range.dart",
+        "test/test_finance_mortgage.dart",
+        "test/test_finance_rate_curve.dart",
+        "test/test_finance_cash_flow.dart",
+        "test/test_finance_tvm.dart",
+        "test/test_finance_curves_attribution.dart",
+        "test/test_test_utils.dart"
       ]));
 
 

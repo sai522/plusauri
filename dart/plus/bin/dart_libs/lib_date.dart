@@ -33,7 +33,7 @@ get testLibs => [ testLib ];
 
 void main() {
   plus
-    ..libraries = [ lib ]
-    ..testLibraries = [ testLib ]
+    ..libraries = libs
+    ..testLibraries = testLibs
     ..generate( generateHop : false );
 }

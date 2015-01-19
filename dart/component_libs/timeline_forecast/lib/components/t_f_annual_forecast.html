@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <tFAnnualForecast head> -->
+
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_annual_component_toggler.html">
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_balance_sheet.html">
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_income_statement.html">
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_tax_summary.html">
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_liquidation_summary.html">
+
+<!-- end <tFAnnualForecast head> -->
+
+
+<polymer-element name="plus-t-f-annual-forecast">
+  <template>
+    <style>
+      /* custom <tFAnnualForecast style> */
+
+    /* end <tFAnnualForecast style> */
+    </style>
+
+    <!-- custom <tFAnnualForecast template> -->
+
+    <div id="shell"
+         style="
+                background-color:rgb(254, 255, 242);
+
+                margin-left:auto;
+                margin-right:auto;
+                margin-top: 2px;
+
+                width:95%;
+                overflow-y:auto;
+                overflow-x:hidden;
+
+                border: solid 1px gray;
+                border-radius: 4px;
+                "
+         >
+      <div id="header"
+           align="center"
+           style="
+
+	          -webkit-box-shadow: 0 4px 6px rgba(0,0,0,.2);
+	          -moz-box-shadow: 0 4px 6px rgba(0,0,0,.2);
+
+	          background: #f78d1d;
+	          background:
+                  -webkit-gradient(linear, left top, left bottom,
+                    from(rgb(254, 255, 220)),
+                    to(rgb(254, 255, 244)));
+	          background:
+                  -moz-linear-gradient(top,  rgb(254, 255, 220),  rgb(254, 255, 244));
+
+                  padding: 10px;
+                  clear: both;
+
+                  margin-left:auto;
+                  margin-right:auto;
+                  width: 100%;
+
+                  -webkit-touch-callout: none;
+                  -webkit-user-select: none;
+                  -khtml-user-select: none;
+                  -moz-user-select: none;
+                  -ms-user-select: none;
+                  user-select: none;
+                  font-size: 1.2em;
+                  font-weight: bold;
+                  "
+           ><em>{{annualForecastTitle}}</em> - Annual Forecast ({{year}})
+      </div>
+      <div id="contents">
+        <plus-t-f-balance-sheet id="balance-sheet"></plus-t-f-balance-sheet>
+        <plus-t-f-income-statement id="income-statement"></plus-t-f-income-statement>
+        <plus-t-f-tax-summary id="tax-summary"></plus-t-f-tax-summary>
+        <plus-t-f-liquidation-summary id="liquidation-summary"></plus-t-f-liquidation-summary>
+      </div>
+    </div>
+
+    <!-- end <tFAnnualForecast template> -->
+
+  </template>
+  <script type="application/dart" src="t_f_annual_forecast.dart"></script>
+</polymer-element>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <timelineNav head> -->
+
+<link rel="import" href="../../../packages/timeline_forecast/components/timeline_header.html">
+<link rel="import" href="../../../packages/timeline_forecast/components/timeline.html">
+
+<!-- end <timelineNav head> -->
+
+
+<polymer-element name="plus-timeline-nav">
+  <template>
+    <style>
+    /* custom <timelineNav style> */
+
+    /* end <timelineNav style> */
+    </style>
+
+    <!-- custom <timelineNav template> -->
+
+    <div
+       id="shell"
+       style="margin-top:15px;"
+         >
+      <plus-timeline-header id="timeline-header"></plus-timeline-header>
+      <plus-timeline id="timeline-component"></plus-timeline>
+    </div>
+
+    <!-- end <timelineNav template> -->
+
+  </template>
+  <script type="application/dart" src="timeline_nav.dart"></script>
+</polymer-element>

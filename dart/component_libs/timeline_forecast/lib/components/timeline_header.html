@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <timelineHeader head> -->
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_nav_content_selector.html">
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_annual_component_toggler.html">
+<!-- end <timelineHeader head> -->
+
+
+<polymer-element name="plus-timeline-header">
+  <template>
+    <style>
+    /* custom <timelineHeader style> */
+
+    /* end <timelineHeader style> */
+    </style>
+
+    <!-- custom <timelineHeader template> -->
+
+
+    <div id="shell"
+         style="
+                background-color:rgb(254, 255, 242);
+                margin-left:auto;
+                margin-right:auto;
+                width:95%;
+                padding: 10px;
+                vertical-align: middle;
+                border: solid 1px gray;
+                border-radius: 4px;
+                text-align:left;
+                ">
+
+      <div horizontal layout>
+        <plus-t-f-nav-content-selector flex id='nav-content-selector'></plus-t-f-nav-content-selector>
+        <plus-t-f-annual-component-toggler id='annual-component-toggler'></plus-t-f-annual-component-toggler>
+      </div>
+
+    </div>
+
+    <!-- end <timelineHeader template> -->
+
+  </template>
+  <script type="application/dart" src="timeline_header.dart"></script>
+</polymer-element>

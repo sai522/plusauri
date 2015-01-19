@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <tFAnnualComponentToggler head> -->
+<link rel="import" href="../../../packages/paper_elements/paper_button.html">
+<!-- end <tFAnnualComponentToggler head> -->
+
+
+<polymer-element name="plus-t-f-annual-component-toggler">
+  <template>
+    <style>
+      /* custom <tFAnnualComponentToggler style> */
+        paper-button::shadow #content span {
+        margin: 2px 3px 2px 3px;
+        padding: 2px 2px 2px 2px;
+        }
+
+        paper-button {
+        text-transform: none;
+        background: #4285f4;
+        color: #fff;
+        }
+
+        paper-button:hover {
+        background: #2a56c6;
+        }
+
+        paper-button::shadow #ripple {
+        color: #2a56c6;
+        }
+
+        paper-button {
+        margin: 2px 2px 2px 2px;
+        padding: 2px 2px 2px 2px;
+        }
+
+    /* end <tFAnnualComponentToggler style> */
+    </style>
+
+    <!-- custom <tFAnnualComponentToggler template> -->
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+
+    <div horizontal layout style="margin: 5px;">
+      <h4 flex self-start style="white-space: nowrap;">Annual Forecast Display</h4>
+        <div horizontal layout end>
+          <paper-button id="balance-sheet" label="BS"></paper-button>
+          <paper-button id="income-statement" label="IS"></paper-button>
+          <paper-button id="tax-summary" label="TS"></paper-button>
+          <paper-button id="liquidation-summary" label="LS"></paper-button>
+        </div>
+    </div>
+
+
+    <!-- end <tFAnnualComponentToggler template> -->
+
+  </template>
+  <script type="application/dart" src="t_f_annual_component_toggler.dart"></script>
+</polymer-element>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <tFPartitions head> -->
+<!-- end <tFPartitions head> -->
+
+
+<polymer-element name="plus-t-f-partitions">
+  <template>
+    <style>
+      /* custom <tFPartitions style> */
+
+        plus-t-f-partitions.tooltip-header /deep/ {
+        margin-left:auto;
+        margin-right:auto;
+        background-color:beige;
+        font-weight: bold;
+        text-align:center;
+        }
+
+        plus-t-f-partitions(#shell) {
+        background-color: pink;
+        }
+
+    /* end <tFPartitions style> */
+    </style>
+
+    <!-- custom <tFPartitions template> -->
+
+    <div id="header">
+      <hr>
+      <input type="radio" name="partition" id="allocation" value="allocation" checked>
+      <label for="allocation">Allocation</label>
+      <input type="radio" name="partition" id="style" value="style">
+      <label for="style">Style</label>
+      <input type="radio" name="partition" id="capitalization" value="capitalization">
+      <label for="capitalization">Capitalization</label>
+      <hr>
+    </div>
+
+    <div id="shell"
+         style="
+                margin-left:auto;
+                margin-right:auto;
+                margin-top: 2px;
+                margin-bottom: 5px;
+                width:95%;
+                height:100px;
+                background-color:rgb(254, 255, 252);
+                border: 1px solid black;
+                border-radius: 4px;
+                clear:both;
+                "></div>
+
+
+    <!-- end <tFPartitions template> -->
+
+  </template>
+  <script type="application/dart" src="t_f_partitions.dart"></script>
+</polymer-element>

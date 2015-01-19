@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <tFNavContentSelector head> -->
+<link rel="import" href="../../../packages/paper_elements/paper_button.html">
+<link rel="import" href="../../../packages/paper_elements/paper_radio_button.html">
+<!-- end <tFNavContentSelector head> -->
+
+
+<polymer-element name="plus-t-f-nav-content-selector">
+  <template>
+    <style>
+      /* custom <tFNavContentSelector style> */
+
+        paper-button::shadow #content span {
+        margin: 2px 3px 2px 3px;
+        padding: 2px 2px 2px 2px;
+        }
+
+        paper-button {
+        text-transform: none;
+        background: #4285f4;
+        color: #fff;
+        }
+
+        paper-button:hover {
+        background: #2a56c6;
+        }
+
+        paper-button::shadow #ripple {
+        color: #2a56c6;
+        }
+
+        paper-button {
+        margin: 2px 2px 2px 2px;
+        padding: 2px 2px 2px 2px;
+        }
+
+    /* end <tFNavContentSelector style> */
+    </style>
+
+    <!-- custom <tFNavContentSelector template> -->
+
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <div horizontal layout>
+
+      <div horizontal layout style="margin: 5px;">
+          <div horizontal layout end>
+            <paper-button id="net-worth-button" label="Net Worth" toggles></paper-button>
+            <paper-button id="total-assets-button" label="Assets" toggles></paper-button>
+            <paper-button id="total-liabilities-button" label="Liabilities" toggles></paper-button>
+          </div>
+      </div>
+
+      <div horizontal layout style="margin: 5px;">
+          <div horizontal layout end>
+            <paper-button id="net-income-button" label="Net Income"></paper-button>
+            <paper-button id="total-income-button" label="Income"></paper-button>
+            <paper-button id="total-expense-button" label="Expxpense"></paper-button>
+          </div>
+      </div>
+
+    </div>
+
+    <!-- end <tFNavContentSelector template> -->
+
+  </template>
+  <script type="application/dart" src="t_f_nav_content_selector.dart"></script>
+</polymer-element>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>timeline example showing usage of timelineForecast component library</title>
+    <!-- custom <forehead timeline> -->
+    <link rel="stylesheet" id="font-awesome-4-css" href="http://astronautweb.co/wp-content/themes/astro2012/css/font-awesome-4.0.3.css?ver=4.0.3" type="text/css" media="all">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- end <forehead timeline> -->
+    <script src="packages/web_components/platform.js"></script>
+    <link rel="import" href="packages/timeline_forecast/components/t_f_nav_content_selector.html">
+    <link rel="import" href="packages/timeline_forecast/components/t_f_annual_component_toggler.html">
+    <link rel="import" href="packages/timeline_forecast/components/t_f_annual_forecast.html">
+    <link rel="import" href="packages/timeline_forecast/components/t_f_partitions.html">
+    <link rel="import" href="packages/timeline_forecast/components/t_f_holding_period_balance.html">
+    <link rel="import" href="packages/timeline_forecast/components/t_f_balance_sheet.html">
+    <link rel="import" href="packages/timeline_forecast/components/t_f_income_statement.html">
+    <link rel="import" href="packages/timeline_forecast/components/t_f_tax_summary.html">
+    <link rel="import" href="packages/timeline_forecast/components/t_f_liquidation_summary.html">
+    <link rel="import" href="packages/timeline_forecast/components/timeline_nav.html">
+    <link rel="import" href="packages/timeline_forecast/components/timeline_header.html">
+    <link rel="import" href="packages/timeline_forecast/components/timeline.html">
+    <link rel="stylesheet" href="packages/timeline_forecast/components/timeline_forecast.css">
+    <!-- custom <additional polymer imports timeline> -->
+    <link rel="import" href="packages/tooltip/components/tooltip.html">
+    <!-- end <additional polymer imports timeline> -->
+
+    <style>
+      /* custom <style timeline> */
+
+        .holding-row-container {
+        box-shadow: 10px 10px 5px #888888;
+        }
+
+        .holding-row-header {
+        text-align: center;
+        font-weight: bold;
+        background-color:beige;
+        margin-right: 0em;
+        margin-left: 1em;
+        }
+
+        .holding-row-tip-content {
+        background-color:white;
+        align:center;
+        }
+
+        .holding-row-container {
+        background-color:beige;
+        }
+
+      /* end <style timeline> */
+    </style>
+
+        <!-- custom <chin timeline> -->
+        <!-- end <chin timeline> -->
+    <script type="application/dart" src="timeline.dart"></script>
+  </head>
+  <body unresolved>
+    <!-- custom <body timeline> -->
+
+    <plus-timeline-nav style="
+                              margin-left:auto;
+                              margin-right:auto;
+                              width:95%;
+                              "
+                       id="timeline-nav"
+                       ></plus-timeline-nav>
+
+    <!-- end <body timeline> -->
+  
+  </body>
+</html>

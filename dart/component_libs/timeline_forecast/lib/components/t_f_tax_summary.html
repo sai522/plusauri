@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <tFTaxSummary head> -->
+
+<link rel="import" href="../../../packages/core_elements/core_icon.html">
+
+<!-- end <tFTaxSummary head> -->
+
+
+<polymer-element name="plus-t-f-tax-summary">
+  <template>
+    <style>
+    /* custom <tFTaxSummary style> */
+
+        .title {
+        text-align: center;
+        font-size: 1.1em; font-weight: bold; color: green;
+        margin: 10px;
+        }
+
+
+        tr.tax-header {
+        font-weight: bold;
+        }
+
+        tr.no-tax {
+        display: none;
+        }
+
+        tr.tax-bill {
+        font-weight: bold;
+        }
+
+        tr td:not(:last-child) {
+        padding-right:1.5em;
+        }
+
+        tr td:not(:first-child) {
+        text-align: right;
+        }
+
+
+    /* end <tFTaxSummary style> */
+    </style>
+
+    <!-- custom <tFTaxSummary template> -->
+
+    <div style="background-color:white;
+                overflow:auto;
+                padding: 15px;
+                margin: 10px;
+                border: solid 1px gray;
+                border-radius: 4px;
+                float: left;
+/*                clear: both;*/
+"
+         id = "container">
+
+      <p class='title'>
+        <core-icon icon="flag"></core-icon>
+        Tax Summary ({{year}})
+      </p>
+
+      <table id="tax-summary-table"></table>
+
+    </div>
+
+    <!-- end <tFTaxSummary template> -->
+
+  </template>
+  <script type="application/dart" src="t_f_tax_summary.dart"></script>
+</polymer-element>

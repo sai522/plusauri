@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <timeline head> -->
+
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_balance_sheet.html">
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_income_statement.html">
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_tax_summary.html">
+
+
+<!-- end <timeline head> -->
+
+
+<polymer-element name="plus-timeline">
+  <template>
+    <style>
+      /* custom <timeline style> */
+
+        #shell /deep/ #svg-container {
+        background-color: white;
+        overflow:hidden;
+        width: 5000px;
+        height: 5000px;
+        }
+
+    /* end <timeline style> */
+    </style>
+
+    <!-- custom <timeline template> -->
+
+    <div id="shell"
+         style="
+                margin-left:auto;
+                margin-right:auto;
+                margin-top: 2px;
+                width:95%;
+                height:170px;
+                background-color:rgb(254, 255, 252);
+/*overflow:visible;*/
+                border: 1px solid black;
+                border-radius: 4px;
+                clear:both;
+                "></div>
+
+    <div
+       id="annual-forecasts-container"
+       >
+    </div>
+
+    <!-- end <timeline template> -->
+
+  </template>
+  <script type="application/dart" src="timeline.dart"></script>
+</polymer-element>

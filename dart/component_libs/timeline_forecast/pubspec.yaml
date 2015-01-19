@@ -1,0 +1,44 @@
+name: timeline_forecast
+version: 0.0.1
+author: Daniel Davidson <dbdavidson@yahoo.com>
+dependencies:
+  logging: "any"
+  tooltip: "any"
+
+# custom <timeline_forecast dependencies>
+
+  polymer: ">=0.15.0"
+  
+  plus:
+    path: /home/dbdavidson/dev/open_source/plusauri/dart/plus
+    
+  tooltip:
+    path: /home/dbdavidson/dev/open_source/tooltip
+    
+#    git: git://github.com/patefacio/tooltip    
+
+# end <timeline_forecast dependencies>
+
+dev_dependencies:
+  unittest: ">=0.9.0 < 0.10.0"
+  browser: "any"
+
+# custom <timeline_forecast dev dependencies>
+
+  ebisu:
+    git: git://github.com/patefacio/ebisu
+
+# end <timeline_forecast dev dependencies>
+
+transformers:
+  - polymer:
+      entry_points:
+        - web/examples/timeline/timeline.html
+        - web/examples/timeline_nav/timeline_nav.html
+        - web/examples/income_statement/income_statement.html
+        - web/examples/annual_forecast/annual_forecast.html
+        - web/examples/holding_period_balance/holding_period_balance.html
+
+# custom <timeline_forecast transformers>
+# end <timeline_forecast transformers>
+

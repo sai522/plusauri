@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <tFHoldingPeriodBalance head> -->
+
+<link rel="import" href="../../../packages/tooltip/components/tooltip.html">
+<link rel="import" href="../../../packages/timeline_forecast/components/t_f_partitions.html">
+
+<!-- end <tFHoldingPeriodBalance head> -->
+
+
+<polymer-element name="plus-t-f-holding-period-balance">
+  <template>
+    <style>
+      /* custom <tFHoldingPeriodBalance style> */
+
+        hr {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        border: 1px solid #000;
+        }
+
+        body /deep/ plus-tooltip::shadow #header {
+        padding-left: 1em;
+        background-color: yellow;
+        }
+
+        table {
+        background-color: white;
+        margin-left: auto;
+        margin-right: auto;
+        }
+
+        table /deep/ tr:nth-child(odd) {
+/*        background-color: gray;*/
+        }
+
+        td {
+        padding-left: 5px;
+        padding-right: 5px;
+        }
+
+        tr:nth-child(-n + 6) {
+        font-weight: bold;
+        }
+
+        tr td:nth-child(n+2) {
+        text-align: right;
+        }
+
+        tr:last-child {
+        font-weight: bold;
+        }
+
+        td.indent {
+        padding-left: 2em;
+        }
+
+
+     /* end <tFHoldingPeriodBalance style> */
+    </style>
+
+    <!-- custom <tFHoldingPeriodBalance template> -->
+
+    <table id="holding-period-balance-table">
+    </table>
+
+    <plus-t-f-partitions id="partitions"></plus-t-f-partitions>
+
+    <!-- end <tFHoldingPeriodBalance template> -->
+
+  </template>
+  <script type="application/dart" src="t_f_holding_period_balance.dart"></script>
+</polymer-element>

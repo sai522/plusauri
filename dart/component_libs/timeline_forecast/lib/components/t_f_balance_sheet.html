@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <tFBalanceSheet head> -->
+
+
+<link rel="import" href="../../../packages/tooltip/components/tooltip.html">
+<link rel="import" href="../../../packages/paper_elements/paper_icon_button.html">
+<link rel="import" href="../../../packages/core_elements/core_icons.html">
+<link rel="import" href="../../../packages/core_elements/core_icon.html">
+<link rel="import" href="../../../packages/core_elements/core_icon_button.html">
+
+<!-- end <tFBalanceSheet head> -->
+
+
+<polymer-element name="plus-t-f-balance-sheet">
+  <template>
+    <style>
+    /* custom <tFBalanceSheet style> */
+
+        table {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        }
+
+        .fa-tasks {
+        color: green;
+        }
+
+        hr {
+        margin: 2px;
+        }
+
+        i {
+        padding-right:4px;
+        }
+
+        tr td:nth-child(5), tr td:nth-child(4) {
+        padding: 1px 12px;
+        min-width: 14ch;
+        }
+
+        tr.header td  {
+        /*display: block;*/
+        font-weight: bold;
+        /*color: green;*/
+        white-space:nowrap;
+        }
+
+        tr.header td:nth-child(5), tr.header td:nth-child(4) {
+        text-align: right;
+        }
+
+        tr.account td:first-child {
+        box-shadow: 3px 3px 5px #888888;
+        padding: 1px 30px;
+        font-style: italic;
+        font-weight: bold;
+        white-space:nowrap;
+        }
+
+        tr.account td:nth-child(5), tr.account td:nth-child(4) {
+        text-align:right;
+        white-space:nowrap;
+/*        border-style:solid;*/
+        border-top:thin solid;
+        border-bottom:thin solid;
+        }
+
+        tr.holding td:first-child {
+        padding: 1px 40px;
+        white-space:nowrap;
+        /*border: thin solid;*/
+        /*opacity: 0.75;*/
+        box-shadow: 3px 3px 5px #888888;
+        border-radius: 3px;
+        }
+
+        tr.asset td:first-child {
+/*        padding: 1px 20px;*/
+        box-shadow: 3px 3px 5px #888888;
+        white-space:nowrap;
+        }
+
+        tr.liability td:first-child {
+/*        padding: 1px 20px;*/
+        box-shadow: 2px 2px 3px #888888;
+        white-space:nowrap;
+        }
+
+        tr.holding td:nth-child(5), tr.holding td:nth-child(4) {
+        text-align:right;
+        color:blue;
+        white-space:nowrap;
+        padding-right:-1em;
+        }
+
+        tr.asset td:nth-child(5), tr.asset td:nth-child(4) {
+        text-align:right;
+        color:blue;
+        white-space:nowrap;
+        }
+
+        tr.liability td:nth-child(5), tr.liability td:nth-child(4) {
+        text-align:right;
+        color:red;
+        white-space:nowrap;
+        }
+
+        tr.no-value {
+        display: none;
+        }
+
+        tr.net-header td  {
+        font-weight: bold;
+        white-space:nowrap;
+        }
+
+        tr.net-header td:nth-child(5), tr.net-header td:nth-child(4) {
+        text-align:right;
+        }
+
+        .title {
+        text-align: center;
+        font-size: 1.1em; font-weight: bold; color: darkgreen;
+        margin: 10px;
+        }
+
+        tr td:first-child.indent-1 {
+        padding-left: 1em;
+        }
+
+        tr td:first-child.indent-2 {
+        padding-left: 2.1em;
+        }
+
+        tr td:first-child.indent-3 {
+        padding-left: 3.2em;
+        }
+
+        core-icon-button /deep/ core-icon[role=img] {
+        height: 12px;
+        width: 12px;
+        padding: 1px;
+        margin: 1px;
+        }
+
+        core-icon-button {
+        padding: 0 1px 1px 1px;
+        margin: 1px;
+        }
+
+    /* end <tFBalanceSheet style> */
+    </style>
+
+    <!-- custom <tFBalanceSheet template> -->
+
+    <div style="background-color:white;
+                overflow-y:auto;
+                overflow-x:hidden;
+                padding: 15px;
+                margin: 10px;
+                border: solid 1px gray;
+                border-radius: 4px;
+                float: left;"
+         id="container"
+         >
+      <p id='title' class='title'>
+        <core-icon icon="drive-chart"></core-icon>
+        <em>{{title}}</em> Balance Sheet ({{year}})
+      </p>
+
+      <table id="balance-sheet-table">
+      </table>
+    </div>
+
+    <!-- end <tFBalanceSheet template> -->
+
+  </template>
+  <script type="application/dart" src="t_f_balance_sheet.dart"></script>
+</polymer-element>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <tFLiquidationSummary head> -->
+<!-- end <tFLiquidationSummary head> -->
+
+
+<polymer-element name="plus-t-f-liquidation-summary">
+  <template>
+    <style>
+    /* custom <tFLiquidationSummary style> */
+
+        hr {
+        margin: 2px;
+        }
+
+        tr td:nth-child(4), tr td:nth-child(5), tr td:nth-child(6)  {
+        text-align: right;
+        }
+
+        i {
+        padding-right:4px;
+        }
+
+        td {
+        padding-left: 4px;
+        padding-right: 4px;
+        }
+
+        tr td:first-child.indent-1 {
+        padding-left: 1em;
+        }
+
+        tr td:first-child.indent-2 {
+        padding-left: 2em;
+        }
+
+        tr.net-header td  {
+        font-weight: bold;
+        }
+
+        tr.credit td:nth-child(4) {
+        color:blue;
+        text-align: right;
+        }
+
+        tr.debit td:nth-child(4) {
+        color:red;
+        text-align: right;
+        }
+
+        .title {
+        text-align: center;
+        font-size: 1.1em; font-weight: bold; color: green;
+        margin: 10px;
+        }
+
+    /* end <tFLiquidationSummary style> */
+    </style>
+
+    <!-- custom <tFLiquidationSummary template> -->
+    <div style="background-color:white;
+                overflow:auto;
+                padding: 15px;
+                margin: 10px;
+                border: solid 1px gray;
+                border-radius: 4px;
+                float: left;
+                /*                clear: both;*/
+                "
+         id = "container">
+      <p class='title'><i class="fa fa-usd">&nbsp;</i>Liquidation Summary ({{year}})</p>
+      <table id="liquidation-summary-table">
+      </table>
+    </div>
+    <!-- end <tFLiquidationSummary template> -->
+
+  </template>
+  <script type="application/dart" src="t_f_liquidation_summary.dart"></script>
+</polymer-element>

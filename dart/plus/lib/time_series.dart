@@ -35,8 +35,7 @@ class TimeSeries {
   List<DateValue> get data => _data;
   // custom <class TimeSeries>
 
-  TimeSeries.fromIterable(Iterable<DateValue> src) :
-    _data = new List.from(src);
+  TimeSeries.fromIterable(Iterable<DateValue> src) : _data = new List.from(src);
 
   String toString() => 'TS[\n  ${_data.join("\n  ")}]';
 
@@ -44,45 +43,43 @@ class TimeSeries {
 
   double get sum => _data.fold(0.0, (prev, element) => prev + element.value);
 
-  DateValue firstOnOrBefore(Date asOf, [ int startIndex = 0 ]) {
+  DateValue firstOnOrBefore(Date asOf, [int startIndex = 0]) {
     var found = dv.firstOnOrBefore(_data, asOf, startIndex);
-    return found == -1? null : _data[found];
+    return found == -1 ? null : _data[found];
   }
 
   DateValue get sumToEnd {
     var result = dateValue();
-    if(_data.length>0) {
+    if (_data.length > 0) {
       result
-      ..date = _data.last.date
-      ..value = sum;
+          ..date = _data.last.date
+          ..value = sum;
     }
     return result;
   }
 
   double sumToDateOnCurve(Date asOf, RateCurve curve) =>
-    _data.fold(0.0, (prev, elm) => prev + curve.revalueOn(elm, asOf));
+      _data.fold(0.0, (prev, elm) => prev + curve.revalueOn(elm, asOf));
 
   int get length => _data.length;
 
   filterOnRange(DateRange range) =>
-  _data
-  .skipWhile((dv) => dv.date < range.start)
-  .takeWhile((dv) => dv.date < range.end);
+      _data.skipWhile(
+          (dv) => dv.date < range.start).takeWhile((dv) => dv.date < range.end);
 
   filterOnYear(int year) =>
-  _data
-  .skipWhile((dv) => dv.date.year < year)
-  .takeWhile((dv) => dv.date.year == year);
+      _data.skipWhile(
+          (dv) => dv.date.year < year).takeWhile((dv) => dv.date.year == year);
 
   Map toJson() {
     return {
-    "data": ebisu_utils.toJson(data),
+      "data": ebisu_utils.toJson(data),
     };
   }
 
   static TimeSeries fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     var data = [];
@@ -93,9 +90,8 @@ class TimeSeries {
   }
 
   bool get isOrdered {
-    for(int i=1; i<_data.length; i++) {
-      if(_data[i-1].date > _data[i].date)
-        return false;
+    for (int i = 1; i < _data.length; i++) {
+      if (_data[i - 1].date > _data[i].date) return false;
     }
     return true;
   }
@@ -117,7 +113,7 @@ timeSeries([List<DateValue> _data]) =>
 // custom <library time_series>
 
 splice(TimeSeries ts1, TimeSeries ts2) =>
-  timeSeries(merge(ts1._data, ts2._data));
+    timeSeries(merge(ts1._data, ts2._data));
 
 
 // end <library time_series>

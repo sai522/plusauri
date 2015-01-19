@@ -50,8 +50,9 @@ class Holding {
   // custom <class Holding>
 
   DateValue get marketValue =>
-    new DateValue(maxDate(quantity.date, unitValue.date),
-        quantity.value*unitValue.value);
+      new DateValue(
+          maxDate(quantity.date, unitValue.date),
+          quantity.value * unitValue.value);
 
   // end <class Holding>
 
@@ -122,39 +123,37 @@ class PortfolioAccount {
   // custom <class PortfolioAccount>
 
   Holding holding(String holdingName) =>
-    holdingName == GeneralAccount? otherHoldings :
-    holdingMap[holdingName];
+      holdingName == GeneralAccount ? otherHoldings : holdingMap[holdingName];
 
-  bool get isDistributionSheltered =>
-    isSheltered(accountType);
+  bool get isDistributionSheltered => isSheltered(accountType);
 
-  bool get canCapitalGainBeSheltered =>
-    isSheltered(accountType);
+  bool get canCapitalGainBeSheltered => isSheltered(accountType);
 
   bool get hasExpenseRestrictions =>
-    accountType == AccountType.COLLEGE_IRS529 ||
-    accountType == AccountType.HEALTH_SAVINGS_ACCOUNT;
+      accountType == AccountType.COLLEGE_IRS529 ||
+          accountType == AccountType.HEALTH_SAVINGS_ACCOUNT;
 
   bool get hasAgeRestrictions =>
-    accountType == AccountType.ROTH_IRS401K ||
-    accountType == AccountType.TRADITIONAL_IRS401K ||
-    accountType == AccountType.TRADITIONAL_IRS401K;
+      accountType == AccountType.ROTH_IRS401K ||
+          accountType == AccountType.TRADITIONAL_IRS401K ||
+          accountType == AccountType.TRADITIONAL_IRS401K;
 
 
   get holdingType {
     var aggregate;
-    if(holdingMap.length > 0) {
-      aggregate = holdingMap
-        .values
-        .map((holding) => holding.holdingType)
-        .reduce((value, elm) => mergeHoldingTypes(value, elm));
+    if (holdingMap.length > 0) {
+      aggregate = holdingMap.values.map(
+          (holding) =>
+              holding.holdingType).reduce((value, elm) => mergeHoldingTypes(value, elm));
 
       // TODO: Check the logic which initializes when null encountered
-      return (otherHoldings != null)?
-        mergeHoldingTypes(aggregate,
-            otherHoldings.holdingType == null? HoldingType.BLEND :
-              otherHoldings.holdingType) :
-        aggregate;
+      return (otherHoldings != null) ?
+          mergeHoldingTypes(
+              aggregate,
+              otherHoldings.holdingType == null ?
+                  HoldingType.BLEND :
+                  otherHoldings.holdingType) :
+          aggregate;
     }
 
     return otherHoldings.holdingType;
@@ -164,7 +163,7 @@ class PortfolioAccount {
   _visitHoldings(String account, HoldingVisitor visitor) {
     visitor(account, GeneralAccount, otherHoldings);
     holdingMap.forEach(
-      (String symbol, Holding holding) => visitor(account, symbol, holding));
+        (String symbol, Holding holding) => visitor(account, symbol, holding));
   }
 
   // end <class PortfolioAccount>
@@ -283,14 +282,16 @@ class BSItem {
    *
    */
   DateValue marketValue(Date asOf) {
-    var result =
-      (currentValue == null)? acquired :
-      (acquired == null)? currentValue :
-      (asOf.difference(acquired.date).inMicroseconds.abs() >
-          asOf.difference(currentValue.date).inMicroseconds.abs()?
-          currentValue : acquired);
+    var result = (currentValue == null) ?
+        acquired :
+        (acquired == null) ?
+            currentValue :
+            (asOf.difference(acquired.date).inMicroseconds.abs() >
+                asOf.difference(currentValue.date).inMicroseconds.abs() ?
+                currentValue :
+                acquired);
 
-    return result != null? result.copy() : result;
+    return result != null ? result.copy() : result;
   }
 
   // end <class BSItem>
@@ -458,48 +459,49 @@ class BalanceSheet {
   Asset asset(String id) => assetMap[id];
   Liability liability(String id) => liabilityMap[id];
   PortfolioAccount portfolioAccount(String accountName) =>
-    portfolioAccountMap[accountName];
+      portfolioAccountMap[accountName];
   Holding holding(String accountName, String holdingName) =>
-    portfolioAccountMap[accountName].holding(holdingName);
+      portfolioAccountMap[accountName].holding(holdingName);
 
   visitAccountHoldings(String accountName, HoldingVisitor visitor) =>
-    portfolioAccountMap[accountName]
-    ._visitHoldings(accountName, visitor);
+      portfolioAccountMap[accountName]._visitHoldings(accountName, visitor);
 
   visitPortfolioAccounts(PortfolioAccountVisitor visitor) =>
-    portfolioAccountMap.forEach(
-      (String accountName, PortfolioAccount portfolioAccount) =>
-      visitor(accountName, portfolioAccount));
+      portfolioAccountMap.forEach(
+          (String accountName, PortfolioAccount portfolioAccount) =>
+              visitor(accountName, portfolioAccount));
 
   visitAssets(AssetVisitor visitor) =>
-    assetMap.forEach(
-      (String assetName, Asset asset) => visitor(assetName, asset));
+      assetMap.forEach((String assetName, Asset asset) => visitor(assetName, asset));
 
   visitLiabilities(LiabilityVisitor visitor) =>
-    liabilityMap.forEach(
-      (String liabilityName, Liability liability) => visitor(liabilityName, liability));
+      liabilityMap.forEach(
+          (String liabilityName, Liability liability) =>
+              visitor(liabilityName, liability));
 
   visitHoldings(HoldingVisitor visitor) =>
-    visitPortfolioAccounts((String accountName, PortfolioAccount portfolioAccount) =>
-        portfolioAccount._visitHoldings(accountName, visitor));
+      visitPortfolioAccounts(
+          (String accountName, PortfolioAccount portfolioAccount) =>
+              portfolioAccount._visitHoldings(accountName, visitor));
 
   Iterable<HoldingKey> get holdingKeys {
-    if(_holdingKeys == null) {
+    if (_holdingKeys == null) {
       _holdingKeys = [];
-      visitHoldings((String account, String symbol, Holding holding) =>
-          _holdingKeys.add(new HoldingKey(account, symbol)));
+      visitHoldings(
+          (String account, String symbol, Holding holding) =>
+              _holdingKeys.add(new HoldingKey(account, symbol)));
     }
     return _holdingKeys;
   }
 
-  Map<AccountType,List<String>> get accountsByType {
-    if(_accountsByType == null) {
-      _accountsByType = new Map<AccountType,List<String>>();
+  Map<AccountType, List<String>> get accountsByType {
+    if (_accountsByType == null) {
+      _accountsByType = new Map<AccountType, List<String>>();
       visitPortfolioAccounts(
-        (String accountName, PortfolioAccount portfolioAccount) {
-          _accountsByType.putIfAbsent(portfolioAccount.accountType, () => []);
-          _accountsByType[portfolioAccount.accountType].add(accountName);
-        });
+          (String accountName, PortfolioAccount portfolioAccount) {
+        _accountsByType.putIfAbsent(portfolioAccount.accountType, () => []);
+        _accountsByType[portfolioAccount.accountType].add(accountName);
+      });
     }
     return _accountsByType;
   }
@@ -571,8 +573,10 @@ mergeHoldingTypes(HoldingType first, HoldingType second) {
   return (first != second) ? HoldingType.BLEND : first;
 }
 
-typedef void PortfolioAccountVisitor(String accountName, PortfolioAccount portfolioAccount);
-typedef void HoldingVisitor(String account, String holdingName, Holding holding);
+typedef void PortfolioAccountVisitor(String accountName,
+    PortfolioAccount portfolioAccount);
+typedef void HoldingVisitor(String account, String holdingName,
+    Holding holding);
 typedef void AssetVisitor(String assetName, Asset asset);
 typedef void LiabilityVisitor(String liabilityName, Liability liability);
 

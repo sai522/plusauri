@@ -22,7 +22,7 @@ main() {
       expect(identical(dossier.balanceSheet, dossierCopy.balanceSheet), false);
 
       // Change one field and ensure it is not shared
-      expect(dossierCopy.personMap['johnDoe'].birthDate, date(1965,1,1));
+      expect(dossierCopy.personMap['johnDoe'].birthDate, date(1965, 1, 1));
       dossierCopy.personMap['johnDoe'] = null;
       expect(dossierCopy != dossier, true);
     });

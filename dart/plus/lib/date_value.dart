@@ -33,28 +33,26 @@ class DateValue
   bool isBefore(DateValue other) => date.isBefore(other.date);
 
   static DateValue fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     Map dv = json;
-    return new DateValue(Date.fromJson(dv['date']),
-        dv['value']);
+    return new DateValue(Date.fromJson(dv['date']), dv['value']);
   }
 
   Map toJson() => {
-    'date' : date.toJson(),
-    'value' : value
+    'date': date.toJson(),
+    'value': value
   };
 
   operator +(DateValue other) =>
-    dateValue(maxDate(date, other.date),
-        value + other.value);
+      dateValue(maxDate(date, other.date), value + other.value);
 
   operator -() => dateValue(date, -value);
 
   toString() => '($date, $value)';
-  
+
   // end <class DateValue>
   DateValue._copy(DateValue other) :
     date = other.date,
@@ -73,8 +71,7 @@ dateValue([Date date,
 
 var dv = dateValue;
 
-int _binarySearch(List<DateValue> list, Date date,
-    [ int startIndex = 0 ]) {
+int _binarySearch(List<DateValue> list, Date date, [int startIndex = 0]) {
   int max = list.length;
   int min = math.min(startIndex, max);
 
@@ -89,15 +86,15 @@ int _binarySearch(List<DateValue> list, Date date,
     }
   }
   assert(max == min);
-  return math.min(list.length-1, min);
+  return math.min(list.length - 1, min);
 }
 
-int firstOnOrBefore(List<DateValue> list, Date date,
-    [ int startIndex = 0 ]) {
-  if(list.length == 0) return -1;
+int firstOnOrBefore(List<DateValue> list, Date date, [int startIndex = 0]) {
+  if (list.length == 0) return -1;
   int index = _binarySearch(list, date, startIndex);
-  return (index < 0)? index :
-    ((list[index].date.compareTo(date) > 0)? index-1 : index);
+  return (index < 0) ?
+      index :
+      ((list[index].date.compareTo(date) > 0) ? index - 1 : index);
 }
 
 // end <library date_value>

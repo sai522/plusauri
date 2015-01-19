@@ -19,7 +19,7 @@ class BenchLowerBound extends BenchmarkBase {
   int _count = 0;
 
   void run() {
-    for(int i=0; i<_size; ++i) {
+    for (int i = 0; i < _size; ++i) {
       final val = _list[i];
       final index = lowerBound(_list, val);
       //final index = lowerBoundCompare(_list, val, (a,b) => a.compareTo(b));
@@ -33,7 +33,7 @@ class BenchLowerBound extends BenchmarkBase {
   }
 
   void setup() {
-    for(int i=0; i<_size; ++i) {
+    for (int i = 0; i < _size; ++i) {
       _list[i] = _random.nextDouble();
     }
     _list.sort();

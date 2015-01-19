@@ -688,24 +688,24 @@ class CostBasis {
     assert(units.isFinite && unitValue.isFinite);
   }
 
-  double get marketValue => units*unitValue;
+  double get marketValue => units * unitValue;
 
   CostBasis operator +(CostBasis other) {
-    if(units == 0.0) {
+    if (units == 0.0) {
       return other;
-    } else if(other.units == 0.0) {
+    } else if (other.units == 0.0) {
       return this;
     } else {
       double sumUnits = units + other.units;
-      if(sumUnits == 0.0) return NoCostBasis;
+      if (sumUnits == 0.0) return NoCostBasis;
       return new CostBasis(
-        sumUnits, (marketValue + other.marketValue)/sumUnits);
+          sumUnits,
+          (marketValue + other.marketValue) / sumUnits);
     }
   }
 
   CostBasis operator -() =>
-    identical(this, NoCostBasis)? NoCostBasis :
-             new CostBasis(-units, unitValue);
+      identical(this, NoCostBasis) ? NoCostBasis : new CostBasis(-units, unitValue);
 
   CostBasis operator -(CostBasis other) => this + (-other);
 
@@ -809,21 +809,21 @@ class CapitalizationPartition {
   final double largeCap;
   // custom <class CapitalizationPartition>
 
-  const CapitalizationPartition.empty() :
-    smallCap = 0.0,
-    midCap = 0.0,
-    largeCap = 0.0;
+  const CapitalizationPartition.empty()
+      : smallCap = 0.0,
+        midCap = 0.0,
+        largeCap = 0.0;
 
-  CapitalizationPartition.fromPartitionMap(Map map) :
-    smallCap = map.containsKey('smallCap')? map['smallCap'] : 0.0,
-    midCap = map.containsKey('midCap')? map['midCap'] : 0.0,
-    largeCap = map.containsKey('largeCap')? map['largeCap'] : 0.0;
+  CapitalizationPartition.fromPartitionMap(Map map)
+      : smallCap = map.containsKey('smallCap') ? map['smallCap'] : 0.0,
+        midCap = map.containsKey('midCap') ? map['midCap'] : 0.0,
+        largeCap = map.containsKey('largeCap') ? map['largeCap'] : 0.0;
 
   Map get partitionMap {
     final result = {};
-    if(smallCap != 0.0) result['smallCap'] = smallCap;
-    if(midCap != 0.0) result['midCap'] = midCap;
-    if(largeCap != 0.0) result['largeCap'] = largeCap;
+    if (smallCap != 0.0) result['smallCap'] = smallCap;
+    if (midCap != 0.0) result['midCap'] = midCap;
+    if (largeCap != 0.0) result['largeCap'] = largeCap;
     return result;
   }
 
@@ -876,21 +876,21 @@ class InvestmentStylePartition {
   final double growth;
   // custom <class InvestmentStylePartition>
 
-  const InvestmentStylePartition.empty() :
-    value = 0.0,
-    blend = 0.0,
-    growth = 0.0;
+  const InvestmentStylePartition.empty()
+      : value = 0.0,
+        blend = 0.0,
+        growth = 0.0;
 
-  InvestmentStylePartition.fromPartitionMap(Map map) :
-    value = map.containsKey('value')? map['value'] : 0.0,
-    blend = map.containsKey('blend')? map['blend'] : 0.0,
-    growth = map.containsKey('growth')? map['growth'] : 0.0;
+  InvestmentStylePartition.fromPartitionMap(Map map)
+      : value = map.containsKey('value') ? map['value'] : 0.0,
+        blend = map.containsKey('blend') ? map['blend'] : 0.0,
+        growth = map.containsKey('growth') ? map['growth'] : 0.0;
 
   Map get partitionMap {
     final result = {};
-    if(value != 0.0) result['value'] = value;
-    if(blend != 0.0) result['blend'] = blend;
-    if(growth != 0.0) result['growth'] = growth;
+    if (value != 0.0) result['value'] = value;
+    if (blend != 0.0) result['blend'] = blend;
+    if (growth != 0.0) result['growth'] = growth;
     return result;
   }
 
@@ -948,24 +948,24 @@ class AllocationPartition {
   final double other;
   // custom <class AllocationPartition>
 
-  const AllocationPartition.empty() :
-    stock = 0.0,
-    bond = 0.0,
-    cash = 0.0,
-    other = 0.0;
+  const AllocationPartition.empty()
+      : stock = 0.0,
+        bond = 0.0,
+        cash = 0.0,
+        other = 0.0;
 
-  AllocationPartition.fromPartitionMap(Map map) :
-    stock = (map.containsKey('stock')? map['stock'] : 0.0),
-    bond = (map.containsKey('bond')? map['bond'] : 0.0),
-    cash = (map.containsKey('cash')? map['cash'] : 0.0),
-    other = (map.containsKey('other')? map['other'] : 0.0);
+  AllocationPartition.fromPartitionMap(Map map)
+      : stock = (map.containsKey('stock') ? map['stock'] : 0.0),
+        bond = (map.containsKey('bond') ? map['bond'] : 0.0),
+        cash = (map.containsKey('cash') ? map['cash'] : 0.0),
+        other = (map.containsKey('other') ? map['other'] : 0.0);
 
   Map get partitionMap {
     final result = {};
-    if(stock != 0.0) result['stock'] = stock;
-    if(bond != 0.0) result['bond'] = bond;
-    if(cash != 0.0) result['cash'] = cash;
-    if(other != 0.0) result['other'] = other;
+    if (stock != 0.0) result['stock'] = stock;
+    if (bond != 0.0) result['bond'] = bond;
+    if (cash != 0.0) result['cash'] = cash;
+    if (other != 0.0) result['other'] = other;
     return result;
   }
 
@@ -1022,18 +1022,21 @@ class InstrumentPartitions {
   final CapitalizationPartition capitalizationPartition;
   // custom <class InstrumentPartitions>
 
-  const InstrumentPartitions.empty() :
-    allocationPartition = const AllocationPartition.empty(),
-    investmentStylePartition = const InvestmentStylePartition.empty(),
-    capitalizationPartition = const CapitalizationPartition.empty();
+  const InstrumentPartitions.empty()
+      : allocationPartition = const AllocationPartition.empty(),
+        investmentStylePartition = const InvestmentStylePartition.empty(),
+        capitalizationPartition = const CapitalizationPartition.empty();
 
   double blendedDistance(InstrumentPartitions other) =>
-    valueDistance(allocationPartition.partitionMap,
-        other.allocationPartition.partitionMap) +
-    valueDistance(investmentStylePartition.partitionMap,
-        other.investmentStylePartition.partitionMap) +
-    valueDistance(capitalizationPartition.partitionMap,
-        other.capitalizationPartition.partitionMap);
+      valueDistance(
+          allocationPartition.partitionMap,
+          other.allocationPartition.partitionMap) +
+          valueDistance(
+              investmentStylePartition.partitionMap,
+              other.investmentStylePartition.partitionMap) +
+          valueDistance(
+              capitalizationPartition.partitionMap,
+              other.capitalizationPartition.partitionMap);
 
 
   // end <class InstrumentPartitions>
@@ -1090,63 +1093,68 @@ class PartitionMapping {
   final Map<String,double> partitionMap;
   // custom <class PartitionMapping>
 
-  PartitionMapping.validated(this.partitioned, this.unpartitioned, this.partitionMap) {
-    if(!isValid)
-      throw new ArgumentError('Partitioning must sum to 1.0 => $partitionMap');
+  PartitionMapping.validated(this.partitioned, this.unpartitioned,
+      this.partitionMap) {
+    if (!isValid) throw new ArgumentError(
+        'Partitioning must sum to 1.0 => $partitionMap');
   }
 
-  const PartitionMapping.empty() : partitioned = 0.0,
-    unpartitioned = 0.0,
-    partitionMap = const {};
+  const PartitionMapping.empty()
+      : partitioned = 0.0,
+        unpartitioned = 0.0,
+        partitionMap = const {};
 
   double get total => partitioned + unpartitioned;
-  double percent(String key) => partitionMap.containsKey(key)?
-      partitionMap[key] : 0.0;
+  double percent(String key) =>
+      partitionMap.containsKey(key) ? partitionMap[key] : 0.0;
 
   double value(String key) => percent(key) * total;
-  double percentOfTotal(String key) => value(key)/total;
-  double get percentUnpartitioned => unpartitioned/total;
+  double percentOfTotal(String key) => value(key) / total;
+  double get percentUnpartitioned => unpartitioned / total;
 
   Map get percentOfTotalMap {
     final total = this.total;
-    return valueApply(partitionMap, (k) => value(k)/total);
+    return valueApply(partitionMap, (k) => value(k) / total);
   }
 
   double distance(PartitionMapping other) =>
-    valueDistance(partitionMap, other.partitionMap);
+      valueDistance(partitionMap, other.partitionMap);
 
-  PartitionMapping operator+(PartitionMapping other) {
+  PartitionMapping operator +(PartitionMapping other) {
     final totalPartitioned = partitioned + other.partitioned;
     final totalUnpartitioned = unpartitioned + other.unpartitioned;
     final totalValue = totalPartitioned + totalUnpartitioned;
     assert((totalValue - total - other.total).abs() < 0.001);
 
-    if(totalPartitioned == 0.0)
-      return new PartitionMapping(0.0, totalValue, const {});
+    if (totalPartitioned ==
+        0.0) return new PartitionMapping(0.0, totalValue, const {});
 
     final map = {};
     final keys = _keyUnion(other);
 
-    keys.forEach((key) =>
-        map[key] = (percent(key) * partitioned +
-            other.percent(key) * other.partitioned)/totalPartitioned);
+    keys.forEach(
+        (key) =>
+            map[key] = (percent(key) * partitioned +
+                other.percent(key) * other.partitioned) /
+                totalPartitioned);
 
     return new PartitionMapping(totalPartitioned, totalUnpartitioned, map);
   }
 
   _keyUnion(PartitionMapping other) =>
-    new Set.from(partitionMap.keys)..addAll(other.partitionMap.keys);
+      new Set.from(partitionMap.keys)..addAll(other.partitionMap.keys);
 
-  PartitionMapping operator-() =>
-    new PartitionMapping(-partitioned, -unpartitioned, partitionMap);
+  PartitionMapping operator -() =>
+      new PartitionMapping(-partitioned, -unpartitioned, partitionMap);
 
-  PartitionMapping operator-(PartitionMapping other) => this + -other;
+  PartitionMapping operator -(PartitionMapping other) => this + -other;
 
   bool get isValid =>
-    partitioned.isFinite &&
-    unpartitioned.isFinite &&
-    ((partitionMap.length == 0) ||
-     (1.0 - partitionMap.values.fold(0.0, (prev,val) => prev+val)).abs() < 0.0001);
+      partitioned.isFinite &&
+          unpartitioned.isFinite &&
+          ((partitionMap.length == 0) ||
+              (1.0 - partitionMap.values.fold(0.0, (prev, val) => prev + val)).abs() <
+                  0.0001);
 
   // end <class PartitionMapping>
 
@@ -1215,25 +1223,23 @@ class CFlowSequenceSpec {
   void visitFlows(DateRange onRange, FlowVisitor visitor) {
     Date currentDate = initialValue.date;
     double value = initialValue.value;
-    visitDateRange(dateRange,
-        (Date start, Date end)
-        {
-          if(onRange.contains(start)) {
-            if(growth != null) {
-              value *= growth.scaleFromTo(currentDate, start);
-            }
-            visitor(start, value);
-            currentDate = start;
-          }
-        },
-        Frequency.fromJson(paymentFrequency.value));
+    visitDateRange(dateRange, (Date start, Date end) {
+      if (onRange.contains(start)) {
+        if (growth != null) {
+          value *= growth.scaleFromTo(currentDate, start);
+        }
+        visitor(start, value);
+        currentDate = start;
+      }
+    }, Frequency.fromJson(paymentFrequency.value));
   }
 
   TimeSeries expand(DateRange onRange) {
     List<DateValue> result = [];
     var currentValue = initialValue.copy();
-    visitFlows(onRange, (Date date, double flow) =>
-        result.add(dateValue(date, flow)));
+    visitFlows(
+        onRange,
+        (Date date, double flow) => result.add(dateValue(date, flow)));
     return new TimeSeries(result);
   }
 
@@ -1336,14 +1342,16 @@ final NoCostBasis = new CostBasis(0.0, 0.0);
 const String GeneralAccount = "^General";
 const String ReserveAccountName = "^Reserve";
 final HoldingKey ReserveHolding =
-  new HoldingKey(ReserveAccountName, GeneralAccount);
+    new HoldingKey(ReserveAccountName, GeneralAccount);
 
 bool isSheltered(AccountType accountType) =>
-  accountType == AccountType.ROTH_IRS401K ||
-  accountType == AccountType.TRADITIONAL_IRS401K ||
-  accountType == AccountType.COLLEGE_IRS529 ||
-  accountType == AccountType.TRADITIONAL_IRS401K ||
-  accountType == AccountType.HEALTH_SAVINGS_ACCOUNT? true : false;
+    accountType == AccountType.ROTH_IRS401K ||
+        accountType == AccountType.TRADITIONAL_IRS401K ||
+        accountType == AccountType.COLLEGE_IRS529 ||
+        accountType == AccountType.TRADITIONAL_IRS401K ||
+        accountType == AccountType.HEALTH_SAVINGS_ACCOUNT ?
+        true :
+        false;
 
 typedef FlowVisitor(Date date, double flow);
 

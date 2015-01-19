@@ -17,9 +17,9 @@ class BenchCflowExpand extends BenchmarkBase {
   // custom <class BenchCflowExpand>
 
   CFlowSequenceSpec _spec;
-  DateRange _specRange = new DateRange(date(2000,1,1), date(2030,1,1));
-  DateRange _expandRange = new DateRange(date(2000,1,1), date(2020,1,1));
-  
+  DateRange _specRange = new DateRange(date(2000, 1, 1), date(2030, 1, 1));
+  DateRange _expandRange = new DateRange(date(2000, 1, 1), date(2020, 1, 1));
+
   void run() {
     _spec.expand(_expandRange);
   }
@@ -30,10 +30,10 @@ class BenchCflowExpand extends BenchmarkBase {
 
   void setup() {
     _spec = new CFlowSequenceSpec()
-      ..dateRange = _specRange
-      ..paymentFrequency = PaymentFrequency.MONTHLY
-      ..initialValue = new DateValue(date(2000,1,1), 1.0)
-      ..growth = new RateCurve([ dateValue(date(1900,1,1), .03) ]);
+        ..dateRange = _specRange
+        ..paymentFrequency = PaymentFrequency.MONTHLY
+        ..initialValue = new DateValue(date(2000, 1, 1), 1.0)
+        ..growth = new RateCurve([dateValue(date(1900, 1, 1), .03)]);
   }
 
 

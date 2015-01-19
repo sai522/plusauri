@@ -188,8 +188,8 @@ class HoldingReturns {
   // custom <class HoldingReturns>
 
   HoldingReturns adjustReturns(CurveAdjuster curveAdjuster) =>
-    new HoldingReturns(
-      valueApply(returns, (RateCurve rateCurve) => curveAdjuster(rateCurve)));
+      new HoldingReturns(
+          valueApply(returns, (RateCurve rateCurve) => curveAdjuster(rateCurve)));
 
   // end <class HoldingReturns>
 
@@ -243,12 +243,14 @@ class InstrumentAssumptions {
   final InstrumentPartitions instrumentPartitions;
   // custom <class InstrumentAssumptions>
 
-  InstrumentAssumptions adjustHoldingReturnCurves(CurveAdjuster curveAdjuster) =>
-    new InstrumentAssumptions(holdingType,
-        holdingReturns.adjustReturns(curveAdjuster),
-        instrumentPartitions);
+  InstrumentAssumptions
+      adjustHoldingReturnCurves(CurveAdjuster curveAdjuster) =>
+      new InstrumentAssumptions(
+          holdingType,
+          holdingReturns.adjustReturns(curveAdjuster),
+          instrumentPartitions);
 
-    /*
+  /*
   InstrumentAssumptions.fromHoldingType(this.holdingType) {
     // You should not discern partitions from equity, other and blend
     assert(holdingType != HoldingType.BLEND &&
@@ -464,25 +466,25 @@ class AccountAssumptions {
 
   ReinvestmentPolicy getReinvestmentPolicy(String holdingName) {
 
-    if(holdingReinvestmentPolicies != null) {
+    if (holdingReinvestmentPolicies != null) {
       final result = holdingReinvestmentPolicies[holdingName];
-      if(result != null) {
+      if (result != null) {
         return result;
       }
     }
 
-    if(defaultReinvestmentPolicy != null)
-      return defaultReinvestmentPolicy;
+    if (defaultReinvestmentPolicy != null) return defaultReinvestmentPolicy;
 
     return ReinvestForGrowth;
   }
 
   AccountAssumptions copyWithCurveAdjustment(CurveAdjuster curveAdjuster) {
     var copy = otherInstrumentAssumptions;
-    if(copy != null) {
+    if (copy != null) {
       copy = copy.adjustHoldingReturnCurves(curveAdjuster);
     }
-    return new AccountAssumptions(copy,
+    return new AccountAssumptions(
+        copy,
         defaultReinvestmentPolicy,
         holdingReinvestmentPolicies);
   }
@@ -549,25 +551,25 @@ class BalanceSheetAssumptions {
 
   RateCurve assetAssumption(String key) {
     var result = assetAssumptions[key];
-    return result == null? ZeroRateCurve : result;
+    return result == null ? ZeroRateCurve : result;
   }
 
   RateCurve liabilityAssumption(String key) {
     var result = liabilityAssumptions[key];
-    return result == null? ZeroRateCurve : result;
+    return result == null ? ZeroRateCurve : result;
   }
 
   HoldingReturns getHoldingReturns(HoldingKey holdingKey) =>
-    _getInstrumentAssumptions(holdingKey).holdingReturns;
+      _getInstrumentAssumptions(holdingKey).holdingReturns;
 
   InstrumentPartitions getInstrumentPartitions(HoldingKey holdingKey) =>
-    _getInstrumentAssumptions(holdingKey).instrumentPartitions;
+      _getInstrumentAssumptions(holdingKey).instrumentPartitions;
 
   ReinvestmentPolicy getReinvestmentPolicy(HoldingKey holdingKey) {
     final userSpecified = accountAssumptions[holdingKey.accountName];
-    return userSpecified == null?
-      DefaultAccountAssumptions.defaultReinvestmentPolicy :
-      userSpecified.getReinvestmentPolicy(holdingKey.holdingName);
+    return userSpecified == null ?
+        DefaultAccountAssumptions.defaultReinvestmentPolicy :
+        userSpecified.getReinvestmentPolicy(holdingKey.holdingName);
   }
 
   InstrumentAssumptions _getRealInstrumentAssumptions(String holdingName) {
@@ -577,22 +579,21 @@ class BalanceSheetAssumptions {
 
   InstrumentAssumptions _getAccountInstrumentAssumptions(String accountName) {
     final assumptions = accountAssumptions[accountName];
-    return (assumptions != null)?
-      assumptions.otherInstrumentAssumptions :
-      null;
+    return (assumptions != null) ?
+        assumptions.otherInstrumentAssumptions :
+        null;
   }
 
   InstrumentAssumptions _getInstrumentAssumptions(HoldingKey holdingKey) {
     InstrumentAssumptions result;
 
-    if(holdingKey.holdingName != GeneralAccount)
-      result = _getRealInstrumentAssumptions(holdingKey.holdingName);
+    if (holdingKey.holdingName != GeneralAccount) result =
+        _getRealInstrumentAssumptions(holdingKey.holdingName);
 
-    if(result == null)
-      result = _getAccountInstrumentAssumptions(holdingKey.accountName);
+    if (result == null) result =
+        _getAccountInstrumentAssumptions(holdingKey.accountName);
 
-    if(result == null)
-      result = DefaultAccountInstrumentAssumptions;
+    if (result == null) result = DefaultAccountInstrumentAssumptions;
 
     return result;
   }
@@ -853,7 +854,7 @@ class AssumptionModel {
   // custom <class AssumptionModel>
 
   InstrumentPartitions get targetPartitions =>
-    strategyAssumptions.targetPartitions;
+      strategyAssumptions.targetPartitions;
 
   void _init() {
     assert(taxRateAssumptions != null);
@@ -963,86 +964,93 @@ assumptionModelBuilder() =>
 Random _randomJsonGenerator = new Random(0);
 // custom <library assumption>
 
-final ZeroGrowthBalanceSheetAssumptions = const BalanceSheetAssumptions(
-    const {}, const {}, const {}, const {}
-    );
+final ZeroGrowthBalanceSheetAssumptions =
+    const BalanceSheetAssumptions(const {}, const {}, const {}, const {});
 
 final ZeroHoldingReturns = const HoldingReturns(const {});
 
 final DefaultReserveAssumptions = new ReserveAssumptions(
-  rateCurve([ dateValue(date(1900,1,1), 0.0075) ]),
-  rateCurve([ dateValue(date(1900,1,1), 0.02) ])
-);
+    rateCurve([dateValue(date(1900, 1, 1), 0.0075)]),
+    rateCurve([dateValue(date(1900, 1, 1), 0.02)]));
 
-const ReinvestForGrowth = const ReinvestmentPolicy(
-  true, true);
+const ReinvestForGrowth = const ReinvestmentPolicy(true, true);
 
-const ReinvestForCashFlow = const ReinvestmentPolicy(
-  false, false);
+const ReinvestForCashFlow = const ReinvestmentPolicy(false, false);
 
 final DefaultSingleStockPartitions = const InstrumentPartitions(
-  const AllocationPartition(1.0, 0.0, 0.0, 0.0),
-  const InvestmentStylePartition(1.0, 0.0, 0.0),
-  const CapitalizationPartition(0.0, 0.0, 1.0));
+    const AllocationPartition(1.0, 0.0, 0.0, 0.0),
+    const InvestmentStylePartition(1.0, 0.0, 0.0),
+    const CapitalizationPartition(0.0, 0.0, 1.0));
 
 final DefaultOtherPartitions = const InstrumentPartitions(
-  const AllocationPartition(0.0, 0.0, 0.0, 1.0),
-  const InvestmentStylePartition.empty(),
-  const CapitalizationPartition.empty());
+    const AllocationPartition(0.0, 0.0, 0.0, 1.0),
+    const InvestmentStylePartition.empty(),
+    const CapitalizationPartition.empty());
 
 final DefaultBlendPartitions = const InstrumentPartitions(
-  const AllocationPartition(0.34, 0.33, 0.33, 0.0),
-  const InvestmentStylePartition(0.34, 0.33, 0.33),
-  const CapitalizationPartition(0.34, 0.33, 0.33));
+    const AllocationPartition(0.34, 0.33, 0.33, 0.0),
+    const InvestmentStylePartition(0.34, 0.33, 0.33),
+    const CapitalizationPartition(0.34, 0.33, 0.33));
 
 final DefaultTargetPartitions = const InstrumentPartitions(
-  const AllocationPartition(0.6, 0.3, 0.1, 0.0),
-  const InvestmentStylePartition(0.3, 0.3, 0.4),
-  const CapitalizationPartition(0.3, 0.4, 0.3));
+    const AllocationPartition(0.6, 0.3, 0.1, 0.0),
+    const InvestmentStylePartition(0.3, 0.3, 0.4),
+    const CapitalizationPartition(0.3, 0.4, 0.3));
 
-final DefaultHoldingReturns = new HoldingReturns(
-  { HoldingReturnType.INTEREST : rateCurve([ dateValue(date(1900,1,1), 0.0075) ]) });
+final DefaultHoldingReturns = new HoldingReturns({
+  HoldingReturnType.INTEREST: rateCurve([dateValue(date(1900, 1, 1), 0.0075)])
+});
 
 final DefaultAccountInstrumentAssumptions = new InstrumentAssumptions(
-    HoldingType.BLEND, DefaultHoldingReturns,
-  DefaultTargetPartitions);
+    HoldingType.BLEND,
+    DefaultHoldingReturns,
+    DefaultTargetPartitions);
 
 final DefaultAccountAssumptions = new AccountAssumptions(
-  DefaultAccountInstrumentAssumptions,
-  ReinvestForGrowth, const {});
+    DefaultAccountInstrumentAssumptions,
+    ReinvestForGrowth,
+    const {});
 
 final DefaultStrategyAssumptions = new StrategyAssumptions()
-  ..targetPartitions = DefaultTargetPartitions
-  ..emergencyReserves = 30000.0
-  ..liquidationSortType = LiquidationSortType.SELL_FARTHEST_PARTITION
-  ..investmentSortType = InvestmentSortType.BUY_CLOSEST_PARTITION;
+    ..targetPartitions = DefaultTargetPartitions
+    ..emergencyReserves = 30000.0
+    ..liquidationSortType = LiquidationSortType.SELL_FARTHEST_PARTITION
+    ..investmentSortType = InvestmentSortType.BUY_CLOSEST_PARTITION;
 
-FlowModel overrideFlowModel(FlowModel original,
-    AssumptionModel assumptionModel) {
+FlowModel overrideFlowModel(FlowModel original, AssumptionModel assumptionModel)
+    {
   FlowModel result = original;
   final incomeOverrides = assumptionModel.incomeModelOverrides;
   final expenseOverrides = assumptionModel.expenseModelOverrides;
-  if(incomeOverrides.length > 0 || expenseOverrides.length > 0) {
+  if (incomeOverrides.length > 0 || expenseOverrides.length > 0) {
     result = result.copy();
-    incomeOverrides.keys.forEach(
-      (k) => result.incomeModel[k] = incomeOverrides[k]);
-    expenseOverrides.keys.forEach(
-      (k) => result.expenseModel[k] = expenseOverrides[k]);
+    incomeOverrides.keys.forEach((k) => result.incomeModel[k] =
+        incomeOverrides[k]);
+    expenseOverrides.keys.forEach((k) => result.expenseModel[k] =
+        expenseOverrides[k]);
   }
   return result;
 }
 
-final DefaultPensionIncomeTaxRate = rateCurve([ dateValue(date(1900,1,1), 0.15) ]);
-final DefaultSocialSecurityTaxRate = rateCurve([ dateValue(date(1900,1,1), 0.15) ]);
-final DefaultDividendsTaxRate = rateCurve([ dateValue(date(1900,1,1), 0.20) ]);
-final DefaultCapitalGainsTaxRate = rateCurve([ dateValue(date(1900,1,1), 0.20) ]);
-final DefaultRentalIncomeTaxRate = rateCurve([ dateValue(date(1900,1,1), 0.20) ]);
-final DefaultOrdinaryIncomeTaxRate = rateCurve([ dateValue(date(1900,1,1), 0.25) ]);
+final DefaultPensionIncomeTaxRate =
+    rateCurve([dateValue(date(1900, 1, 1), 0.15)]);
+final DefaultSocialSecurityTaxRate =
+    rateCurve([dateValue(date(1900, 1, 1), 0.15)]);
+final DefaultDividendsTaxRate = rateCurve([dateValue(date(1900, 1, 1), 0.20)]);
+final DefaultCapitalGainsTaxRate =
+    rateCurve([dateValue(date(1900, 1, 1), 0.20)]);
+final DefaultRentalIncomeTaxRate =
+    rateCurve([dateValue(date(1900, 1, 1), 0.20)]);
+final DefaultOrdinaryIncomeTaxRate =
+    rateCurve([dateValue(date(1900, 1, 1), 0.25)]);
 
 final DefaultTaxRateAssumptions = new TaxRateAssumptions(
-  DefaultPensionIncomeTaxRate, DefaultSocialSecurityTaxRate,
-  DefaultCapitalGainsTaxRate, DefaultDividendsTaxRate,
-  DefaultRentalIncomeTaxRate, DefaultOrdinaryIncomeTaxRate);
+    DefaultPensionIncomeTaxRate,
+    DefaultSocialSecurityTaxRate,
+    DefaultCapitalGainsTaxRate,
+    DefaultDividendsTaxRate,
+    DefaultRentalIncomeTaxRate,
+    DefaultOrdinaryIncomeTaxRate);
 
 main() {
 

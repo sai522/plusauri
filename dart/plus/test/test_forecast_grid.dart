@@ -24,17 +24,18 @@ main() {
 // custom <main>
 
   Logger.root.level = Level.OFF;
-  Logger.root.onRecord.listen((LogRecord r) =>
-      print("${r.loggerName} [${r.level}]:\t${r.message}"));
+  Logger.root.onRecord.listen(
+      (LogRecord r) => print("${r.loggerName} [${r.level}]:\t${r.message}"));
 
   group('grid creation', () {
     final dossier = repository.dossiers.middleIncome;
     //print(dossier);
 
     //    print(dossier);
-    final grid = new ForecastGrid.fromDossier(dossier,
+    final grid = new ForecastGrid.fromDossier(
+        dossier,
         new YearRange(2014, 2084),
-        trackDetails : true);
+        trackDetails: true);
   });
 
 // end <main>

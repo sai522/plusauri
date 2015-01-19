@@ -223,7 +223,7 @@ class ExpenseType implements Comparable<ExpenseType> {
   // custom <enum ExpenseType>
 
   bool get isObligatory =>
-    value == DEBT_MORTGAGE.value || value == DEBT_COLLEGE.value;
+      value == DEBT_MORTGAGE.value || value == DEBT_COLLEGE.value;
 
 
   // end <enum ExpenseType>

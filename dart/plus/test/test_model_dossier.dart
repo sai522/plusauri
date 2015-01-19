@@ -25,23 +25,21 @@ main() {
 
     test('user funding preferences', () {
       expect(dossier.expensePreferredLinks.length, 1);
-      dossier
-        .expensePreferredLinks
-        .values
-        .forEach((List<HoldingKey> holdingKeys) {
-          expect(holdingKeys.every
-              ((HoldingKey hk) => hk.accountName == 'college junior'), true);
-        });
+      dossier.expensePreferredLinks.values.forEach(
+          (List<HoldingKey> holdingKeys) {
+        expect(
+            holdingKeys.every((HoldingKey hk) => hk.accountName == 'college junior'),
+            true);
+      });
     });
 
     test('preferred expense sources', () {
       expect(dossier.preferredExpenseSources.length, 1);
-      dossier
-        .preferredExpenseSources
-        .values
-        .forEach((List<HoldingKey> holdingKeys) =>
-            expect(holdingKeys.every
-                ((HoldingKey hk) => hk.accountName == 'college junior'), true));
+      dossier.preferredExpenseSources.values.forEach(
+          (List<HoldingKey> holdingKeys) =>
+              expect(
+                  holdingKeys.every((HoldingKey hk) => hk.accountName == 'college junior'),
+                  true));
     });
 
   });

@@ -17,14 +17,16 @@ main() {
   group('test_finance_mortgage.dart', () {
 
     test('mortgagePayment', () {
-      expect(closeEnough(mortgagePayment(1000000, 0.05, 30), 5368.2162301213975), true);
+      expect(
+          closeEnough(mortgagePayment(1000000, 0.05, 30), 5368.2162301213975),
+          true);
     });
 
     var x = new MortgageSpec(165000.0, 0.50, 30.0);
 
     expect(print('TODO: test paymentSchedule'), null);
 
-    x.paymentSchedule(new DateTime(2001,1,1)).forEach((rec) {
+    x.paymentSchedule(new DateTime(2001, 1, 1)).forEach((rec) {
       //    print("Record => ${pp(rec)}");
     });
   });

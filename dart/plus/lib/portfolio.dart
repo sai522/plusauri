@@ -254,7 +254,7 @@ class PRResults {
 
   toString() {
     List result = ['\t'];
-    prices.forEach((k,v) => result.add('$k => $v'));
+    prices.forEach((k, v) => result.add('$k => $v'));
     return result.join('\n........');
   }
 

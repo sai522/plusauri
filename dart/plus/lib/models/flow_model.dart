@@ -41,7 +41,7 @@ class FlowSpec {
   expand(DateRange dr) => cFlowSequenceSpec.expand(dr);
 
   visitFlows(DateRange onRange, FlowVisitor visitor) =>
-    cFlowSequenceSpec.visitFlows(onRange, visitor);
+      cFlowSequenceSpec.visitFlows(onRange, visitor);
 
   // end <class FlowSpec>
 
@@ -178,10 +178,10 @@ class IncomeSpec {
   // custom <class IncomeSpec>
 
   IncomeFlows expand(DateRange onRange) =>
-    new IncomeFlows(incomeType, flowSpec.expand(onRange));
+      new IncomeFlows(incomeType, flowSpec.expand(onRange));
 
   visitFlows(DateRange onRange, FlowVisitor visitor) =>
-    flowSpec.visitFlows(onRange, visitor);
+      flowSpec.visitFlows(onRange, visitor);
 
   // end <class IncomeSpec>
 
@@ -228,10 +228,10 @@ class ExpenseSpec {
   // custom <class ExpenseSpec>
 
   ExpenseFlows expand(DateRange onRange) =>
-    new ExpenseFlows(expenseType, flowSpec.expand(onRange));
+      new ExpenseFlows(expenseType, flowSpec.expand(onRange));
 
   visitFlows(DateRange onRange, FlowVisitor visitor) =>
-    flowSpec.visitFlows(onRange, visitor);
+      flowSpec.visitFlows(onRange, visitor);
 
   // end <class ExpenseSpec>
 
@@ -278,22 +278,22 @@ class FlowModel {
   // custom <class FlowModel>
 
   RealizedFlows expand(DateRange dateRange) =>
-    new RealizedFlows(
-      valueApply(incomeModel, (IncomeSpec spec) => spec.expand(dateRange)),
-      valueApply(expenseModel, (ExpenseSpec spec) => spec.expand(dateRange)));
+      new RealizedFlows(
+          valueApply(incomeModel, (IncomeSpec spec) => spec.expand(dateRange)),
+          valueApply(expenseModel, (ExpenseSpec spec) => spec.expand(dateRange)));
 
   List<FlowKey> get incomeKeys {
-    if(_incomeKeys == null) {
-      _incomeKeys = new List<FlowKey>
-        .from(incomeModel.keys.map((key) => new FlowKey(key, true)));
+    if (_incomeKeys == null) {
+      _incomeKeys =
+          new List<FlowKey>.from(incomeModel.keys.map((key) => new FlowKey(key, true)));
     }
     return _incomeKeys;
   }
 
   List<FlowKey> get expenseKeys {
-    if(_expenseKeys == null) {
-      _expenseKeys = new List<FlowKey>
-        .from(expenseModel.keys.map((key) => new FlowKey(key, false)));
+    if (_expenseKeys == null) {
+      _expenseKeys = new List<FlowKey>.from(
+          expenseModel.keys.map((key) => new FlowKey(key, false)));
     }
     return _expenseKeys;
   }
@@ -361,8 +361,9 @@ class IncomeFlows {
   // custom <class IncomeFlows>
 
   filterOnYear(int year) =>
-    new IncomeFlows(incomeType,
-        new TimeSeries.fromIterable(timeSeries.filterOnYear(year)));
+      new IncomeFlows(
+          incomeType,
+          new TimeSeries.fromIterable(timeSeries.filterOnYear(year)));
 
   int get length => timeSeries.length;
   double get sum => timeSeries.sum;
@@ -413,8 +414,9 @@ class ExpenseFlows {
   // custom <class ExpenseFlows>
 
   filterOnYear(int year) =>
-    new ExpenseFlows(expenseType,
-        new TimeSeries.fromIterable(timeSeries.filterOnYear(year)));
+      new ExpenseFlows(
+          expenseType,
+          new TimeSeries.fromIterable(timeSeries.filterOnYear(year)));
 
   int get length => timeSeries.length;
   double get sum => timeSeries.sum;
@@ -468,9 +470,9 @@ class RealizedFlows {
 
   static Map _filteredFlows(Map flowMap, filter(on)) {
     var filteredMap = {};
-    flowMap.forEach((k,v) {
+    flowMap.forEach((k, v) {
       var hits = filter(v);
-      if(hits.length>0) {
+      if (hits.length > 0) {
         filteredMap[k] = hits;
       }
     });
@@ -479,35 +481,30 @@ class RealizedFlows {
 
   int get numFlows => incomeFlows.length + expenseFlows.length;
 
-  double netFlowsOn(Date asOf,
-      { RateCurve incomeCurve,
-        RateCurve expenseCurve }) {
+  double netFlowsOn(Date asOf, {RateCurve incomeCurve,
+      RateCurve expenseCurve}) {
 
     sumFlows(Map<String, TimeSeries> flows, RateCurve curve) {
       double result = 0.0;
       flows.values.forEach((ts) {
-        result += (curve != null)?
-          ts.sumToDateOnCurve(asOf, curve) :
-          ts.sum;
+        result += (curve != null) ? ts.sumToDateOnCurve(asOf, curve) : ts.sum;
       });
       return result;
     }
 
-    return
-      sumFlows(incomeFlows, incomeCurve) -
-      sumFlows(expenseFlows, expenseCurve);
+    return sumFlows(incomeFlows, incomeCurve) -
+        sumFlows(expenseFlows, expenseCurve);
   }
 
   filterOnYear(int year) =>
-    new RealizedFlows.courtesy(
-      _filteredFlows(incomeFlows,
-          (IncomeFlows flows)=>flows.filterOnYear(year)),
-      _filteredFlows(expenseFlows,
-          (ExpenseFlows flows)=>flows.filterOnYear(year)));
+      new RealizedFlows.courtesy(
+          _filteredFlows(incomeFlows, (IncomeFlows flows) => flows.filterOnYear(year)),
+          _filteredFlows(expenseFlows, (ExpenseFlows flows) => flows.filterOnYear(year)));
 
-  toString() => incomeFlows.length > 0 || expenseFlows.length > 0?
-    ebisu_utils.prettyJsonMap(toJson()) :
-    'No Flows';
+  toString() =>
+      incomeFlows.length > 0 || expenseFlows.length > 0 ?
+          ebisu_utils.prettyJsonMap(toJson()) :
+          'No Flows';
 
 
   // end <class RealizedFlows>

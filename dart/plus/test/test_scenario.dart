@@ -16,52 +16,58 @@ import 'package:plus/scenario.dart';
 main() {
 // custom <main>
 
-    final dossier = repository.dossiers.middleIncome;
-    final assumptionModel = dossier.assumptionModel;
+  final dossier = repository.dossiers.middleIncome;
+  final assumptionModel = dossier.assumptionModel;
 
-    test('inflation geometric shift up', () {
-      final inflationAssumptionModel = 
-          new InflationGeometricShift(1.5, true, true)
-        .generateScenario(dossier, assumptionModel);
+  test('inflation geometric shift up', () {
+    final inflationAssumptionModel = new InflationGeometricShift(
+        1.5,
+        true,
+        true).generateScenario(dossier, assumptionModel);
 
-      expect(assumptionModel.inflation * 1.5,
-          inflationAssumptionModel.inflation);
-      expect(assumptionModel.balanceSheetAssumptions,
-          inflationAssumptionModel.balanceSheetAssumptions);
-    });
+    expect(assumptionModel.inflation * 1.5, inflationAssumptionModel.inflation);
+    expect(
+        assumptionModel.balanceSheetAssumptions,
+        inflationAssumptionModel.balanceSheetAssumptions);
+  });
 
-    test('inflation geiometric shift down', () {
-      final inflationAssumptionModel = 
-          new InflationGeometricShift(0.75, true, true)
-        .generateScenario(dossier, assumptionModel);
+  test('inflation geiometric shift down', () {
+    final inflationAssumptionModel = new InflationGeometricShift(
+        0.75,
+        true,
+        true).generateScenario(dossier, assumptionModel);
 
-      expect(assumptionModel.inflation * 0.75,
-          inflationAssumptionModel.inflation);
-      expect(assumptionModel.balanceSheetAssumptions,
-          inflationAssumptionModel.balanceSheetAssumptions);
-    });
+    expect(
+        assumptionModel.inflation * 0.75,
+        inflationAssumptionModel.inflation);
+    expect(
+        assumptionModel.balanceSheetAssumptions,
+        inflationAssumptionModel.balanceSheetAssumptions);
+  });
 
-    test('inflation arithmetic shift up', () {
-      final inflationAssumptionModel = 
-          new InflationArithmeticShift(1.5, true, true)
-        .generateScenario(dossier, assumptionModel);
+  test('inflation arithmetic shift up', () {
+    final inflationAssumptionModel = new InflationArithmeticShift(
+        1.5,
+        true,
+        true).generateScenario(dossier, assumptionModel);
 
-      expect(assumptionModel.inflation + 1.5,
-          inflationAssumptionModel.inflation);
-      expect(assumptionModel.balanceSheetAssumptions,
-          inflationAssumptionModel.balanceSheetAssumptions);
-    });
+    expect(assumptionModel.inflation + 1.5, inflationAssumptionModel.inflation);
+    expect(
+        assumptionModel.balanceSheetAssumptions,
+        inflationAssumptionModel.balanceSheetAssumptions);
+  });
 
-    test('inflation geiometric shift down', () {
-      final inflationAssumptionModel = 
-          new InflationArithmeticShift(-1.5, true, true)
-        .generateScenario(dossier, assumptionModel);
+  test('inflation geiometric shift down', () {
+    final inflationAssumptionModel = new InflationArithmeticShift(
+        -1.5,
+        true,
+        true).generateScenario(dossier, assumptionModel);
 
-      expect(assumptionModel.inflation -1.5,
-          inflationAssumptionModel.inflation);
-      expect(assumptionModel.balanceSheetAssumptions,
-          inflationAssumptionModel.balanceSheetAssumptions);
-    });
+    expect(assumptionModel.inflation - 1.5, inflationAssumptionModel.inflation);
+    expect(
+        assumptionModel.balanceSheetAssumptions,
+        inflationAssumptionModel.balanceSheetAssumptions);
+  });
 
 
 // end <main>

@@ -19,26 +19,26 @@ class BenchGridTimelineCreation extends BenchmarkBase {
 
   Dossier _dossier = repository.dossiers.middleIncome;
   ForecastGrid _forecastGrid;
-  YearRange _yearRange = new YearRange(2015, 2015+80);
+  YearRange _yearRange = new YearRange(2015, 2015 + 80);
 
   int _count = 0;
 
   void run() {
     final ITimelineModel tlm =
-      new GridTimelineModel(_forecastGrid, curves.inflation);
-    for(int year = _yearRange.start; year < _yearRange.end; year++) {
+        new GridTimelineModel(_forecastGrid, curves.inflation);
+    for (int year = _yearRange.start; year < _yearRange.end; year++) {
       final IAnnualForecastModel annualForecastModel =
-        tlm.annualForecastModel('Awesome Model $year', year);
+          tlm.annualForecastModel('Awesome Model $year', year);
 
       final ism = annualForecastModel.incomeStatementModel;
 
       ism.visitIncomes((String name, double amount) {
         //print('$year Inc $name, $amount');
-        });
+      });
 
       ism.visitExpenses((String name, double amount) {
         //print('$year Exp $name, $amount');
-        });
+      });
 
       final bsm = annualForecastModel.balanceSheetModel;
 
@@ -52,10 +52,11 @@ class BenchGridTimelineCreation extends BenchmarkBase {
       });
 
 
-      for(int i=0; i<1; i++) {
+      for (int i = 0; i < 1; i++) {
         bsm.visitAccounts((String accountName, int numHoldings) {
           final hpb = bsm.createAccountHoldingPeriodBalance(accountName);
-          bsm.visitAccountOtherHoldings(accountName,
+          bsm.visitAccountOtherHoldings(
+              accountName,
               (HoldingKey hk, double startValue, double endValue) {
             //        print('<OTHER>: $hk $startValue, $endValue');
 
@@ -65,7 +66,8 @@ class BenchGridTimelineCreation extends BenchmarkBase {
 
 
           });
-          bsm.visitAccountHoldings(accountName,
+          bsm.visitAccountHoldings(
+              accountName,
               (HoldingKey hk, double startValue, double endValue) {
             //        print('<OTHER>: $hk $startValue, $endValue');
           });
@@ -74,15 +76,19 @@ class BenchGridTimelineCreation extends BenchmarkBase {
       }
 
       final lsm = annualForecastModel.liquidationSummaryModel;
-      lsm.visitCredits((HoldingKey holdingKey, String incomeName, double amount, double balance) {
-        //print('$year - $holdingKey credited $amount from $incomeName $balance');
+      lsm.visitCredits(
+          (HoldingKey holdingKey, String incomeName, double amount, double balance) {
+
+            //print('$year - $holdingKey credited $amount from $incomeName $balance');
       });
 
-      lsm.visitDebits((HoldingKey holdingKey, String expenseName, double amount, double balance) {
-        //print('$year - $holdingKey debited $amount from $expenseName $balance');
+      lsm.visitDebits(
+          (HoldingKey holdingKey, String expenseName, double amount, double balance) {
+
+            //print('$year - $holdingKey debited $amount from $expenseName $balance');
       });
 
-      if(false) {
+      if (false) {
         print('Total Holdings: ${bsm.totalHoldings}');
         print('Total NonHoldings: ${bsm.totalNonHoldingAssets}');
         print('Total Liabilities: ${bsm.totalLiabilities}');
@@ -97,8 +103,8 @@ class BenchGridTimelineCreation extends BenchmarkBase {
 
   void setup() {
     _dossier = myDossier;
-    _forecastGrid = new ForecastGrid
-      .fromDossier(_dossier, _yearRange, trackDetails:true);
+    _forecastGrid =
+        new ForecastGrid.fromDossier(_dossier, _yearRange, trackDetails: true);
   }
 
   void teardown() {

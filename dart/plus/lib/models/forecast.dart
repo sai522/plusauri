@@ -49,21 +49,26 @@ class DistributionBreakdown {
   DistributionBreakdown.empty();
 
   DistributionBreakdown operator +(DistributionBreakdown other) {
-    return new DistributionBreakdown(qualified + other.qualified,
+    return new DistributionBreakdown(
+        qualified + other.qualified,
         unqualified + other.unqualified,
         capitalGainDistribution + other.capitalGainDistribution,
         interest + other.interest);
   }
 
   DistributionBreakdown operator -(DistributionBreakdown other) =>
-    new DistributionBreakdown(qualified - other.qualified,
-        unqualified - other.unqualified,
-        capitalGainDistribution - other.capitalGainDistribution,
-        interest - other.interest);
+      new DistributionBreakdown(
+          qualified - other.qualified,
+          unqualified - other.unqualified,
+          capitalGainDistribution - other.capitalGainDistribution,
+          interest - other.interest);
 
   DistributionBreakdown operator -() =>
-    new DistributionBreakdown(-qualified, -unqualified, -capitalGainDistribution,
-                              -interest);
+      new DistributionBreakdown(
+          -qualified,
+          -unqualified,
+          -capitalGainDistribution,
+          -interest);
 
   void plusEqual(DistributionBreakdown other) {
     qualified += other.qualified;
@@ -137,30 +142,32 @@ class DistributionSummary {
   DistributionBreakdown reinvested;
   // custom <class DistributionSummary>
 
-  DistributionSummary.empty() :
-    distributed = new DistributionBreakdown.empty(),
-    reinvested = new DistributionBreakdown.empty();
+  DistributionSummary.empty()
+      : distributed = new DistributionBreakdown.empty(),
+        reinvested = new DistributionBreakdown.empty();
 
   double get totalDividends => distributed.total + reinvested.total;
   double get totalInterest => distributed.interest + reinvested.interest;
   double get totalQualified => distributed.qualified + reinvested.qualified;
   double get totalUnqualified =>
-    distributed.unqualified + reinvested.unqualified;
+      distributed.unqualified + reinvested.unqualified;
   double get totalCapitalGainDistribution =>
-    distributed.capitalGainDistribution + reinvested.capitalGainDistribution;
+      distributed.capitalGainDistribution + reinvested.capitalGainDistribution;
   double get distributions => distributed.total;
 
 
   DistributionSummary operator +(DistributionSummary other) =>
-    new DistributionSummary(distributed + other.distributed,
-        reinvested + other.reinvested);
+      new DistributionSummary(
+          distributed + other.distributed,
+          reinvested + other.reinvested);
 
   DistributionSummary operator -(DistributionSummary other) =>
-    new DistributionSummary(distributed - other.distributed,
-        reinvested - other.reinvested);
+      new DistributionSummary(
+          distributed - other.distributed,
+          reinvested - other.reinvested);
 
   DistributionSummary operator -() =>
-    new DistributionSummary(-distributed, - reinvested);
+      new DistributionSummary(-distributed, -reinvested);
 
   void plusEqual(DistributionSummary other) {
     distributed.plusEqual(other.distributed);
@@ -232,13 +239,15 @@ class PeriodBalance {
 
   bool get isEmpty => start.value == 0.0 && end.value == 0.0;
 
-  PeriodBalance operator +(PeriodBalance other) => new PeriodBalance.courtesy(
-      dv(minDate(start.date, other.start.date), start.value + other.start.value), dv(
-      maxDate(end.date, other.end.date), end.value + other.end.value));
+  PeriodBalance operator +(PeriodBalance other) =>
+      new PeriodBalance.courtesy(
+          dv(minDate(start.date, other.start.date), start.value + other.start.value),
+          dv(maxDate(end.date, other.end.date), end.value + other.end.value));
 
-  PeriodBalance operator -(PeriodBalance other) => new PeriodBalance.courtesy(
-      dv(minDate(start.date, other.start.date), start.value - other.start.value), dv(
-      maxDate(end.date, other.end.date), end.value - other.end.value));
+  PeriodBalance operator -(PeriodBalance other) =>
+      new PeriodBalance.courtesy(
+          dv(minDate(start.date, other.start.date), start.value - other.start.value),
+          dv(maxDate(end.date, other.end.date), end.value - other.end.value));
 
   PeriodBalance operator -() => copy()
       ..start = -start
@@ -309,7 +318,8 @@ class InstrumentPartitionMappings {
   PartitionMapping capitalization;
   // custom <class InstrumentPartitionMappings>
 
-  InstrumentPartitionMappings.courtesy(this.allocation, this.style, this.capitalization);
+  InstrumentPartitionMappings.courtesy(this.allocation, this.style,
+      this.capitalization);
 
   InstrumentPartitionMappings.empty()
       : allocation = const PartitionMapping.empty(),
@@ -321,13 +331,19 @@ class InstrumentPartitionMappings {
         style = new PartitionMapping.validated(0.0, value, const {}),
         capitalization = new PartitionMapping.validated(0.0, value, const {});
 
-  InstrumentPartitionMappings.fromAssumptions(double value, InstrumentPartitions
-      instrumentPartitions)
-      : allocation = new PartitionMapping.validated(value, 0.0,
+  InstrumentPartitionMappings.fromAssumptions(double value,
+      InstrumentPartitions instrumentPartitions)
+      : allocation = new PartitionMapping.validated(
+          value,
+          0.0,
           instrumentPartitions.allocationPartition.partitionMap),
-        style = new PartitionMapping.validated(value, 0.0,
+        style = new PartitionMapping.validated(
+          value,
+          0.0,
           instrumentPartitions.investmentStylePartition.partitionMap),
-        capitalization = new PartitionMapping.validated(value, 0.0,
+        capitalization = new PartitionMapping.validated(
+          value,
+          0.0,
           instrumentPartitions.capitalizationPartition.partitionMap);
 
   InstrumentPartitionMappings newValue(double value) {
@@ -352,11 +368,15 @@ class InstrumentPartitionMappings {
     assert((value - newPartitioned - newUnpartioned).abs() < 0.0001);
 
     newPartitionMapping(PartitionMapping oldMapping) =>
-        new PartitionMapping.validated(newPartitioned, newUnpartioned,
-        oldMapping.partitionMap);
+        new PartitionMapping.validated(
+            newPartitioned,
+            newUnpartioned,
+            oldMapping.partitionMap);
 
-    return new InstrumentPartitionMappings.courtesy(newPartitionMapping(
-        allocation), newPartitionMapping(style), newPartitionMapping(capitalization));
+    return new InstrumentPartitionMappings.courtesy(
+        newPartitionMapping(allocation),
+        newPartitionMapping(style),
+        newPartitionMapping(capitalization));
   }
 
   double get totalValue {
@@ -365,8 +385,10 @@ class InstrumentPartitionMappings {
   }
 
   InstrumentPartitionMappings operator +(InstrumentPartitionMappings other) =>
-      new InstrumentPartitionMappings.courtesy(allocation + other.allocation, style +
-      other.style, capitalization + other.capitalization);
+      new InstrumentPartitionMappings.courtesy(
+          allocation + other.allocation,
+          style + other.style,
+          capitalization + other.capitalization);
 
   InstrumentPartitionMappings operator -() =>
       new InstrumentPartitionMappings.courtesy(-allocation, -style, -capitalization);
@@ -374,8 +396,8 @@ class InstrumentPartitionMappings {
   InstrumentPartitionMappings operator -(InstrumentPartitionMappings other) =>
       this + (-other);
 
-  bool get isValid => (allocation.total == style.total) && (style.total ==
-      capitalization.total);
+  bool get isValid =>
+      (allocation.total == style.total) && (style.total == capitalization.total);
 
   // end <class InstrumentPartitionMappings>
 
@@ -453,28 +475,33 @@ class HoldingPeriodBalance {
   PeriodBalance get totalAssetValue => periodBalance.copy();
   double get totalReturn => endValue - soldInvested - startValue;
 
-  double growthContribution(HoldingReturnType hrt) => growthDetails.containsKey(
-      hrt) ? growthDetails[hrt] : 0.0;
+  double growthContribution(HoldingReturnType hrt) =>
+      growthDetails.containsKey(hrt) ? growthDetails[hrt] : 0.0;
 
-  double get interest => growthContribution(
-      HoldingReturnType.INTEREST);
+  double get interest => growthContribution(HoldingReturnType.INTEREST);
 
-  double get capitalAppreciation => growthContribution(
-      HoldingReturnType.CAPITAL_APPRECIATION);
+  double get capitalAppreciation =>
+      growthContribution(HoldingReturnType.CAPITAL_APPRECIATION);
 
   double get totalQualifiedDividends => distributionSummary.totalQualified;
   double get totalUnqualifiedDividends => distributionSummary.totalUnqualified;
-  double get totalCapitalGainDistribution => distributionSummary.totalCapitalGainDistribution;
+  double get totalCapitalGainDistribution =>
+      distributionSummary.totalCapitalGainDistribution;
   double get totalInterest => distributionSummary.totalInterest;
 
-  double get qualifiedDistributions => distributionSummary.distributed.qualified;
-  double get unqualifiedDistributions => distributionSummary.distributed.unqualified;
-  double get capitalGainDistributions => distributionSummary.distributed.capitalGainDistribution;
+  double get qualifiedDistributions =>
+      distributionSummary.distributed.qualified;
+  double get unqualifiedDistributions =>
+      distributionSummary.distributed.unqualified;
+  double get capitalGainDistributions =>
+      distributionSummary.distributed.capitalGainDistribution;
   double get interestDistributions => distributionSummary.distributed.interest;
 
   double get qualifiedReinvested => distributionSummary.reinvested.qualified;
-  double get unqualifiedReinvested => distributionSummary.reinvested.unqualified;
-  double get capitalGainReinvested => distributionSummary.reinvested.capitalGainDistribution;
+  double get unqualifiedReinvested =>
+      distributionSummary.reinvested.unqualified;
+  double get capitalGainReinvested =>
+      distributionSummary.reinvested.capitalGainDistribution;
   double get interestReinvested => distributionSummary.reinvested.interest;
 
   double get totalDividends => distributionSummary.totalDividends;
@@ -490,19 +517,18 @@ class HoldingPeriodBalance {
 
   double get startValue => periodBalance.startValue;
   // value *including* distributions
-  double get endValue => periodBalance.endValue +
-      distributionSummary.distributions;
+  double get endValue =>
+      periodBalance.endValue + distributionSummary.distributions;
   double get endBalance => periodBalance.endValue;
   bool get hasBalance => hasMinimumBalanceCheck(endBalance);
 
-  Map<HoldingReturnType,num>
-    _mergeGrowthDetails(HoldingPeriodBalance other) {
+  Map<HoldingReturnType, num> _mergeGrowthDetails(HoldingPeriodBalance other) {
     final thisStartValue = startValue;
     final otherStartValue = other.startValue;
-    if(thisStartValue == 0.0) {
+    if (thisStartValue == 0.0) {
       assert(growthDetails.values.every((num val) => val == 0.0));
       return other.growthDetails;
-    } else if(otherStartValue == 0.0) {
+    } else if (otherStartValue == 0.0) {
       assert(other.growthDetails.values.every((num val) => val == 0.0));
       return growthDetails;
     }
@@ -510,9 +536,10 @@ class HoldingPeriodBalance {
   }
 
   HoldingPeriodBalance operator +(HoldingPeriodBalance other) {
-    final result = new HoldingPeriodBalance(mergeHoldingTypes(holdingType,
-        other.holdingType), periodBalance + other.periodBalance, distributionSummary +
-        other.distributionSummary,
+    final result = new HoldingPeriodBalance(
+        mergeHoldingTypes(holdingType, other.holdingType),
+        periodBalance + other.periodBalance,
+        distributionSummary + other.distributionSummary,
         costBasis + other.costBasis,
         capitalGain + other.capitalGain,
         endValuePartitions + other.endValuePartitions,
@@ -520,7 +547,8 @@ class HoldingPeriodBalance {
         soldInvested + other.soldInvested);
 
     assert((result.endValuePartitions.totalValue -
-        result.periodBalance.end.value).abs() < 0.0001);
+        result.periodBalance.end.value).abs() <
+        0.0001);
 
     return result;
   }
@@ -532,18 +560,26 @@ class HoldingPeriodBalance {
   */
 
   HoldingPeriodBalance operator -(HoldingPeriodBalance other) =>
-      new HoldingPeriodBalance(mergeHoldingTypes(holdingType, other.holdingType),
-          periodBalance - other.periodBalance, distributionSummary - other.distributionSummary,
+      new HoldingPeriodBalance(
+          mergeHoldingTypes(holdingType, other.holdingType),
+          periodBalance - other.periodBalance,
+          distributionSummary - other.distributionSummary,
           costBasis - other.costBasis,
           capitalGain - other.capitalGain,
           endValuePartitions - other.endValuePartitions,
           mergeMaps(growthDetails, valueApply(other.growthDetails, (v) => -v)),
           soldInvested - other.soldInvested);
 
-  HoldingPeriodBalance operator -() => new HoldingPeriodBalance(holdingType,
-      -periodBalance, -distributionSummary, -costBasis,
-      -capitalGain, -endValuePartitions, (valueApply(
-            growthDetails, (v) => -v)), -soldInvested);
+  HoldingPeriodBalance operator -() =>
+      new HoldingPeriodBalance(
+          holdingType,
+          -periodBalance,
+          -distributionSummary,
+          -costBasis,
+          -capitalGain,
+          -endValuePartitions,
+          (valueApply(growthDetails, (v) => -v)),
+          -soldInvested);
 
   // end <class HoldingPeriodBalance>
 
@@ -662,8 +698,9 @@ Random _randomJsonGenerator = new Random(0);
 // custom <library forecast>
 
 PeriodBalance sumPeriodBalances(int year, Iterable<PeriodBalance> iterable) =>
-    iterable.fold(new PeriodBalance.empty(year), (PeriodBalance prev, PeriodBalance
-    pb) => prev + pb);
+    iterable.fold(
+        new PeriodBalance.empty(year),
+        (PeriodBalance prev, PeriodBalance pb) => prev + pb);
 
 
 const MinimumAccountBalance = 0.01;
@@ -673,8 +710,8 @@ bool hasMinimumBalanceCheck(double balance) {
   return balance >= MinimumAccountBalance;
 }
 
-typedef void HPBVisitor(AccountType accountType,
-    String symbol, HoldingPeriodBalance hpb);
+typedef void HPBVisitor(AccountType accountType, String symbol,
+    HoldingPeriodBalance hpb);
 
 typedef void AccountVisitor(String account, AccountType accountType,
     String symbol, HoldingPeriodBalance hpb);

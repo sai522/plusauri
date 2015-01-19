@@ -4,18 +4,15 @@ import 'package:logging/logging.dart';
 // custom <additional imports>
 
 plusLogFine(Logger logger, makeMessage) {
-  if(logger.level <= Level.FINE)
-    logger.fine(makeMessage());
+  if (logger.level <= Level.FINE) logger.fine(makeMessage());
 }
 
 plusLogFiner(Logger logger, makeMessage) {
-  if(logger.level <= Level.FINER)
-    logger.finer(makeMessage());
+  if (logger.level <= Level.FINER) logger.finer(makeMessage());
 }
 
 plusLogWarning(Logger logger, makeMessage) {
-  if(logger.level <= Level.WARNING)
-    logger.warning(makeMessage());
+  if (logger.level <= Level.WARNING) logger.warning(makeMessage());
 }
 
 plusLogAlways(Logger logger, makeMessage) {

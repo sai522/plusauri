@@ -12,60 +12,58 @@ main() {
   group('test_date.dart', () {
     group('general', () {
       test('basic operators', () {
-        expect(new Date(2001,1,1), new Date(2001,1,1));
-        expect(new Date(2001,1,1) == new Date(2002,1,1), false);
-        expect(new Date(2001,1,1) == new Date(2001,1,1), true);
-        expect(new Date(2001,1,1) < new Date(2002,1,1), true);
-        expect(new Date(2001,1,1) <= new Date(2002,1,1), true);
-        expect(new Date(2001,1,1) <= new Date(2001,1,1), true);
-        expect(new Date(2001,1,1) > new Date(2001,1,1), false);
+        expect(new Date(2001, 1, 1), new Date(2001, 1, 1));
+        expect(new Date(2001, 1, 1) == new Date(2002, 1, 1), false);
+        expect(new Date(2001, 1, 1) == new Date(2001, 1, 1), true);
+        expect(new Date(2001, 1, 1) < new Date(2002, 1, 1), true);
+        expect(new Date(2001, 1, 1) <= new Date(2002, 1, 1), true);
+        expect(new Date(2001, 1, 1) <= new Date(2001, 1, 1), true);
+        expect(new Date(2001, 1, 1) > new Date(2001, 1, 1), false);
       });
       test('truncate to day', () {
-        expect(new Date.fromDateTime(new DateTime.utc(1000,1,1,23)),
-            new Date(1000,1,1));
+        expect(
+            new Date.fromDateTime(new DateTime.utc(1000, 1, 1, 23)),
+            new Date(1000, 1, 1));
       });
       test('min date', () {
-        expect(minDate(date(2001,1,1), date(2002,1,1)),
-            date(2001,1,1));
-        expect(minDate(date(2001,1,1), date(2001,1,1)),
-            date(2001,1,1));
-        expect(minDate(date(2002,1,1), date(2001,1,1)),
-            date(2001,1,1));
+        expect(minDate(date(2001, 1, 1), date(2002, 1, 1)), date(2001, 1, 1));
+        expect(minDate(date(2001, 1, 1), date(2001, 1, 1)), date(2001, 1, 1));
+        expect(minDate(date(2002, 1, 1), date(2001, 1, 1)), date(2001, 1, 1));
       });
       test('max date', () {
-        expect(maxDate(date(2001,1,1), date(2002,1,1)),
-            date(2002,1,1));
-        expect(maxDate(date(2001,1,1), date(2001,1,1)),
-            date(2001,1,1));
-        expect(maxDate(date(2002,1,1), date(2001,1,1)),
-            date(2002,1,1));
+        expect(maxDate(date(2001, 1, 1), date(2002, 1, 1)), date(2002, 1, 1));
+        expect(maxDate(date(2001, 1, 1), date(2001, 1, 1)), date(2001, 1, 1));
+        expect(maxDate(date(2002, 1, 1), date(2001, 1, 1)), date(2002, 1, 1));
       });
       test('nextDay/priorDay', () {
-        expect(date(2001,1,1).nextDay, date(2001,1,2));
-        expect(date(2001,12,31).nextDay, date(2002,1,1));
-        expect(date(2001,1,31).nextDay, date(2001,2,1));
+        expect(date(2001, 1, 1).nextDay, date(2001, 1, 2));
+        expect(date(2001, 12, 31).nextDay, date(2002, 1, 1));
+        expect(date(2001, 1, 31).nextDay, date(2001, 2, 1));
 
-        expect(date(2001,1,1).priorDay, date(2000,12,31));
-        expect(date(2001,12,31).priorDay, date(2001,12,30));
-        expect(date(2001,12,1).priorDay, date(2001,11,30));
+        expect(date(2001, 1, 1).priorDay, date(2000, 12, 31));
+        expect(date(2001, 12, 31).priorDay, date(2001, 12, 30));
+        expect(date(2001, 12, 1).priorDay, date(2001, 11, 30));
       });
       test('start/end of year', () {
-        expect(date(2001,1,3).startOfYear, date(2001,1,1));
-        expect(date(2001,1,3).endOfYear, date(2001,12,31));
+        expect(date(2001, 1, 3).startOfYear, date(2001, 1, 1));
+        expect(date(2001, 1, 3).endOfYear, date(2001, 12, 31));
       });
       test('startNextYear', () {
-        expect(startOfNextYear(2001), date(2002,1,1));
+        expect(startOfNextYear(2001), date(2002, 1, 1));
       });
       test('json', () {
-        expect(Date.fromJson(date(2001,1,1).toJson()), date(2001,1,1));
+        expect(Date.fromJson(date(2001, 1, 1).toJson()), date(2001, 1, 1));
       });
       test('difference', () {
-        expect(date(2001,1,1).difference(date(2000,1,1)),
-            new Duration(days:366));
-        expect(date(2001,1,15).difference(date(2001,1,1)),
-            new Duration(days:14));
-        expect(date(2001,1,1).difference(date(2001,1,1)),
-            new Duration(days:0));
+        expect(
+            date(2001, 1, 1).difference(date(2000, 1, 1)),
+            new Duration(days: 366));
+        expect(
+            date(2001, 1, 15).difference(date(2001, 1, 1)),
+            new Duration(days: 14));
+        expect(
+            date(2001, 1, 1).difference(date(2001, 1, 1)),
+            new Duration(days: 0));
       });
     });
 
@@ -92,11 +90,14 @@ main() {
       });
 
       test('advanceDate', () {
-        expect(advanceDate(Frequency.MONTHLY, date(2000, 12, 31)),
+        expect(
+            advanceDate(Frequency.MONTHLY, date(2000, 12, 31)),
             date(2001, 1, 31));
-        expect(advanceDate(Frequency.MONTHLY, date(2000, 1, 31)),
+        expect(
+            advanceDate(Frequency.MONTHLY, date(2000, 1, 31)),
             date(2000, 2, 29));
-        expect(advanceDate(Frequency.MONTHLY, date(2001, 1, 31)),
+        expect(
+            advanceDate(Frequency.MONTHLY, date(2001, 1, 31)),
             date(2001, 2, 28));
 
       });
@@ -109,7 +110,7 @@ main() {
     });
 
   });
-  
+
 // end <main>
 
 }

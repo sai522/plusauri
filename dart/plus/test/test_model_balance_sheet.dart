@@ -29,7 +29,7 @@ main() {
       expect(holdingKeys, holdingKeys2);
       final it1 = holdingKeys.iterator;
       final it2 = holdingKeys2.iterator;
-      for(int i=0; i<holdingKeys.length; i++) {
+      for (int i = 0; i < holdingKeys.length; i++) {
         expect(identical(it1.current, it2.current), true);
         it1.moveNext();
         it2.moveNext();

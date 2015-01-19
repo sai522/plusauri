@@ -32,7 +32,15 @@ void main(List<String> args) {
         "test/test_scenario.dart",
         "test/test_strategy.dart",
         "test/test_test_utils.dart",
-        "test/test_time_series.dart"
+        "test/test_time_series.dart",
+        "test/test_model_assumption.dart",
+        "test/test_model_balance_sheet.dart",
+        "test/test_model_common.dart",
+        "test/test_model_dossier.dart",
+        "test/test_model_flow_model.dart",
+        "test/test_model_forecast.dart",
+        "test/test_model_income_statement.dart",
+        "test/test_model_liquidation_summary.dart"
       ]));
 
 

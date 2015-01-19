@@ -19,7 +19,7 @@ abstract class ScenarioGenerator {
   // custom <class ScenarioGenerator>
 
   AssumptionModel generateScenario(Dossier dossier,
-                                   AssumptionModel assumptionModel);
+      AssumptionModel assumptionModel);
 
   // end <class ScenarioGenerator>
 }

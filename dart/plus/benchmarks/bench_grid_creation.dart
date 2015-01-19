@@ -21,8 +21,8 @@ class BenchGridCreation extends BenchmarkBase {
   int _count = 0;
 
   void run() {
-    _forecastGrid = new ForecastGrid.fromDossier(_dossier,
-        new YearRange(2015, 2015+80));
+    _forecastGrid =
+        new ForecastGrid.fromDossier(_dossier, new YearRange(2015, 2015 + 80));
     _count++;
   }
 
@@ -30,7 +30,7 @@ class BenchGridCreation extends BenchmarkBase {
     new BenchGridCreation().report();
   }
 
-  void setup() { }
+  void setup() {}
 
   void teardown() {
     //print('Ran $_count iterations: $_forecastGrid');

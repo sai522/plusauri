@@ -116,100 +116,102 @@ class Dossier {
   final Map<String,String> investmentLinks;
   // custom <class Dossier>
 
-  Map<String,List<HoldingKey>> get incomePreferredLinks {
-    if(_incomePreferredLinks == null) {
+  Map<String, List<HoldingKey>> get incomePreferredLinks {
+    if (_incomePreferredLinks == null) {
       _incomePreferredLinks = _buildFlowMap(investmentLinks);
     }
     return _incomePreferredLinks;
   }
 
-  Map<String,List<HoldingKey>> get expensePreferredLinks {
-    if(_expensePreferredLinks == null) {
+  Map<String, List<HoldingKey>> get expensePreferredLinks {
+    if (_expensePreferredLinks == null) {
       _expensePreferredLinks = _buildFlowMap(fundingLinks);
     }
     return _expensePreferredLinks;
   }
 
-  Map<String,List<HoldingKey>> _buildFlowMap(Map<String,String> src) {
-    Map<String,List<HoldingKey>> result = {};
-    for(String flowName in src.keys) {
+  Map<String, List<HoldingKey>> _buildFlowMap(Map<String, String> src) {
+    Map<String, List<HoldingKey>> result = {};
+    for (String flowName in src.keys) {
       final holdingKeyList = new List<HoldingKey>();
       result[flowName] = holdingKeyList;
       final accountName = src[flowName];
 
-      holdingKeys
-        .skipWhile((HoldingKey key) => key.accountName != accountName)
-        .takeWhile((HoldingKey key) => key.accountName == accountName)
-        .forEach((HoldingKey key) => holdingKeyList.add(key));
+      holdingKeys.skipWhile(
+          (HoldingKey key) =>
+              key.accountName !=
+                  accountName).takeWhile(
+                      (HoldingKey key) =>
+                          key.accountName ==
+                              accountName).forEach((HoldingKey key) => holdingKeyList.add(key));
     }
     return result;
   }
 
-  Map<ExpenseType,List<HoldingKey>> get preferredExpenseSources {
-    if(_preferredExpenseSources == null) {
+  Map<ExpenseType, List<HoldingKey>> get preferredExpenseSources {
+    if (_preferredExpenseSources == null) {
       final typeMap = accountsByType;
 
-      _preferredExpenseSources = new Map<ExpenseType,List<HoldingKey>>();
+      _preferredExpenseSources = new Map<ExpenseType, List<HoldingKey>>();
       _ExpenseToAccountTypeLinks.forEach(
-        (ExpenseType expenseType, List<AccountType> accountTypes) {
-          for(final accountType in accountTypes) {
-            final accounts = typeMap[accountType];
-            if(accounts != null) {
-              final accountHoldings =
-                _preferredExpenseSources[expenseType] = [];
-              for(final account in accounts) {
-                balanceSheet
-                  .visitAccountHoldings(account,
-                    (String accountName, String holdingName, Holding holding) {
-                    if(holding != null) {
-                      accountHoldings
-                        .add(new HoldingKey(accountName, holdingName));
-                    }
-                  });
-              }
+          (ExpenseType expenseType, List<AccountType> accountTypes) {
+        for (final accountType in accountTypes) {
+          final accounts = typeMap[accountType];
+          if (accounts != null) {
+            final accountHoldings = _preferredExpenseSources[expenseType] = [];
+            for (final account in accounts) {
+              balanceSheet.visitAccountHoldings(
+                  account,
+                  (String accountName, String holdingName, Holding holding) {
+                if (holding != null) {
+                  accountHoldings.add(new HoldingKey(accountName, holdingName));
+                }
+              });
             }
           }
-        });
+        }
+      });
     }
     return _preferredExpenseSources;
   }
 
   List<HoldingKey> get incomeHoldingKeys {
-    if(_incomeHoldingKeys == null) {
+    if (_incomeHoldingKeys == null) {
       final allHoldingKeys = balanceSheet.holdingKeys;
-      if(_incomePreferredLinks.length == 0) {
+      if (_incomePreferredLinks.length == 0) {
         _incomeHoldingKeys = balanceSheet.holdingKeys;
       } else {
-        _incomeHoldingKeys = allHoldingKeys.where((HoldingKey holdingKey) =>
-            !incomePreferredLinks.containsValue(holdingKey))
-        .toList(growable:false);
+        _incomeHoldingKeys = allHoldingKeys.where(
+            (HoldingKey holdingKey) =>
+                !incomePreferredLinks.containsValue(holdingKey)).toList(growable: false);
       }
     }
     return _incomeHoldingKeys;
   }
 
-  bool _mapValuesContainsKey(Map<Object,List<HoldingKey>> map, HoldingKey key) {
-    for(List<HoldingKey> keys in map.values) {
-      if(keys.contains(key)) return true;
+  bool _mapValuesContainsKey(Map<Object, List<HoldingKey>> map,
+      HoldingKey key) {
+    for (List<HoldingKey> keys in map.values) {
+      if (keys.contains(key)) return true;
     }
     return false;
   }
 
   List<HoldingKey> get expenseHoldingKeys {
-    if(_expenseHoldingKeys == null) {
+    if (_expenseHoldingKeys == null) {
       final allHoldingKeys = balanceSheet.holdingKeys;
       _expenseHoldingKeys = allHoldingKeys.where((HoldingKey holdingKey) {
         bool result =
-          !_mapValuesContainsKey(preferredExpenseSources, holdingKey) &&
-          !_mapValuesContainsKey(expensePreferredLinks, holdingKey);
+            !_mapValuesContainsKey(preferredExpenseSources, holdingKey) &&
+            !_mapValuesContainsKey(expensePreferredLinks, holdingKey);
         return result;
-      }).toList(growable:false);
+      }).toList(growable: false);
     }
     return _expenseHoldingKeys;
   }
 
-  Map<AccountType,List<String>> get accountsByType =>
-    balanceSheet.accountsByType;
+  Map<AccountType, List<String>> get accountsByType =>
+      balanceSheet.accountsByType;
 
   Iterable<HoldingKey> get holdingKeys => balanceSheet.holdingKeys;
   Iterable<String> get assetKeys => balanceSheet.assetKeys;
@@ -217,22 +219,22 @@ class Dossier {
 
   visitAssets(AssetVisitor visitor) => balanceSheet.visitAssets(visitor);
   visitLiabilities(LiabilityVisitor visitor) =>
-    balanceSheet.visitLiabilities(visitor);
+      balanceSheet.visitLiabilities(visitor);
 
   PortfolioAccount portfolioAccount(String accountName) =>
-    balanceSheet.portfolioAccount(accountName);
+      balanceSheet.portfolioAccount(accountName);
 
   Holding holding(HoldingKey holdingKey) {
-    final result = balanceSheet
-      .holding(holdingKey.accountName, holdingKey.holdingName);
+    final result =
+        balanceSheet.holding(holdingKey.accountName, holdingKey.holdingName);
     return result;
   }
 
   bool distributionsSheltered(String accountName) =>
-    portfolioAccount(accountName).isDistributionSheltered;
+      portfolioAccount(accountName).isDistributionSheltered;
 
   bool canCapitalGainBeSheltered(String accountName) =>
-    portfolioAccount(accountName).canCapitalGainBeSheltered;
+      portfolioAccount(accountName).canCapitalGainBeSheltered;
 
   // end <class Dossier>
 
@@ -375,8 +377,8 @@ Random _randomJsonGenerator = new Random(0);
 // custom <library dossier>
 
 const _ExpenseToAccountTypeLinks = const {
-  ExpenseType.COLLEGE_EXPENSE : const [AccountType.COLLEGE_IRS529],
-  ExpenseType.MEDICAL_EXPENSE : const [AccountType.HEALTH_SAVINGS_ACCOUNT]
+  ExpenseType.COLLEGE_EXPENSE: const [AccountType.COLLEGE_IRS529],
+  ExpenseType.MEDICAL_EXPENSE: const [AccountType.HEALTH_SAVINGS_ACCOUNT]
 };
 
 // end <library dossier>

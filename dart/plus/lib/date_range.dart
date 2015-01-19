@@ -16,16 +16,16 @@ class YearRange {
   // custom <class YearRange>
 
   _init() {
-    if(_start > _end)
-      throw new
-        ArgumentError("Year range start $start must be on or before end $end");
+    if (_start >
+        _end) throw new ArgumentError(
+            "Year range start $start must be on or before end $end");
   }
 
   DateRange get dateRange =>
-    new DateRange(startOfYear(_start), startOfYear(_end));
+      new DateRange(startOfYear(_start), startOfYear(_end));
 
   int get years => _end - _start;
-  
+
   // end <class YearRange>
   final int _start;
   final int _end;
@@ -35,9 +35,9 @@ class DateRange
   implements Comparable<DateRange> {
   DateRange(this._start, this._end) {
     // custom <DateRange>
-    if(_start > _end)
-      throw new
-        ArgumentError("Date range start $start must be on or before end $end");
+    if (_start >
+        _end) throw new ArgumentError(
+            "Date range start $start must be on or before end $end");
     // end <DateRange>
   }
 
@@ -61,20 +61,17 @@ class DateRange
   // custom <class DateRange>
   String toString() => '($start => $end)';
 
-  bool isStrictlyBefore(DateRange other) =>
-    _end <= other._start;
+  bool isStrictlyBefore(DateRange other) => _end <= other._start;
 
   /**
    * Returns true if the range contains the date
    */
-  bool contains(Date d) =>
-    d >= _start && d < _end;
+  bool contains(Date d) => d >= _start && d < _end;
 
   /**
    * Returns true if the range contains __any part__ of that year
    */
-  bool containsYear(int year) =>
-    year >= _start.year && year < _end.year;
+  bool containsYear(int year) => year >= _start.year && year < _end.year;
 
   // end <class DateRange>
 
@@ -134,12 +131,14 @@ class IntervalDateRange {
   List<DateRange> get dateRanges => _dateRanges;
   // custom <class IntervalDateRange>
 
-  factory IntervalDateRange.basic(Date _start, Date _end, [ Frequency _frequency = ANNUAL ]) {
+  factory IntervalDateRange.basic(Date _start, Date _end, [Frequency _frequency
+      = ANNUAL]) {
     var _dateRanges = [];
-    if(_start > _end)
-      throw new ArgumentError("IntervalDateRange start $_start must <= $_end");
+    if (_start >
+        _end) throw new ArgumentError("IntervalDateRange start $_start must <= $_end");
 
-    visitDateRange(new DateRange(_start, _end),
+    visitDateRange(
+        new DateRange(_start, _end),
         (Date start, Date end) => _dateRanges.add(dateRange(start, end)),
         _frequency);
 
@@ -173,15 +172,17 @@ dateRanges:\n\t${_dateRanges.join('\n\t')}
 }
 
 // custom <library date_range>
-IntervalDateRange intervalDateRange(Date _start, Date _end, [ Frequency _frequency ]) =>
-  new IntervalDateRange.basic(_start, _end,
-  _frequency == null? Frequency.ANNUAL : _frequency);
+IntervalDateRange intervalDateRange(Date _start, Date _end,
+    [Frequency _frequency]) =>
+    new IntervalDateRange.basic(
+        _start,
+        _end,
+        _frequency == null ? Frequency.ANNUAL : _frequency);
 
-fiscalRange(int year) => dateRange(startOfYear(year), startOfYear(year+1));
+fiscalRange(int year) => dateRange(startOfYear(year), startOfYear(year + 1));
 
 bool overlap(DateRange dr1, DateRange dr2) =>
-  dr1.start < dr2.start?
-      (dr1.end > dr2.start) : (dr2.end > dr1.start);
+    dr1.start < dr2.start ? (dr1.end > dr2.start) : (dr2.end > dr1.start);
 
 oneDayRange(Date d) => dateRange(d, d.nextDay);
 
@@ -191,18 +192,18 @@ void visitDateRange(DateRange dateRange, DateRangeVisitor visitor,
     [Frequency frequency]) {
   final start = dateRange.start;
   final end = dateRange.end;
-  if(frequency == null) {
+  if (frequency == null) {
     frequency = Frequency.ANNUAL;
   }
 
-  if(frequency == Frequency.ONCE) {
+  if (frequency == Frequency.ONCE) {
     visitor(start, end);
   } else {
     int startDayOfMonth = start.day;
     Date nextDate = start;
     Date nextNextDate = advanceDate(frequency, nextDate, startDayOfMonth);
 
-    while(nextDate.isBefore(end)) {
+    while (nextDate.isBefore(end)) {
       Date safeEnd = minDate(end, nextNextDate);
       visitor(nextDate, safeEnd);
       nextDate = nextNextDate;

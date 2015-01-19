@@ -45,20 +45,22 @@ class FlowDetail
   int compareTo(FlowDetail other) {
     int result = 0;
     ((result = date.compareTo(other.date)) == 0) &&
-    ((result = (flow > 0.0 && flow < 0.0) ? -1 :
-       (flow < 0.0 && flow > 0.0) ? 1 : 0) == 0) &&
-    ((result = name.compareTo(other.name)) == 0) &&
-    ((result = flow.compareTo(other.flow)) == 0);
+        ((result = (flow > 0.0 && flow < 0.0) ?
+            -1 :
+            (flow < 0.0 && flow > 0.0) ? 1 : 0) ==
+            0) &&
+        ((result = name.compareTo(other.name)) == 0) &&
+        ((result = flow.compareTo(other.flow)) == 0);
     return result;
   }
 
   bool get isIncome => flow > 0.0;
 
-  get flowType => flow < 0? ExpenseType.fromJson(type) :
-      IncomeType.fromJson(type);
+  get flowType =>
+      flow < 0 ? ExpenseType.fromJson(type) : IncomeType.fromJson(type);
 
-  FlowKey get flowKey => _flowKey == null?
-    (_flowKey = new FlowKey(name, isIncome)) : _flowKey;
+  FlowKey get flowKey => _flowKey == null ? (_flowKey =
+      new FlowKey(name, isIncome)) : _flowKey;
 
   toString() => 'Flow ($date, $flowType, $name, $flow)';
 
@@ -126,9 +128,9 @@ class FundingAdjustment {
   // custom <class FundingAdjustment>
 
   bool isValid() =>
-    endBalance >= 0.0 &&
-    ((amount >= 0.0 && flowRemaining >= 0.0) ||
-        (amount <= 0.0 && flowRemaining <= 0.0));
+      endBalance >= 0.0 &&
+          ((amount >= 0.0 && flowRemaining >= 0.0) ||
+              (amount <= 0.0 && flowRemaining <= 0.0));
 
   // end <class FundingAdjustment>
 
@@ -243,13 +245,15 @@ class FlowEntryBuilder {
     return flowDetail;
   }
 
-  double get flowRemaining => fundingAdjustments.length > 0?
-    fundingAdjustments.last.flowRemaining :
-    flowDetail.flow;
+  double get flowRemaining =>
+      fundingAdjustments.length > 0 ?
+          fundingAdjustments.last.flowRemaining :
+          flowDetail.flow;
 
   bool get hasFlowRemaining =>
-    isIncome? flowRemaining > MinimumFlowResidual :
-    flowRemaining < -MinimumFlowResidual;
+      isIncome ?
+          flowRemaining > MinimumFlowResidual :
+          flowRemaining < -MinimumFlowResidual;
 
   toString() => 'FEB($flowDetail, $fundingAdjustments)';
 

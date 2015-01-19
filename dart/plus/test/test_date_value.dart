@@ -14,14 +14,13 @@ main() {
   group('test_date_value.dart', () {
     group('DateValue', () {
       test('json', () {
-        var dv1 = dv(date(2001,1,1), 32);
+        var dv1 = dv(date(2001, 1, 1), 32);
         expect(DateValue.fromJson(dv1.toJson()), dv1);
       });
-      var d1 = date(2001,1,1);
-      var d2 = date(2002,1,1);
+      var d1 = date(2001, 1, 1);
+      var d2 = date(2002, 1, 1);
       test('+', () {
-        expect(dv(d1, 100) + dv(d2, 200),
-            dv(d2, 300));
+        expect(dv(d1, 100) + dv(d2, 200), dv(d2, 300));
       });
       test('isBefore', () {
         expect(dv(d1, 100).isBefore(dv(d1, 100)), false);
@@ -37,7 +36,7 @@ main() {
       });
       test('negate', () {
         expect((-dv(d1, 1)).compareTo(dv(d1, -1)), 0);
-        });
+      });
     });
   });
 

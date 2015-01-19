@@ -1,0 +1,576 @@
+{
+  "definitions": {
+    "[dateValue]": {
+      "items": {
+        "$ref": "#/definitions/dateValue"
+      },
+      "type": "array"
+    },
+    "[point]": {
+      "items": {
+        "$ref": "#/definitions/point"
+      },
+      "type": "array"
+    },
+    "accountType": {
+      "enum": [
+        "Other",
+        "RothIrs401k",
+        "TraditionalIrs401k",
+        "CollegeIrs529",
+        "TraditionalIra",
+        "Investment",
+        "Brokerage",
+        "Checking",
+        "HealthSavingsAccount",
+        "Savings",
+        "MoneyMarket",
+        "Mattress"
+      ]
+    },
+    "allocationPartition": {
+      "properties": {
+        "bond": {
+          "$ref": "#/definitions/double"
+        },
+        "cash": {
+          "$ref": "#/definitions/double"
+        },
+        "other": {
+          "$ref": "#/definitions/double"
+        },
+        "stock": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "stock",
+        "bond",
+        "cash",
+        "other"
+      ]
+    },
+    "allocationType": {
+
+    },
+    "assetType": {
+      "enum": [
+        "Other",
+        "Investment",
+        "PrimaryResidence",
+        "FamilyProperty",
+        "FinancialInstrument",
+        "Automobile",
+        "LifeInsurancePolicy",
+        "CompanyStockOption",
+        "Savings",
+        "CollegeSavings",
+        "RetirementSavings",
+        "Cash",
+        "RentalProperty"
+      ]
+    },
+    "cFlowSequenceSpec": {
+      "properties": {
+        "dateRange": {
+          "$ref": "#/definitions/dateRange"
+        },
+        "growth": {
+          "$ref": "#/definitions/rateCurve"
+        },
+        "initialValue": {
+          "$ref": "#/definitions/dateValue"
+        },
+        "paymentFrequency": {
+          "$ref": "#/definitions/paymentFrequency"
+        }
+      },
+      "required": [
+        "dateRange",
+        "paymentFrequency",
+        "initialValue",
+        "growth"
+      ]
+    },
+    "capitalizationPartition": {
+      "properties": {
+        "largeCap": {
+          "$ref": "#/definitions/double"
+        },
+        "midCap": {
+          "$ref": "#/definitions/double"
+        },
+        "smallCap": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "smallCap",
+        "midCap",
+        "largeCap"
+      ]
+    },
+    "capitalizationType": {
+
+    },
+    "costBasis": {
+      "properties": {
+        "unitValue": {
+          "$ref": "#/definitions/double"
+        },
+        "units": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "units",
+        "unitValue"
+      ]
+    },
+    "date": {
+
+    },
+    "dateRange": {
+
+    },
+    "dateValue": {
+
+    },
+    "double": {
+
+    },
+    "dynamic": {
+
+    },
+    "expenseFlows": {
+      "properties": {
+        "expenseType": {
+          "$ref": "#/definitions/expenseType"
+        },
+        "timeSeries": {
+          "$ref": "#/definitions/timeSeries"
+        }
+      },
+      "required": [
+        "expenseType",
+        "timeSeries"
+      ]
+    },
+    "expenseSpec": {
+      "properties": {
+        "expenseType": {
+          "$ref": "#/definitions/expenseType"
+        },
+        "flowSpec": {
+          "$ref": "#/definitions/flowSpec"
+        }
+      },
+      "required": [
+        "expenseType",
+        "flowSpec"
+      ]
+    },
+    "expenseType": {
+      "enum": [
+        "Other",
+        "InterestExpense",
+        "CapitalDepreciation",
+        "LongTermCapitalLoss",
+        "ShortTermCapitalLoss",
+        "LivingExpense",
+        "PensionContribution",
+        "AutoExpense",
+        "CollegeExpense",
+        "MedicalExpense",
+        "Alimony",
+        "Palimony",
+        "CharitableDonation",
+        "TaxesFederal",
+        "TaxesState",
+        "TaxesProperty",
+        "DebtMortgage",
+        "DebtCollege"
+      ]
+    },
+    "flowKey": {
+      "properties": {
+        "isIncome": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "isIncome"
+      ]
+    },
+    "flowModel": {
+      "properties": {
+        "expenseModel": {
+          "$ref": "#/definitions/{expenseSpec}"
+        },
+        "incomeModel": {
+          "$ref": "#/definitions/{incomeSpec}"
+        }
+      },
+      "required": [
+        "incomeModel",
+        "expenseModel"
+      ]
+    },
+    "flowSpec": {
+      "properties": {
+        "cFlowSequenceSpec": {
+          "$ref": "#/definitions/cFlowSequenceSpec"
+        },
+        "descr": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "descr",
+        "source",
+        "cFlowSequenceSpec"
+      ]
+    },
+    "flowTypeKey": {
+      "properties": {
+        "flowType": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "flowType"
+      ]
+    },
+    "holdingKey": {
+      "properties": {
+        "accountName": {
+          "type": "string"
+        },
+        "holdingName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accountName",
+        "holdingName"
+      ]
+    },
+    "holdingType": {
+      "enum": [
+        "Other",
+        "Stock",
+        "Bond",
+        "Cash",
+        "Blend"
+      ]
+    },
+    "iEItem": {
+      "properties": {
+        "details": {
+          "$ref": "#/definitions/timeSeries"
+        },
+        "itemSource": {
+          "$ref": "#/definitions/itemSource"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "itemSource",
+        "details"
+      ]
+    },
+    "incomeFlows": {
+      "properties": {
+        "incomeType": {
+          "$ref": "#/definitions/incomeType"
+        },
+        "timeSeries": {
+          "$ref": "#/definitions/timeSeries"
+        }
+      },
+      "required": [
+        "incomeType",
+        "timeSeries"
+      ]
+    },
+    "incomeSpec": {
+      "properties": {
+        "flowSpec": {
+          "$ref": "#/definitions/flowSpec"
+        },
+        "incomeType": {
+          "$ref": "#/definitions/incomeType"
+        }
+      },
+      "required": [
+        "incomeType",
+        "flowSpec"
+      ]
+    },
+    "incomeStatement": {
+      "properties": {
+        "expenses": {
+          "$ref": "#/definitions/{iEItem}"
+        },
+        "incomes": {
+          "$ref": "#/definitions/{iEItem}"
+        },
+        "year": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "year",
+        "incomes",
+        "expenses"
+      ]
+    },
+    "incomeType": {
+      "enum": [
+        "Other",
+        "InterestIncome",
+        "CapitalGain",
+        "LongTermCapitalGain",
+        "ShortTermCapitalGain",
+        "QualifiedDividendIncome",
+        "NonqualifiedDividendIncome",
+        "CapitalGainDistributionIncome",
+        "InheritanceIncome",
+        "PensionIncome",
+        "RentalIncome",
+        "SocialSecurityIncome",
+        "LaborIncome",
+        "LotteryIncome"
+      ]
+    },
+    "instrumentPartitions": {
+      "properties": {
+        "allocationPartition": {
+          "$ref": "#/definitions/allocationPartition"
+        },
+        "capitalizationPartition": {
+          "$ref": "#/definitions/capitalizationPartition"
+        },
+        "investmentStylePartition": {
+          "$ref": "#/definitions/investmentStylePartition"
+        }
+      },
+      "required": [
+        "allocationPartition",
+        "investmentStylePartition",
+        "capitalizationPartition"
+      ]
+    },
+    "interpolationType": {
+      "enum": [
+        "Linear",
+        "Step",
+        "Cubic"
+      ]
+    },
+    "investmentStyle": {
+
+    },
+    "investmentStylePartition": {
+      "properties": {
+        "blend": {
+          "$ref": "#/definitions/double"
+        },
+        "growth": {
+          "$ref": "#/definitions/double"
+        },
+        "value": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "value",
+        "blend",
+        "growth"
+      ]
+    },
+    "itemSource": {
+      "enum": [
+        "BalanceSheet",
+        "FlowModel"
+      ]
+    },
+    "liabilityType": {
+      "enum": [
+        "Other",
+        "Mortgage",
+        "AutoLoan",
+        "CollegeDebt",
+        "CreditCardDebt"
+      ]
+    },
+    "partitionMapping": {
+      "properties": {
+        "partitionMap": {
+          "$ref": "#/definitions/{double}"
+        },
+        "partitioned": {
+          "$ref": "#/definitions/double"
+        },
+        "unpartitioned": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "partitioned",
+        "unpartitioned",
+        "partitionMap"
+      ]
+    },
+    "paymentFrequency": {
+      "enum": [
+        "Once",
+        "Monthly",
+        "Semiannual",
+        "Annual"
+      ]
+    },
+    "point": {
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    },
+    "quantityBin": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/[point]"
+        },
+        "interpolationType": {
+          "$ref": "#/definitions/interpolationType"
+        }
+      },
+      "required": [
+        "interpolationType",
+        "data"
+      ]
+    },
+    "rateCurve": {
+      "properties": {
+        "curveData": {
+          "$ref": "#/definitions/[dateValue]"
+        }
+      },
+      "required": [
+        "curveData"
+      ]
+    },
+    "realizedFlows": {
+      "properties": {
+        "expenseFlows": {
+          "$ref": "#/definitions/{expenseFlows}"
+        },
+        "incomeFlows": {
+          "$ref": "#/definitions/{incomeFlows}"
+        }
+      },
+      "required": [
+        "incomeFlows",
+        "expenseFlows"
+      ]
+    },
+    "taxCategory": {
+      "enum": [
+        "LaborIncome",
+        "InterestIncome",
+        "QualifiedDividendIncome",
+        "UnqualifiedDividendIncome",
+        "ShortTermCapitalGain",
+        "LongTermCapitalGain",
+        "SocialSecurityIncome",
+        "PensionIncome",
+        "OtherOrdinaryIncome",
+        "Inheritance",
+        "RentalIncome",
+        "PropertyValue"
+      ]
+    },
+    "taxType": {
+      "enum": [
+        "OrdinaryIncome",
+        "QualifiedDividend",
+        "LongTermCapitalGain",
+        "ShortTermCapitalGain",
+        "Inheritance",
+        "Medicare",
+        "SocialSecurity",
+        "Property"
+      ]
+    },
+    "taxingAuthority": {
+      "enum": [
+        "Federal",
+        "State"
+      ]
+    },
+    "timeSeries": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/[dateValue]"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "{double}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/double"
+      },
+      "type": "object"
+    },
+    "{expenseFlows}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/expenseFlows"
+      },
+      "type": "object"
+    },
+    "{expenseSpec}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/expenseSpec"
+      },
+      "type": "object"
+    },
+    "{iEItem}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/iEItem"
+      },
+      "type": "object"
+    },
+    "{incomeFlows}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/incomeFlows"
+      },
+      "type": "object"
+    },
+    "{incomeSpec}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/incomeSpec"
+      },
+      "type": "object"
+    }
+  }
+}

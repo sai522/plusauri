@@ -16,15 +16,23 @@ void main(List<String> args) {
   //TODO: Figure this out: addTask('docs', createDocGenTask(_getLibs));
   addTask('analyze_test',
       createAnalyzerTask([
+        "test/test_binary_search.dart",
         "test/test_date.dart",
-        "test/test_date_value.dart",
         "test/test_date_range.dart",
+        "test/test_date_value.dart",
         "test/test_finance_mortgage.dart",
         "test/test_finance_rate_curve.dart",
         "test/test_finance_cash_flow.dart",
         "test/test_finance_tvm.dart",
         "test/test_finance_curves_attribution.dart",
-        "test/test_test_utils.dart"
+        "test/test_forecast_grid.dart",
+        "test/test_forecast.dart",
+        "test/test_portfolio.dart",
+        "test/test_repository.dart",
+        "test/test_scenario.dart",
+        "test/test_strategy.dart",
+        "test/test_test_utils.dart",
+        "test/test_time_series.dart"
       ]));
 
 

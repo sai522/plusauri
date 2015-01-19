@@ -10,9 +10,7 @@ get libs => [
   ]
 ];
 
-void main() {
-  plus
-    ..libraries = libs
-    ..testLibraries = testLibs
-    ..generate( generateHop : false );
-}
+updateSystem(System system) =>
+  system..libraries.addAll(libs)..testLibraries.addAll(testLibs);
+
+void main() => updateSystem(plus).generate(generateHop:false);

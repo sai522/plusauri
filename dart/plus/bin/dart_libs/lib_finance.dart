@@ -127,10 +127,7 @@ Library get lib => library('finance')
   ];
 
 get libs => [ lib ];
+updateSystem(System system) =>
+  system..libraries.addAll(libs)..testLibraries.addAll(testLibs);
 
-void main() {
-  plus
-    ..libraries = libs
-    ..testLibraries = testLibs
-    ..generate( generateHop : false );
-}
+void main() => updateSystem(plus).generate(generateHop:false);

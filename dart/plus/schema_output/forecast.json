@@ -1,0 +1,622 @@
+{
+  "definitions": {
+    "[dateValue]": {
+      "items": {
+        "$ref": "#/definitions/dateValue"
+      },
+      "type": "array"
+    },
+    "[point]": {
+      "items": {
+        "$ref": "#/definitions/point"
+      },
+      "type": "array"
+    },
+    "accountType": {
+      "enum": [
+        "Other",
+        "RothIrs401k",
+        "TraditionalIrs401k",
+        "CollegeIrs529",
+        "TraditionalIra",
+        "Investment",
+        "Brokerage",
+        "Checking",
+        "HealthSavingsAccount",
+        "Savings",
+        "MoneyMarket",
+        "Mattress"
+      ]
+    },
+    "allocationPartition": {
+      "properties": {
+        "bond": {
+          "$ref": "#/definitions/double"
+        },
+        "cash": {
+          "$ref": "#/definitions/double"
+        },
+        "other": {
+          "$ref": "#/definitions/double"
+        },
+        "stock": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "stock",
+        "bond",
+        "cash",
+        "other"
+      ]
+    },
+    "allocationType": {
+
+    },
+    "asset": {
+      "properties": {
+        "assetType": {
+          "$ref": "#/definitions/assetType"
+        },
+        "bSItem": {
+          "$ref": "#/definitions/bSItem"
+        }
+      },
+      "required": [
+        "assetType",
+        "bSItem"
+      ]
+    },
+    "assetType": {
+      "enum": [
+        "Other",
+        "Investment",
+        "PrimaryResidence",
+        "FamilyProperty",
+        "FinancialInstrument",
+        "Automobile",
+        "LifeInsurancePolicy",
+        "CompanyStockOption",
+        "Savings",
+        "CollegeSavings",
+        "RetirementSavings",
+        "Cash",
+        "RentalProperty"
+      ]
+    },
+    "bSItem": {
+      "properties": {
+        "acquired": {
+          "$ref": "#/definitions/dateValue"
+        },
+        "currentValue": {
+          "$ref": "#/definitions/dateValue"
+        },
+        "descr": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "retired": {
+          "$ref": "#/definitions/dateValue"
+        }
+      },
+      "required": [
+        "acquired",
+        "retired",
+        "descr",
+        "owner",
+        "currentValue"
+      ]
+    },
+    "balanceSheet": {
+      "properties": {
+        "asOf": {
+          "$ref": "#/definitions/date"
+        },
+        "assetMap": {
+          "$ref": "#/definitions/{asset}"
+        },
+        "liabilityMap": {
+          "$ref": "#/definitions/{liability}"
+        },
+        "portfolioAccountMap": {
+          "$ref": "#/definitions/{portfolioAccount}"
+        }
+      },
+      "required": [
+        "asOf",
+        "assetMap",
+        "liabilityMap",
+        "portfolioAccountMap"
+      ]
+    },
+    "cFlowSequenceSpec": {
+      "properties": {
+        "dateRange": {
+          "$ref": "#/definitions/dateRange"
+        },
+        "growth": {
+          "$ref": "#/definitions/rateCurve"
+        },
+        "initialValue": {
+          "$ref": "#/definitions/dateValue"
+        },
+        "paymentFrequency": {
+          "$ref": "#/definitions/paymentFrequency"
+        }
+      },
+      "required": [
+        "dateRange",
+        "paymentFrequency",
+        "initialValue",
+        "growth"
+      ]
+    },
+    "capitalizationPartition": {
+      "properties": {
+        "largeCap": {
+          "$ref": "#/definitions/double"
+        },
+        "midCap": {
+          "$ref": "#/definitions/double"
+        },
+        "smallCap": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "smallCap",
+        "midCap",
+        "largeCap"
+      ]
+    },
+    "capitalizationType": {
+
+    },
+    "costBasis": {
+      "properties": {
+        "unitValue": {
+          "$ref": "#/definitions/double"
+        },
+        "units": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "units",
+        "unitValue"
+      ]
+    },
+    "date": {
+
+    },
+    "dateRange": {
+
+    },
+    "dateValue": {
+
+    },
+    "distributionBreakdown": {
+      "properties": {
+        "capitalGainDistribution": {
+          "type": "number"
+        },
+        "interest": {
+          "type": "number"
+        },
+        "qualified": {
+          "type": "number"
+        },
+        "unqualified": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "qualified",
+        "unqualified",
+        "capitalGainDistribution",
+        "interest"
+      ]
+    },
+    "distributionSummary": {
+      "properties": {
+        "distributed": {
+          "$ref": "#/definitions/distributionBreakdown"
+        },
+        "reinvested": {
+          "$ref": "#/definitions/distributionBreakdown"
+        }
+      },
+      "required": [
+        "distributed",
+        "reinvested"
+      ]
+    },
+    "double": {
+
+    },
+    "dynamic": {
+
+    },
+    "holding": {
+      "properties": {
+        "costBasis": {
+          "$ref": "#/definitions/double"
+        },
+        "holdingType": {
+          "$ref": "#/definitions/holdingType"
+        },
+        "quantity": {
+          "$ref": "#/definitions/dateValue"
+        },
+        "unitValue": {
+          "$ref": "#/definitions/dateValue"
+        }
+      },
+      "required": [
+        "holdingType",
+        "quantity",
+        "unitValue",
+        "costBasis"
+      ]
+    },
+    "holdingKey": {
+      "properties": {
+        "accountName": {
+          "type": "string"
+        },
+        "holdingName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accountName",
+        "holdingName"
+      ]
+    },
+    "holdingPeriodBalance": {
+      "properties": {
+        "capitalGain": {
+          "$ref": "#/definitions/double"
+        },
+        "costBasis": {
+          "$ref": "#/definitions/periodBalance"
+        },
+        "distributionSummary": {
+          "$ref": "#/definitions/distributionSummary"
+        },
+        "endValuePartitions": {
+          "$ref": "#/definitions/instrumentPartitionMappings"
+        },
+        "growthDetails": {
+          "$ref": "#/definitions/number[holdingReturnType]"
+        },
+        "holdingType": {
+          "$ref": "#/definitions/holdingType"
+        },
+        "periodBalance": {
+          "$ref": "#/definitions/periodBalance"
+        },
+        "soldInvested": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "holdingType",
+        "periodBalance",
+        "distributionSummary",
+        "costBasis",
+        "capitalGain",
+        "endValuePartitions",
+        "growthDetails",
+        "soldInvested"
+      ]
+    },
+    "holdingType": {
+      "enum": [
+        "Other",
+        "Stock",
+        "Bond",
+        "Cash",
+        "Blend"
+      ]
+    },
+    "instrumentPartitionMappings": {
+      "properties": {
+        "allocation": {
+          "$ref": "#/definitions/partitionMapping"
+        },
+        "capitalization": {
+          "$ref": "#/definitions/partitionMapping"
+        },
+        "style": {
+          "$ref": "#/definitions/partitionMapping"
+        }
+      },
+      "required": [
+        "allocation",
+        "style",
+        "capitalization"
+      ]
+    },
+    "instrumentPartitions": {
+      "properties": {
+        "allocationPartition": {
+          "$ref": "#/definitions/allocationPartition"
+        },
+        "capitalizationPartition": {
+          "$ref": "#/definitions/capitalizationPartition"
+        },
+        "investmentStylePartition": {
+          "$ref": "#/definitions/investmentStylePartition"
+        }
+      },
+      "required": [
+        "allocationPartition",
+        "investmentStylePartition",
+        "capitalizationPartition"
+      ]
+    },
+    "interpolationType": {
+      "enum": [
+        "Linear",
+        "Step",
+        "Cubic"
+      ]
+    },
+    "investmentStyle": {
+
+    },
+    "investmentStylePartition": {
+      "properties": {
+        "blend": {
+          "$ref": "#/definitions/double"
+        },
+        "growth": {
+          "$ref": "#/definitions/double"
+        },
+        "value": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "value",
+        "blend",
+        "growth"
+      ]
+    },
+    "liability": {
+      "properties": {
+        "bSItem": {
+          "$ref": "#/definitions/bSItem"
+        },
+        "liabilityType": {
+          "$ref": "#/definitions/liabilityType"
+        }
+      },
+      "required": [
+        "liabilityType",
+        "bSItem"
+      ]
+    },
+    "liabilityType": {
+      "enum": [
+        "Other",
+        "Mortgage",
+        "AutoLoan",
+        "CollegeDebt",
+        "CreditCardDebt"
+      ]
+    },
+    "number[holdingReturnType]": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "type": "object"
+    },
+    "number[taxCategory]": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "type": "object"
+    },
+    "partitionMapping": {
+      "properties": {
+        "partitionMap": {
+          "$ref": "#/definitions/{double}"
+        },
+        "partitioned": {
+          "$ref": "#/definitions/double"
+        },
+        "unpartitioned": {
+          "$ref": "#/definitions/double"
+        }
+      },
+      "required": [
+        "partitioned",
+        "unpartitioned",
+        "partitionMap"
+      ]
+    },
+    "paymentFrequency": {
+      "enum": [
+        "Once",
+        "Monthly",
+        "Semiannual",
+        "Annual"
+      ]
+    },
+    "periodBalance": {
+      "properties": {
+        "end": {
+          "$ref": "#/definitions/dateValue"
+        },
+        "start": {
+          "$ref": "#/definitions/dateValue"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "point": {
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ]
+    },
+    "portfolioAccount": {
+      "properties": {
+        "accountType": {
+          "$ref": "#/definitions/accountType"
+        },
+        "descr": {
+          "type": "string"
+        },
+        "holdingMap": {
+          "$ref": "#/definitions/{holding}"
+        },
+        "otherHoldings": {
+          "$ref": "#/definitions/holding"
+        },
+        "owner": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "accountType",
+        "descr",
+        "owner",
+        "holdingMap",
+        "otherHoldings"
+      ]
+    },
+    "quantityBin": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/[point]"
+        },
+        "interpolationType": {
+          "$ref": "#/definitions/interpolationType"
+        }
+      },
+      "required": [
+        "interpolationType",
+        "data"
+      ]
+    },
+    "rateCurve": {
+      "properties": {
+        "curveData": {
+          "$ref": "#/definitions/[dateValue]"
+        }
+      },
+      "required": [
+        "curveData"
+      ]
+    },
+    "taxAssessment": {
+      "properties": {
+        "taxBases": {
+          "$ref": "#/definitions/number[taxCategory]"
+        },
+        "taxBill": {
+          "type": "number"
+        },
+        "taxingAuthority": {
+          "$ref": "#/definitions/taxingAuthority"
+        }
+      },
+      "required": [
+        "taxingAuthority",
+        "taxBases",
+        "taxBill"
+      ]
+    },
+    "taxCategory": {
+      "enum": [
+        "LaborIncome",
+        "InterestIncome",
+        "QualifiedDividendIncome",
+        "UnqualifiedDividendIncome",
+        "ShortTermCapitalGain",
+        "LongTermCapitalGain",
+        "SocialSecurityIncome",
+        "PensionIncome",
+        "OtherOrdinaryIncome",
+        "Inheritance",
+        "RentalIncome",
+        "PropertyValue"
+      ]
+    },
+    "taxType": {
+      "enum": [
+        "OrdinaryIncome",
+        "QualifiedDividend",
+        "LongTermCapitalGain",
+        "ShortTermCapitalGain",
+        "Inheritance",
+        "Medicare",
+        "SocialSecurity",
+        "Property"
+      ]
+    },
+    "taxingAuthority": {
+      "enum": [
+        "Federal",
+        "State"
+      ]
+    },
+    "timeSeries": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/[dateValue]"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "{asset}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/asset"
+      },
+      "type": "object"
+    },
+    "{double}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/double"
+      },
+      "type": "object"
+    },
+    "{holding}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/holding"
+      },
+      "type": "object"
+    },
+    "{liability}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/liability"
+      },
+      "type": "object"
+    },
+    "{portfolioAccount}": {
+      "additionalProperties": {
+        "$ref": "#/definitions/portfolioAccount"
+      },
+      "type": "object"
+    }
+  }
+}

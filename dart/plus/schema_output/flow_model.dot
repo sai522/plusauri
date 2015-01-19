@@ -1,0 +1,678 @@
+digraph G {
+  fontname = "Bitstream Vera Sans"
+  fontsize = 8
+
+  node [
+    fontname = "Courier"
+    fontsize = 8
+    shape = "plaintext"
+  ]
+
+  edge [
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+  ]
+
+"#" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2"><font color="black">Definitions</font></td></tr>
+<tr><td align="left" port="#@[dateValue]">[dateValue]</td>[dateValue]<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@[point]">[point]</td>[point]<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@accountType">accountType</td>accountType<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@allocationPartition">allocationPartition</td>allocationPartition<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@allocationType">allocationType</td>allocationType<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@assetType">assetType</td>assetType<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@cFlowSequenceSpec">cFlowSequenceSpec</td>cFlowSequenceSpec<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@capitalizationPartition">capitalizationPartition</td>capitalizationPartition<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@capitalizationType">capitalizationType</td>capitalizationType<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@costBasis">costBasis</td>costBasis<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@date">date</td>date<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@dateRange">dateRange</td>dateRange<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@dateValue">dateValue</td>dateValue<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@double">double</td>double<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@dynamic">dynamic</td>dynamic<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@expenseFlows">expenseFlows</td>expenseFlows<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@expenseSpec">expenseSpec</td>expenseSpec<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@expenseType">expenseType</td>expenseType<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@flowKey">flowKey</td>flowKey<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@flowModel">flowModel</td>flowModel<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@flowSpec">flowSpec</td>flowSpec<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@flowTypeKey">flowTypeKey</td>flowTypeKey<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@holdingKey">holdingKey</td>holdingKey<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@holdingType">holdingType</td>holdingType<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@iEItem">iEItem</td>iEItem<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@incomeFlows">incomeFlows</td>incomeFlows<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@incomeSpec">incomeSpec</td>incomeSpec<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@incomeStatement">incomeStatement</td>incomeStatement<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@incomeType">incomeType</td>incomeType<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@instrumentPartitions">instrumentPartitions</td>instrumentPartitions<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@interpolationType">interpolationType</td>interpolationType<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@investmentStyle">investmentStyle</td>investmentStyle<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@investmentStylePartition">investmentStylePartition</td>investmentStylePartition<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@itemSource">itemSource</td>itemSource<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@liabilityType">liabilityType</td>liabilityType<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@partitionMapping">partitionMapping</td>partitionMapping<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@paymentFrequency">paymentFrequency</td>paymentFrequency<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@point">point</td>point<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@quantityBin">quantityBin</td>quantityBin<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@rateCurve">rateCurve</td>rateCurve<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@realizedFlows">realizedFlows</td>realizedFlows<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@taxCategory">taxCategory</td>taxCategory<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@taxType">taxType</td>taxType<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@taxingAuthority">taxingAuthority</td>taxingAuthority<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@timeSeries">timeSeries</td>timeSeries<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@{double}">{double}</td>{double}<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@{expenseFlows}">{expenseFlows}</td>{expenseFlows}<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@{expenseSpec}">{expenseSpec}</td>{expenseSpec}<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@{iEItem}">{iEItem}</td>{iEItem}<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@{incomeFlows}">{incomeFlows}</td>{incomeFlows}<td bgcolor="grey" align="right"></td></tr>
+<tr><td align="left" port="#@{incomeSpec}">{incomeSpec}</td>{incomeSpec}<td bgcolor="grey" align="right"></td></tr>
+</table>
+>
+]
+"#/definitions/rateCurve" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/rateCurve</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@curveData">! curveData</td>! curveData<td bgcolor="grey" align="right">array</td></tr>
+</table>
+>
+]
+"#/definitions/timeSeries" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/timeSeries</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@data">! data</td>! data<td bgcolor="grey" align="right">array</td></tr>
+</table>
+>
+]
+"#/definitions/point" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/point</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@x">! x</td>! x<td bgcolor="grey" align="right">number</td></tr>
+<tr><td align="left" port="@y">! y</td>! y<td bgcolor="grey" align="right">number</td></tr>
+</table>
+>
+]
+"#/definitions/costBasis" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/costBasis</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@unitValue">! unitValue</td>! unitValue<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@units">! units</td>! units<td bgcolor="grey" align="right">{}</td></tr>
+</table>
+>
+]
+"#/definitions/quantityBin" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/quantityBin</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@data">! data</td>! data<td bgcolor="grey" align="right">array</td></tr>
+<tr><td align="left" port="@interpolationType">! interpolationType</td>! interpolationType<td bgcolor="grey" align="right">enum=[Linear, Step, Cubic]</td></tr>
+</table>
+>
+]
+"#/definitions/capitalizationPartition" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/capitalizationPartition</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@largeCap">! largeCap</td>! largeCap<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@midCap">! midCap</td>! midCap<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@smallCap">! smallCap</td>! smallCap<td bgcolor="grey" align="right">{}</td></tr>
+</table>
+>
+]
+"#/definitions/investmentStylePartition" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/investmentStylePartition</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@blend">! blend</td>! blend<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@growth">! growth</td>! growth<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@value">! value</td>! value<td bgcolor="grey" align="right">{}</td></tr>
+</table>
+>
+]
+"#/definitions/allocationPartition" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/allocationPartition</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@bond">! bond</td>! bond<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@cash">! cash</td>! cash<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@other">! other</td>! other<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@stock">! stock</td>! stock<td bgcolor="grey" align="right">{}</td></tr>
+</table>
+>
+]
+"#/definitions/instrumentPartitions" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/instrumentPartitions</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@allocationPartition">! allocationPartition</td>! allocationPartition<td bgcolor="grey" align="right">{properties: {stock: {$ref:...</td></tr>
+<tr><td align="left" port="@capitalizationPartition">! capitalizationPartition</td>! capitalizationPartition<td bgcolor="grey" align="right">{properties: {smallCap: {$r...</td></tr>
+<tr><td align="left" port="@investmentStylePartition">! investmentStylePartition</td>! investmentStylePartition<td bgcolor="grey" align="right">{properties: {value: {$ref:...</td></tr>
+</table>
+>
+]
+"#/definitions/partitionMapping" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/partitionMapping</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@partitionMap">! partitionMap</td>! partitionMap<td bgcolor="grey" align="right">object</td></tr>
+<tr><td align="left" port="@partitioned">! partitioned</td>! partitioned<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@unpartitioned">! unpartitioned</td>! unpartitioned<td bgcolor="grey" align="right">{}</td></tr>
+</table>
+>
+]
+"#/definitions/{double}" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/{double}</font></td></tr>
+
+
+<tr><td bgcolor="lemonchiffon" align="center" colspan="2" port=""><font color="black">Additional Properties</font></td></tr>
+<tr><td align="left" port="mustBe">Must Be: </td>Must Be: <td bgcolor="grey" align="right">{}</td></tr>
+</table>
+>
+]
+"#/definitions/cFlowSequenceSpec" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/cFlowSequenceSpec</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@dateRange">! dateRange</td>! dateRange<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@growth">! growth</td>! growth<td bgcolor="grey" align="right">{properties: {curveData: {$...</td></tr>
+<tr><td align="left" port="@initialValue">! initialValue</td>! initialValue<td bgcolor="grey" align="right">{}</td></tr>
+<tr><td align="left" port="@paymentFrequency">! paymentFrequency</td>! paymentFrequency<td bgcolor="grey" align="right">enum=[Once, Monthly, Semian...</td></tr>
+</table>
+>
+]
+"#/definitions/holdingKey" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/holdingKey</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@accountName">! accountName</td>! accountName<td bgcolor="grey" align="right">string</td></tr>
+<tr><td align="left" port="@holdingName">! holdingName</td>! holdingName<td bgcolor="grey" align="right">string</td></tr>
+</table>
+>
+]
+"#/definitions/accountType" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/accountType</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Other</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">RothIrs401k</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">TraditionalIrs401k</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">CollegeIrs529</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">TraditionalIra</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Investment</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Brokerage</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Checking</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">HealthSavingsAccount</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Savings</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">MoneyMarket</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Mattress</font></td></tr>
+</table>
+>
+]
+"#/definitions/assetType" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/assetType</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Other</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Investment</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">PrimaryResidence</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">FamilyProperty</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">FinancialInstrument</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Automobile</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">LifeInsurancePolicy</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">CompanyStockOption</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Savings</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">CollegeSavings</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">RetirementSavings</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Cash</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">RentalProperty</font></td></tr>
+</table>
+>
+]
+"#/definitions/liabilityType" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/liabilityType</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Other</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Mortgage</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">AutoLoan</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">CollegeDebt</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">CreditCardDebt</font></td></tr>
+</table>
+>
+]
+"#/definitions/holdingType" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/holdingType</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Other</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Stock</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Bond</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Cash</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Blend</font></td></tr>
+</table>
+>
+]
+"#/definitions/interpolationType" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/interpolationType</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Linear</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Step</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Cubic</font></td></tr>
+</table>
+>
+]
+"#/definitions/paymentFrequency" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/paymentFrequency</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Once</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Monthly</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Semiannual</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Annual</font></td></tr>
+</table>
+>
+]
+"#/definitions/taxCategory" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/taxCategory</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">LaborIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">InterestIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">QualifiedDividendIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">UnqualifiedDividendIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">ShortTermCapitalGain</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">LongTermCapitalGain</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">SocialSecurityIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">PensionIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">OtherOrdinaryIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Inheritance</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">RentalIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">PropertyValue</font></td></tr>
+</table>
+>
+]
+"#/definitions/taxType" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/taxType</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">OrdinaryIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">QualifiedDividend</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">LongTermCapitalGain</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">ShortTermCapitalGain</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Inheritance</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Medicare</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">SocialSecurity</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Property</font></td></tr>
+</table>
+>
+]
+"#/definitions/taxingAuthority" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/taxingAuthority</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Federal</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">State</font></td></tr>
+</table>
+>
+]
+"#/definitions/incomeStatement" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/incomeStatement</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@expenses">! expenses</td>! expenses<td bgcolor="grey" align="right">object</td></tr>
+<tr><td align="left" port="@incomes">! incomes</td>! incomes<td bgcolor="grey" align="right">object</td></tr>
+<tr><td align="left" port="@year">! year</td>! year<td bgcolor="grey" align="right">integer</td></tr>
+</table>
+>
+]
+"#/definitions/{iEItem}" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/{iEItem}</font></td></tr>
+
+
+<tr><td bgcolor="lemonchiffon" align="center" colspan="2" port=""><font color="black">Additional Properties</font></td></tr>
+<tr><td align="left" port="mustBe">Must Be: </td>Must Be: <td bgcolor="grey" align="right">{properties: {source: {type...</td></tr>
+</table>
+>
+]
+"#/definitions/iEItem" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/iEItem</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@details">! details</td>! details<td bgcolor="grey" align="right">{properties: {data: {$ref: ...</td></tr>
+<tr><td align="left" port="@itemSource">! itemSource</td>! itemSource<td bgcolor="grey" align="right">enum=[BalanceSheet, FlowMod...</td></tr>
+<tr><td align="left" port="@source">! source</td>! source<td bgcolor="grey" align="right">string</td></tr>
+</table>
+>
+]
+"#/definitions/incomeType" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/incomeType</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Other</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">InterestIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">CapitalGain</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">LongTermCapitalGain</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">ShortTermCapitalGain</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">QualifiedDividendIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">NonqualifiedDividendIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">CapitalGainDistributionIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">InheritanceIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">PensionIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">RentalIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">SocialSecurityIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">LaborIncome</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">LotteryIncome</font></td></tr>
+</table>
+>
+]
+"#/definitions/expenseType" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/expenseType</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Other</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">InterestExpense</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">CapitalDepreciation</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">LongTermCapitalLoss</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">ShortTermCapitalLoss</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">LivingExpense</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">PensionContribution</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">AutoExpense</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">CollegeExpense</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">MedicalExpense</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Alimony</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">Palimony</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">CharitableDonation</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">TaxesFederal</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">TaxesState</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">TaxesProperty</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">DebtMortgage</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">DebtCollege</font></td></tr>
+</table>
+>
+]
+"#/definitions/itemSource" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/itemSource</font></td></tr>
+
+
+<tr><td bgcolor="beige" align="center" colspan="2" port=""><font color="black">Enum Values</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">BalanceSheet</font></td></tr>
+<tr><td bgcolor="grey" align="center" colspan="2" port=""><font color="black">FlowModel</font></td></tr>
+</table>
+>
+]
+"#/definitions/flowSpec" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/flowSpec</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@cFlowSequenceSpec">! cFlowSequenceSpec</td>! cFlowSequenceSpec<td bgcolor="grey" align="right">{properties: {dateRange: {$...</td></tr>
+<tr><td align="left" port="@descr">! descr</td>! descr<td bgcolor="grey" align="right">string</td></tr>
+<tr><td align="left" port="@source">! source</td>! source<td bgcolor="grey" align="right">string</td></tr>
+</table>
+>
+]
+"#/definitions/flowKey" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/flowKey</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@isIncome">! isIncome</td>! isIncome<td bgcolor="grey" align="right">boolean</td></tr>
+<tr><td align="left" port="@name">! name</td>! name<td bgcolor="grey" align="right">string</td></tr>
+</table>
+>
+]
+"#/definitions/flowTypeKey" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/flowTypeKey</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@flowType">! flowType</td>! flowType<td bgcolor="grey" align="right">string</td></tr>
+</table>
+>
+]
+"#/definitions/incomeSpec" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/incomeSpec</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@flowSpec">! flowSpec</td>! flowSpec<td bgcolor="grey" align="right">{properties: {descr: {type:...</td></tr>
+<tr><td align="left" port="@incomeType">! incomeType</td>! incomeType<td bgcolor="grey" align="right">enum=[Other, InterestIncome...</td></tr>
+</table>
+>
+]
+"#/definitions/expenseSpec" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/expenseSpec</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@expenseType">! expenseType</td>! expenseType<td bgcolor="grey" align="right">enum=[Other, InterestExpens...</td></tr>
+<tr><td align="left" port="@flowSpec">! flowSpec</td>! flowSpec<td bgcolor="grey" align="right">{properties: {descr: {type:...</td></tr>
+</table>
+>
+]
+"#/definitions/flowModel" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/flowModel</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@expenseModel">! expenseModel</td>! expenseModel<td bgcolor="grey" align="right">object</td></tr>
+<tr><td align="left" port="@incomeModel">! incomeModel</td>! incomeModel<td bgcolor="grey" align="right">object</td></tr>
+</table>
+>
+]
+"#/definitions/{incomeSpec}" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/{incomeSpec}</font></td></tr>
+
+
+<tr><td bgcolor="lemonchiffon" align="center" colspan="2" port=""><font color="black">Additional Properties</font></td></tr>
+<tr><td align="left" port="mustBe">Must Be: </td>Must Be: <td bgcolor="grey" align="right">{properties: {incomeType: {...</td></tr>
+</table>
+>
+]
+"#/definitions/{expenseSpec}" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/{expenseSpec}</font></td></tr>
+
+
+<tr><td bgcolor="lemonchiffon" align="center" colspan="2" port=""><font color="black">Additional Properties</font></td></tr>
+<tr><td align="left" port="mustBe">Must Be: </td>Must Be: <td bgcolor="grey" align="right">{properties: {expenseType: ...</td></tr>
+</table>
+>
+]
+"#/definitions/incomeFlows" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/incomeFlows</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@incomeType">! incomeType</td>! incomeType<td bgcolor="grey" align="right">enum=[Other, InterestIncome...</td></tr>
+<tr><td align="left" port="@timeSeries">! timeSeries</td>! timeSeries<td bgcolor="grey" align="right">{properties: {data: {$ref: ...</td></tr>
+</table>
+>
+]
+"#/definitions/expenseFlows" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/expenseFlows</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@expenseType">! expenseType</td>! expenseType<td bgcolor="grey" align="right">enum=[Other, InterestExpens...</td></tr>
+<tr><td align="left" port="@timeSeries">! timeSeries</td>! timeSeries<td bgcolor="grey" align="right">{properties: {data: {$ref: ...</td></tr>
+</table>
+>
+]
+"#/definitions/realizedFlows" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/realizedFlows</font></td></tr>
+
+
+<tr><td bgcolor="wheat" align="center" colspan="2" port=""><font color="black">Properties</font></td></tr>
+<tr><td align="left" port="@expenseFlows">! expenseFlows</td>! expenseFlows<td bgcolor="grey" align="right">object</td></tr>
+<tr><td align="left" port="@incomeFlows">! incomeFlows</td>! incomeFlows<td bgcolor="grey" align="right">object</td></tr>
+</table>
+>
+]
+"#/definitions/{incomeFlows}" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/{incomeFlows}</font></td></tr>
+
+
+<tr><td bgcolor="lemonchiffon" align="center" colspan="2" port=""><font color="black">Additional Properties</font></td></tr>
+<tr><td align="left" port="mustBe">Must Be: </td>Must Be: <td bgcolor="grey" align="right">{properties: {incomeType: {...</td></tr>
+</table>
+>
+]
+"#/definitions/{expenseFlows}" [
+label =<
+<table border="0" cellborder="0" cellpadding="1" bgcolor="white">
+<tr><td bgcolor="wheat" align="center" colspan="2" port="@path"><font color="black">#/definitions/{expenseFlows}</font></td></tr>
+
+
+<tr><td bgcolor="lemonchiffon" align="center" colspan="2" port=""><font color="black">Additional Properties</font></td></tr>
+<tr><td align="left" port="mustBe">Must Be: </td>Must Be: <td bgcolor="grey" align="right">{properties: {expenseType: ...</td></tr>
+</table>
+>
+]
+"#/definitions/quantityBin":"@data" -> "#/definitions/point":"@path";
+"#/definitions/quantityBin":"@interpolationType" -> "#/definitions/interpolationType":"@path";
+"#/definitions/instrumentPartitions":"@allocationPartition" -> "#/definitions/allocationPartition":"@path";
+"#/definitions/instrumentPartitions":"@capitalizationPartition" -> "#/definitions/capitalizationPartition":"@path";
+"#/definitions/instrumentPartitions":"@investmentStylePartition" -> "#/definitions/investmentStylePartition":"@path";
+"#/definitions/partitionMapping":"@partitionMap" -> "#/definitions/{double}":"@path";
+"#/definitions/cFlowSequenceSpec":"@growth" -> "#/definitions/rateCurve":"@path";
+"#/definitions/cFlowSequenceSpec":"@paymentFrequency" -> "#/definitions/paymentFrequency":"@path";
+"#/definitions/incomeStatement":"@expenses" -> "#/definitions/{iEItem}":"@path";
+"#/definitions/incomeStatement":"@incomes" -> "#/definitions/{iEItem}":"@path";
+"#/definitions/{iEItem}":"mustBe" -> "#/definitions/iEItem":"@path";
+"#/definitions/iEItem":"@details" -> "#/definitions/timeSeries":"@path";
+"#/definitions/iEItem":"@itemSource" -> "#/definitions/itemSource":"@path";
+"#/definitions/flowSpec":"@cFlowSequenceSpec" -> "#/definitions/cFlowSequenceSpec":"@path";
+"#/definitions/incomeSpec":"@flowSpec" -> "#/definitions/flowSpec":"@path";
+"#/definitions/incomeSpec":"@incomeType" -> "#/definitions/incomeType":"@path";
+"#/definitions/expenseSpec":"@expenseType" -> "#/definitions/expenseType":"@path";
+"#/definitions/expenseSpec":"@flowSpec" -> "#/definitions/flowSpec":"@path";
+"#/definitions/flowModel":"@expenseModel" -> "#/definitions/{expenseSpec}":"@path";
+"#/definitions/flowModel":"@incomeModel" -> "#/definitions/{incomeSpec}":"@path";
+"#/definitions/{incomeSpec}":"mustBe" -> "#/definitions/incomeSpec":"@path";
+"#/definitions/{expenseSpec}":"mustBe" -> "#/definitions/expenseSpec":"@path";
+"#/definitions/incomeFlows":"@incomeType" -> "#/definitions/incomeType":"@path";
+"#/definitions/incomeFlows":"@timeSeries" -> "#/definitions/timeSeries":"@path";
+"#/definitions/expenseFlows":"@expenseType" -> "#/definitions/expenseType":"@path";
+"#/definitions/expenseFlows":"@timeSeries" -> "#/definitions/timeSeries":"@path";
+"#/definitions/realizedFlows":"@expenseFlows" -> "#/definitions/{expenseFlows}":"@path";
+"#/definitions/realizedFlows":"@incomeFlows" -> "#/definitions/{incomeFlows}":"@path";
+"#/definitions/{incomeFlows}":"mustBe" -> "#/definitions/incomeFlows":"@path";
+"#/definitions/{expenseFlows}":"mustBe" -> "#/definitions/expenseFlows":"@path";
+
+
+}
+  

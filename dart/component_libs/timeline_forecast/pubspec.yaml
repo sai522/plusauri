@@ -10,7 +10,7 @@ dependencies:
   polymer: ">=0.15.0"
   
   plus:
-    path: /home/dbdavidson/dev/open_source/plusauri/dart/plus
+    path: ../../plus
     
   tooltip:
     path: /home/dbdavidson/dev/open_source/tooltip

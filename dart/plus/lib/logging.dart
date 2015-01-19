@@ -28,3 +28,4 @@ plusLogAlways(Logger logger, makeMessage) {
 
 // custom <library logging>
 // end <library logging>
+

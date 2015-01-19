@@ -9,7 +9,9 @@ import 'package:quiver/core.dart';
 // end <additional imports>
 
 class YearRange {
-  YearRange(this._start, this._end) { _init(); }
+  YearRange(this._start, this._end) {
+    _init();
+  }
 
   int get start => _start;
   int get end => _end;
@@ -31,8 +33,7 @@ class YearRange {
   final int _end;
 }
 
-class DateRange
-  implements Comparable<DateRange> {
+class DateRange implements Comparable<DateRange> {
   DateRange(this._start, this._end) {
     // custom <DateRange>
     if (_start >
@@ -41,17 +42,15 @@ class DateRange
     // end <DateRange>
   }
 
-  bool operator==(DateRange other) =>
-    identical(this, other) ||
-    _start == other._start &&
-    _end == other._end;
+  bool operator ==(DateRange other) =>
+      identical(this, other) || _start == other._start && _end == other._end;
 
   int get hashCode => hash2(_start, _end);
 
   int compareTo(DateRange other) {
     int result = 0;
     ((result = _start.compareTo(other._start)) == 0) &&
-    ((result = _end.compareTo(other._end)) == 0);
+        ((result = _end.compareTo(other._end)) == 0);
     return result;
   }
 
@@ -76,53 +75,51 @@ class DateRange
   // end <class DateRange>
 
   Map toJson() => {
-      "start": ebisu_utils.toJson(start),
-      "end": ebisu_utils.toJson(end),
+    "start": ebisu_utils.toJson(start),
+    "end": ebisu_utils.toJson(end),
   };
 
   static DateRange fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new DateRange._fromJsonMapImpl(json);
   }
 
-  DateRange._fromJsonMapImpl(Map jsonMap) :
-    _start = Date.fromJson(jsonMap["start"]),
-    _end = Date.fromJson(jsonMap["end"]);
+  DateRange._fromJsonMapImpl(Map jsonMap)
+      : _start = Date.fromJson(jsonMap["start"]),
+        _end = Date.fromJson(jsonMap["end"]);
 
-  DateRange._copy(DateRange other) :
-    _start = other._start,
-    _end = other._end;
+  DateRange._copy(DateRange other)
+      : _start = other._start,
+        _end = other._end;
 
   Date _start;
   Date _end;
 }
 
 /// Create a DateRange sans new, for more declarative construction
-DateRange
-dateRange([Date _start,
-  Date _end]) =>
-  new DateRange(_start,
-      _end);
+DateRange dateRange([Date _start, Date _end]) => new DateRange(_start, _end);
 
 class IntervalDateRange {
   const IntervalDateRange(this._start, this._end, this._frequency,
-    this._dateRanges);
+      this._dateRanges);
 
-  bool operator==(IntervalDateRange other) =>
-    identical(this, other) ||
-    _start == other._start &&
-    _end == other._end &&
-    _frequency == other._frequency &&
-    const ListEquality().equals(_dateRanges, other._dateRanges);
+  bool operator ==(IntervalDateRange other) =>
+      identical(this, other) ||
+          _start == other._start &&
+              _end == other._end &&
+              _frequency == other._frequency &&
+              const ListEquality().equals(_dateRanges, other._dateRanges);
 
-  int get hashCode => hash4(_start,
-    _end,
-    _frequency,
-    const ListEquality<DateRange>().hash(_dateRanges));
+  int get hashCode =>
+      hash4(
+          _start,
+          _end,
+          _frequency,
+          const ListEquality<DateRange>().hash(_dateRanges));
 
   copy() => new IntervalDateRange._copy(this);
   Date get start => _start;
@@ -157,13 +154,13 @@ dateRanges:\n\t${_dateRanges.join('\n\t')}
   get numIntervals => _dateRanges.length;
 
   // end <class IntervalDateRange>
-  IntervalDateRange._copy(IntervalDateRange other) :
-    _start = other._start,
-    _end = other._end,
-    _frequency = other._frequency == null? null : other._frequency.copy(),
-    _dateRanges = other._dateRanges == null? null :
-      (new List.from(other._dateRanges.map((e) =>
-        e == null? null : e.copy())));
+  IntervalDateRange._copy(IntervalDateRange other)
+      : _start = other._start,
+        _end = other._end,
+        _frequency = other._frequency == null ? null : other._frequency.copy(),
+        _dateRanges = other._dateRanges == null ?
+          null :
+          (new List.from(other._dateRanges.map((e) => e == null ? null : e.copy())));
 
   final Date _start;
   final Date _end;
@@ -213,3 +210,4 @@ void visitDateRange(DateRange dateRange, DateRangeVisitor visitor,
 }
 
 // end <library date_range>
+

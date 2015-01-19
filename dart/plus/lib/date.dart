@@ -12,12 +12,7 @@ class Frequency implements Comparable<Frequency> {
   static const SEMIANNUAL = const Frequency._(2);
   static const ANNUAL = const Frequency._(3);
 
-  static get values => [
-    ONCE,
-    MONTHLY,
-    SEMIANNUAL,
-    ANNUAL
-  ];
+  static get values => [ONCE, MONTHLY, SEMIANNUAL, ANNUAL];
 
   final int value;
 
@@ -30,29 +25,38 @@ class Frequency implements Comparable<Frequency> {
   int compareTo(Frequency other) => value.compareTo(other.value);
 
   String toString() {
-    switch(this) {
-      case ONCE: return "Once";
-      case MONTHLY: return "Monthly";
-      case SEMIANNUAL: return "Semiannual";
-      case ANNUAL: return "Annual";
+    switch (this) {
+      case ONCE:
+        return "Once";
+      case MONTHLY:
+        return "Monthly";
+      case SEMIANNUAL:
+        return "Semiannual";
+      case ANNUAL:
+        return "Annual";
     }
     return null;
   }
 
   static Frequency fromString(String s) {
-    if(s == null) return null;
-    switch(s) {
-      case "Once": return ONCE;
-      case "Monthly": return MONTHLY;
-      case "Semiannual": return SEMIANNUAL;
-      case "Annual": return ANNUAL;
-      default: return null;
+    if (s == null) return null;
+    switch (s) {
+      case "Once":
+        return ONCE;
+      case "Monthly":
+        return MONTHLY;
+      case "Semiannual":
+        return SEMIANNUAL;
+      case "Annual":
+        return ANNUAL;
+      default:
+        return null;
     }
   }
 
   int toJson() => value;
   static Frequency fromJson(int v) {
-    return v==null? null : values[v];
+    return v == null ? null : values[v];
   }
 
 }
@@ -62,16 +66,13 @@ const MONTHLY = Frequency.MONTHLY;
 const SEMIANNUAL = Frequency.SEMIANNUAL;
 const ANNUAL = Frequency.ANNUAL;
 
-class Date
-  implements Comparable<Date> {
-  bool operator==(Date other) =>
-    identical(this, other) ||
-    _dateTime == other._dateTime;
+class Date implements Comparable<Date> {
+  bool operator ==(Date other) =>
+      identical(this, other) || _dateTime == other._dateTime;
 
   int get hashCode => _dateTime.hashCode;
 
-  int compareTo(Date other) =>
-    _dateTime.compareTo(other._dateTime);
+  int compareTo(Date other) => _dateTime.compareTo(other._dateTime);
 
   DateTime get dateTime => _dateTime;
   // custom <class Date>
@@ -191,3 +192,4 @@ Date advanceDate(Frequency frequency, Date date, [int desiredDay]) {
 }
 
 // end <library date>
+

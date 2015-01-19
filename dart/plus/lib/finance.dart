@@ -26,11 +26,7 @@ class CapitalizationType implements Comparable<CapitalizationType> {
   static const MID_CAP = const CapitalizationType._(1);
   static const LARGE_CAP = const CapitalizationType._(2);
 
-  static get values => [
-    SMALL_CAP,
-    MID_CAP,
-    LARGE_CAP
-  ];
+  static get values => [SMALL_CAP, MID_CAP, LARGE_CAP];
 
   final int value;
 
@@ -43,27 +39,34 @@ class CapitalizationType implements Comparable<CapitalizationType> {
   int compareTo(CapitalizationType other) => value.compareTo(other.value);
 
   String toString() {
-    switch(this) {
-      case SMALL_CAP: return "SmallCap";
-      case MID_CAP: return "MidCap";
-      case LARGE_CAP: return "LargeCap";
+    switch (this) {
+      case SMALL_CAP:
+        return "SmallCap";
+      case MID_CAP:
+        return "MidCap";
+      case LARGE_CAP:
+        return "LargeCap";
     }
     return null;
   }
 
   static CapitalizationType fromString(String s) {
-    if(s == null) return null;
-    switch(s) {
-      case "SmallCap": return SMALL_CAP;
-      case "MidCap": return MID_CAP;
-      case "LargeCap": return LARGE_CAP;
-      default: return null;
+    if (s == null) return null;
+    switch (s) {
+      case "SmallCap":
+        return SMALL_CAP;
+      case "MidCap":
+        return MID_CAP;
+      case "LargeCap":
+        return LARGE_CAP;
+      default:
+        return null;
     }
   }
 
   int toJson() => value;
   static CapitalizationType fromJson(int v) {
-    return v==null? null : values[v];
+    return v == null ? null : values[v];
   }
 
 }
@@ -78,11 +81,7 @@ class InvestmentStyle implements Comparable<InvestmentStyle> {
   static const BLEND_INVESTMENT = const InvestmentStyle._(1);
   static const GROWTH_INVESTMENT = const InvestmentStyle._(2);
 
-  static get values => [
-    VALUE_INVESTMENT,
-    BLEND_INVESTMENT,
-    GROWTH_INVESTMENT
-  ];
+  static get values => [VALUE_INVESTMENT, BLEND_INVESTMENT, GROWTH_INVESTMENT];
 
   final int value;
 
@@ -95,27 +94,34 @@ class InvestmentStyle implements Comparable<InvestmentStyle> {
   int compareTo(InvestmentStyle other) => value.compareTo(other.value);
 
   String toString() {
-    switch(this) {
-      case VALUE_INVESTMENT: return "ValueInvestment";
-      case BLEND_INVESTMENT: return "BlendInvestment";
-      case GROWTH_INVESTMENT: return "GrowthInvestment";
+    switch (this) {
+      case VALUE_INVESTMENT:
+        return "ValueInvestment";
+      case BLEND_INVESTMENT:
+        return "BlendInvestment";
+      case GROWTH_INVESTMENT:
+        return "GrowthInvestment";
     }
     return null;
   }
 
   static InvestmentStyle fromString(String s) {
-    if(s == null) return null;
-    switch(s) {
-      case "ValueInvestment": return VALUE_INVESTMENT;
-      case "BlendInvestment": return BLEND_INVESTMENT;
-      case "GrowthInvestment": return GROWTH_INVESTMENT;
-      default: return null;
+    if (s == null) return null;
+    switch (s) {
+      case "ValueInvestment":
+        return VALUE_INVESTMENT;
+      case "BlendInvestment":
+        return BLEND_INVESTMENT;
+      case "GrowthInvestment":
+        return GROWTH_INVESTMENT;
+      default:
+        return null;
     }
   }
 
   int toJson() => value;
   static InvestmentStyle fromJson(int v) {
-    return v==null? null : values[v];
+    return v == null ? null : values[v];
   }
 
 }
@@ -131,12 +137,8 @@ class AllocationType implements Comparable<AllocationType> {
   static const CASH_ALLOCATION = const AllocationType._(2);
   static const OTHER = const AllocationType._(3);
 
-  static get values => [
-    STOCK_ALLOCATION,
-    BOND_ALLOCATION,
-    CASH_ALLOCATION,
-    OTHER
-  ];
+  static get values =>
+      [STOCK_ALLOCATION, BOND_ALLOCATION, CASH_ALLOCATION, OTHER];
 
   final int value;
 
@@ -149,29 +151,38 @@ class AllocationType implements Comparable<AllocationType> {
   int compareTo(AllocationType other) => value.compareTo(other.value);
 
   String toString() {
-    switch(this) {
-      case STOCK_ALLOCATION: return "StockAllocation";
-      case BOND_ALLOCATION: return "BondAllocation";
-      case CASH_ALLOCATION: return "CashAllocation";
-      case OTHER: return "Other";
+    switch (this) {
+      case STOCK_ALLOCATION:
+        return "StockAllocation";
+      case BOND_ALLOCATION:
+        return "BondAllocation";
+      case CASH_ALLOCATION:
+        return "CashAllocation";
+      case OTHER:
+        return "Other";
     }
     return null;
   }
 
   static AllocationType fromString(String s) {
-    if(s == null) return null;
-    switch(s) {
-      case "StockAllocation": return STOCK_ALLOCATION;
-      case "BondAllocation": return BOND_ALLOCATION;
-      case "CashAllocation": return CASH_ALLOCATION;
-      case "Other": return OTHER;
-      default: return null;
+    if (s == null) return null;
+    switch (s) {
+      case "StockAllocation":
+        return STOCK_ALLOCATION;
+      case "BondAllocation":
+        return BOND_ALLOCATION;
+      case "CashAllocation":
+        return CASH_ALLOCATION;
+      case "Other":
+        return OTHER;
+      default:
+        return null;
     }
   }
 
   int toJson() => value;
   static AllocationType fromJson(int v) {
-    return v==null? null : values[v];
+    return v == null ? null : values[v];
   }
 
 }
@@ -184,3 +195,4 @@ const OTHER = AllocationType.OTHER;
 // custom <library finance>
 
 // end <library finance>
+

@@ -7,21 +7,18 @@ import 'package:quiver/core.dart';
 // custom <additional imports>
 // end <additional imports>
 
-class DateValue
-  implements Comparable<DateValue> {
+class DateValue implements Comparable<DateValue> {
   DateValue(this.date, this.value);
 
-  bool operator==(DateValue other) =>
-    identical(this, other) ||
-    date == other.date &&
-    value == other.value;
+  bool operator ==(DateValue other) =>
+      identical(this, other) || date == other.date && value == other.value;
 
   int get hashCode => hash2(date, value);
 
   int compareTo(DateValue other) {
     int result = 0;
     ((result = date.compareTo(other.date)) == 0) &&
-    ((result = value.compareTo(other.value)) == 0);
+        ((result = value.compareTo(other.value)) == 0);
     return result;
   }
 
@@ -54,18 +51,14 @@ class DateValue
   toString() => '($date, $value)';
 
   // end <class DateValue>
-  DateValue._copy(DateValue other) :
-    date = other.date,
-    value = other.value;
+  DateValue._copy(DateValue other)
+      : date = other.date,
+        value = other.value;
 
 }
 
 /// Create a DateValue sans new, for more declarative construction
-DateValue
-dateValue([Date date,
-  num value]) =>
-  new DateValue(date,
-      value);
+DateValue dateValue([Date date, num value]) => new DateValue(date, value);
 
 // custom <library date_value>
 
@@ -98,3 +91,4 @@ int firstOnOrBefore(List<DateValue> list, Date date, [int startIndex = 0]) {
 }
 
 // end <library date_value>
+

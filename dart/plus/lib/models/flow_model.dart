@@ -24,11 +24,11 @@ final _logger = new Logger('flow_model');
 class FlowSpec {
   const FlowSpec(this.descr, this.source, this.cFlowSequenceSpec);
 
-  bool operator==(FlowSpec other) =>
-    identical(this, other) ||
-    descr == other.descr &&
-    source == other.source &&
-    cFlowSequenceSpec == other.cFlowSequenceSpec;
+  bool operator ==(FlowSpec other) =>
+      identical(this, other) ||
+          descr == other.descr &&
+              source == other.source &&
+              cFlowSequenceSpec == other.cFlowSequenceSpec;
 
   int get hashCode => hash3(descr, source, cFlowSequenceSpec);
 
@@ -49,39 +49,40 @@ class FlowSpec {
 
 
   Map toJson() => {
-      "descr": ebisu_utils.toJson(descr),
-      "source": ebisu_utils.toJson(source),
-      "cFlowSequenceSpec": ebisu_utils.toJson(cFlowSequenceSpec),
+    "descr": ebisu_utils.toJson(descr),
+    "source": ebisu_utils.toJson(source),
+    "cFlowSequenceSpec": ebisu_utils.toJson(cFlowSequenceSpec),
   };
 
   static FlowSpec fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new FlowSpec._fromJsonMapImpl(json);
   }
 
-  FlowSpec._fromJsonMapImpl(Map jsonMap) :
-    descr = jsonMap["descr"],
-    source = jsonMap["source"],
-    cFlowSequenceSpec = CFlowSequenceSpec.fromJson(jsonMap["cFlowSequenceSpec"]);
+  FlowSpec._fromJsonMapImpl(Map jsonMap)
+      : descr = jsonMap["descr"],
+        source = jsonMap["source"],
+        cFlowSequenceSpec = CFlowSequenceSpec.fromJson(
+          jsonMap["cFlowSequenceSpec"]);
 
-  FlowSpec._copy(FlowSpec other) :
-    descr = other.descr,
-    source = other.source,
-    cFlowSequenceSpec = other.cFlowSequenceSpec == null? null : other.cFlowSequenceSpec.copy();
+  FlowSpec._copy(FlowSpec other)
+      : descr = other.descr,
+        source = other.source,
+        cFlowSequenceSpec = other.cFlowSequenceSpec == null ?
+          null :
+          other.cFlowSequenceSpec.copy();
 
 }
 
 class FlowKey {
   const FlowKey(this.name, this.isIncome);
 
-  bool operator==(FlowKey other) =>
-    identical(this, other) ||
-    name == other.name &&
-    isIncome == other.isIncome;
+  bool operator ==(FlowKey other) =>
+      identical(this, other) || name == other.name && isIncome == other.isIncome;
 
   int get hashCode => hash2(name, isIncome);
 
@@ -95,26 +96,26 @@ class FlowKey {
 
 
   Map toJson() => {
-      "name": ebisu_utils.toJson(name),
-      "isIncome": ebisu_utils.toJson(isIncome),
+    "name": ebisu_utils.toJson(name),
+    "isIncome": ebisu_utils.toJson(isIncome),
   };
 
   static FlowKey fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new FlowKey._fromJsonMapImpl(json);
   }
 
-  FlowKey._fromJsonMapImpl(Map jsonMap) :
-    name = jsonMap["name"],
-    isIncome = jsonMap["isIncome"];
+  FlowKey._fromJsonMapImpl(Map jsonMap)
+      : name = jsonMap["name"],
+        isIncome = jsonMap["isIncome"];
 
-  FlowKey._copy(FlowKey other) :
-    name = other.name,
-    isIncome = other.isIncome;
+  FlowKey._copy(FlowKey other)
+      : name = other.name,
+        isIncome = other.isIncome;
 
 }
 
@@ -122,14 +123,12 @@ class FlowKey {
 class FlowTypeKey {
   FlowTypeKey();
 
-  bool operator==(FlowTypeKey other) =>
-    identical(this, other) ||
-    flowType == other.flowType;
+  bool operator ==(FlowTypeKey other) =>
+      identical(this, other) || flowType == other.flowType;
 
   int get hashCode => flowType.hashCode;
 
-  copy() => new FlowTypeKey()
-    ..flowType = flowType;
+  copy() => new FlowTypeKey()..flowType = flowType;
 
   String flowType;
   // custom <class FlowTypeKey>
@@ -139,17 +138,16 @@ class FlowTypeKey {
 
 
   Map toJson() => {
-      "flowType": ebisu_utils.toJson(flowType),
+    "flowType": ebisu_utils.toJson(flowType),
   };
 
   static FlowTypeKey fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
-    return new FlowTypeKey()
-      .._fromJsonMapImpl(json);
+    return new FlowTypeKey().._fromJsonMapImpl(json);
   }
 
   void _fromJsonMapImpl(Map jsonMap) {
@@ -158,17 +156,14 @@ class FlowTypeKey {
 }
 
 /// Create a FlowTypeKey sans new, for more declarative construction
-FlowTypeKey
-flowTypeKey() =>
-  new FlowTypeKey();
+FlowTypeKey flowTypeKey() => new FlowTypeKey();
 
 class IncomeSpec {
   const IncomeSpec(this.incomeType, this.flowSpec);
 
-  bool operator==(IncomeSpec other) =>
-    identical(this, other) ||
-    incomeType == other.incomeType &&
-    flowSpec == other.flowSpec;
+  bool operator ==(IncomeSpec other) =>
+      identical(this, other) ||
+          incomeType == other.incomeType && flowSpec == other.flowSpec;
 
   int get hashCode => hash2(incomeType, flowSpec);
 
@@ -189,36 +184,35 @@ class IncomeSpec {
 
 
   Map toJson() => {
-      "incomeType": ebisu_utils.toJson(incomeType),
-      "flowSpec": ebisu_utils.toJson(flowSpec),
+    "incomeType": ebisu_utils.toJson(incomeType),
+    "flowSpec": ebisu_utils.toJson(flowSpec),
   };
 
   static IncomeSpec fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new IncomeSpec._fromJsonMapImpl(json);
   }
 
-  IncomeSpec._fromJsonMapImpl(Map jsonMap) :
-    incomeType = IncomeType.fromJson(jsonMap["incomeType"]),
-    flowSpec = FlowSpec.fromJson(jsonMap["flowSpec"]);
+  IncomeSpec._fromJsonMapImpl(Map jsonMap)
+      : incomeType = IncomeType.fromJson(jsonMap["incomeType"]),
+        flowSpec = FlowSpec.fromJson(jsonMap["flowSpec"]);
 
-  IncomeSpec._copy(IncomeSpec other) :
-    incomeType = other.incomeType == null? null : other.incomeType.copy(),
-    flowSpec = other.flowSpec == null? null : other.flowSpec.copy();
+  IncomeSpec._copy(IncomeSpec other)
+      : incomeType = other.incomeType == null ? null : other.incomeType.copy(),
+        flowSpec = other.flowSpec == null ? null : other.flowSpec.copy();
 
 }
 
 class ExpenseSpec {
   const ExpenseSpec(this.expenseType, this.flowSpec);
 
-  bool operator==(ExpenseSpec other) =>
-    identical(this, other) ||
-    expenseType == other.expenseType &&
-    flowSpec == other.flowSpec;
+  bool operator ==(ExpenseSpec other) =>
+      identical(this, other) ||
+          expenseType == other.expenseType && flowSpec == other.flowSpec;
 
   int get hashCode => hash2(expenseType, flowSpec);
 
@@ -239,42 +233,47 @@ class ExpenseSpec {
 
 
   Map toJson() => {
-      "expenseType": ebisu_utils.toJson(expenseType),
-      "flowSpec": ebisu_utils.toJson(flowSpec),
+    "expenseType": ebisu_utils.toJson(expenseType),
+    "flowSpec": ebisu_utils.toJson(flowSpec),
   };
 
   static ExpenseSpec fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new ExpenseSpec._fromJsonMapImpl(json);
   }
 
-  ExpenseSpec._fromJsonMapImpl(Map jsonMap) :
-    expenseType = ExpenseType.fromJson(jsonMap["expenseType"]),
-    flowSpec = FlowSpec.fromJson(jsonMap["flowSpec"]);
+  ExpenseSpec._fromJsonMapImpl(Map jsonMap)
+      : expenseType = ExpenseType.fromJson(jsonMap["expenseType"]),
+        flowSpec = FlowSpec.fromJson(jsonMap["flowSpec"]);
 
-  ExpenseSpec._copy(ExpenseSpec other) :
-    expenseType = other.expenseType == null? null : other.expenseType.copy(),
-    flowSpec = other.flowSpec == null? null : other.flowSpec.copy();
+  ExpenseSpec._copy(ExpenseSpec other)
+      : expenseType = other.expenseType == null ?
+          null :
+          other.expenseType.copy(),
+        flowSpec = other.flowSpec == null ? null : other.flowSpec.copy();
 
 }
 
 class FlowModel {
   FlowModel(this.incomeModel, this.expenseModel);
 
-  bool operator==(FlowModel other) =>
-    identical(this, other) ||
-    const MapEquality().equals(incomeModel, other.incomeModel) &&
-    const MapEquality().equals(expenseModel, other.expenseModel);
+  bool operator ==(FlowModel other) =>
+      identical(this, other) ||
+          const MapEquality().equals(incomeModel, other.incomeModel) &&
+              const MapEquality().equals(expenseModel, other.expenseModel);
 
-  int get hashCode => hash2(const MapEquality().hash(incomeModel), const MapEquality().hash(expenseModel));
+  int get hashCode =>
+      hash2(
+          const MapEquality().hash(incomeModel),
+          const MapEquality().hash(expenseModel));
 
   copy() => new FlowModel._copy(this);
-  final Map<String,IncomeSpec> incomeModel;
-  final Map<String,ExpenseSpec> expenseModel;
+  final Map<String, IncomeSpec> incomeModel;
+  final Map<String, ExpenseSpec> expenseModel;
   // custom <class FlowModel>
 
   RealizedFlows expand(DateRange dateRange) =>
@@ -304,42 +303,42 @@ class FlowModel {
 
 
   Map toJson() => {
-      "incomeModel": ebisu_utils.toJson(incomeModel),
-      "expenseModel": ebisu_utils.toJson(expenseModel),
+    "incomeModel": ebisu_utils.toJson(incomeModel),
+    "expenseModel": ebisu_utils.toJson(expenseModel),
   };
 
   static FlowModel fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new FlowModel._fromJsonMapImpl(json);
   }
 
-  FlowModel._fromJsonMapImpl(Map jsonMap) :
-    // incomeModel is Map<String,IncomeSpec>
-    incomeModel = ebisu_utils
-      .constructMapFromJsonData(
-        jsonMap["incomeModel"],
-        (value) => IncomeSpec.fromJson(value)),
-    // expenseModel is Map<String,ExpenseSpec>
-    expenseModel = ebisu_utils
-      .constructMapFromJsonData(
-        jsonMap["expenseModel"],
-        (value) => ExpenseSpec.fromJson(value));
+  FlowModel._fromJsonMapImpl(Map jsonMap)
+      : // incomeModel is Map<String,IncomeSpec>
+      incomeModel = ebisu_utils.constructMapFromJsonData(
+          jsonMap["incomeModel"],
+          (value) => IncomeSpec.fromJson(value)),
+        // expenseModel is Map<String,ExpenseSpec>
+      expenseModel = ebisu_utils.constructMapFromJsonData(
+          jsonMap["expenseModel"],
+          (value) => ExpenseSpec.fromJson(value));
 
-  FlowModel._copy(FlowModel other) :
-    incomeModel = valueApply(other.incomeModel, (v) =>
-      v == null? null : v.copy()),
-    expenseModel = valueApply(other.expenseModel, (v) =>
-      v == null? null : v.copy()),
-    _incomeKeys = other._incomeKeys == null? null :
-      (new List.from(other._incomeKeys.map((e) =>
-        e == null? null : e.copy()))),
-    _expenseKeys = other._expenseKeys == null? null :
-      (new List.from(other._expenseKeys.map((e) =>
-        e == null? null : e.copy())));
+  FlowModel._copy(FlowModel other)
+      : incomeModel = valueApply(
+          other.incomeModel,
+          (v) => v == null ? null : v.copy()),
+        expenseModel = valueApply(
+          other.expenseModel,
+          (v) => v == null ? null : v.copy()),
+        _incomeKeys = other._incomeKeys == null ?
+          null :
+          (new List.from(other._incomeKeys.map((e) => e == null ? null : e.copy()))),
+        _expenseKeys = other._expenseKeys == null ?
+          null :
+          (new List.from(other._expenseKeys.map((e) => e == null ? null : e.copy())));
 
   List<FlowKey> _incomeKeys;
   List<FlowKey> _expenseKeys;
@@ -348,10 +347,9 @@ class FlowModel {
 class IncomeFlows {
   const IncomeFlows(this.incomeType, this.timeSeries);
 
-  bool operator==(IncomeFlows other) =>
-    identical(this, other) ||
-    incomeType == other.incomeType &&
-    timeSeries == other.timeSeries;
+  bool operator ==(IncomeFlows other) =>
+      identical(this, other) ||
+          incomeType == other.incomeType && timeSeries == other.timeSeries;
 
   int get hashCode => hash2(incomeType, timeSeries);
 
@@ -375,36 +373,35 @@ class IncomeFlows {
 
 
   Map toJson() => {
-      "incomeType": ebisu_utils.toJson(incomeType),
-      "timeSeries": ebisu_utils.toJson(timeSeries),
+    "incomeType": ebisu_utils.toJson(incomeType),
+    "timeSeries": ebisu_utils.toJson(timeSeries),
   };
 
   static IncomeFlows fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new IncomeFlows._fromJsonMapImpl(json);
   }
 
-  IncomeFlows._fromJsonMapImpl(Map jsonMap) :
-    incomeType = IncomeType.fromJson(jsonMap["incomeType"]),
-    timeSeries = TimeSeries.fromJson(jsonMap["timeSeries"]);
+  IncomeFlows._fromJsonMapImpl(Map jsonMap)
+      : incomeType = IncomeType.fromJson(jsonMap["incomeType"]),
+        timeSeries = TimeSeries.fromJson(jsonMap["timeSeries"]);
 
-  IncomeFlows._copy(IncomeFlows other) :
-    incomeType = other.incomeType == null? null : other.incomeType.copy(),
-    timeSeries = other.timeSeries == null? null : other.timeSeries.copy();
+  IncomeFlows._copy(IncomeFlows other)
+      : incomeType = other.incomeType == null ? null : other.incomeType.copy(),
+        timeSeries = other.timeSeries == null ? null : other.timeSeries.copy();
 
 }
 
 class ExpenseFlows {
   const ExpenseFlows(this.expenseType, this.timeSeries);
 
-  bool operator==(ExpenseFlows other) =>
-    identical(this, other) ||
-    expenseType == other.expenseType &&
-    timeSeries == other.timeSeries;
+  bool operator ==(ExpenseFlows other) =>
+      identical(this, other) ||
+          expenseType == other.expenseType && timeSeries == other.timeSeries;
 
   int get hashCode => hash2(expenseType, timeSeries);
 
@@ -428,42 +425,47 @@ class ExpenseFlows {
 
 
   Map toJson() => {
-      "expenseType": ebisu_utils.toJson(expenseType),
-      "timeSeries": ebisu_utils.toJson(timeSeries),
+    "expenseType": ebisu_utils.toJson(expenseType),
+    "timeSeries": ebisu_utils.toJson(timeSeries),
   };
 
   static ExpenseFlows fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new ExpenseFlows._fromJsonMapImpl(json);
   }
 
-  ExpenseFlows._fromJsonMapImpl(Map jsonMap) :
-    expenseType = ExpenseType.fromJson(jsonMap["expenseType"]),
-    timeSeries = TimeSeries.fromJson(jsonMap["timeSeries"]);
+  ExpenseFlows._fromJsonMapImpl(Map jsonMap)
+      : expenseType = ExpenseType.fromJson(jsonMap["expenseType"]),
+        timeSeries = TimeSeries.fromJson(jsonMap["timeSeries"]);
 
-  ExpenseFlows._copy(ExpenseFlows other) :
-    expenseType = other.expenseType == null? null : other.expenseType.copy(),
-    timeSeries = other.timeSeries == null? null : other.timeSeries.copy();
+  ExpenseFlows._copy(ExpenseFlows other)
+      : expenseType = other.expenseType == null ?
+          null :
+          other.expenseType.copy(),
+        timeSeries = other.timeSeries == null ? null : other.timeSeries.copy();
 
 }
 
 class RealizedFlows {
   const RealizedFlows(this.incomeFlows, this.expenseFlows);
 
-  bool operator==(RealizedFlows other) =>
-    identical(this, other) ||
-    const MapEquality().equals(incomeFlows, other.incomeFlows) &&
-    const MapEquality().equals(expenseFlows, other.expenseFlows);
+  bool operator ==(RealizedFlows other) =>
+      identical(this, other) ||
+          const MapEquality().equals(incomeFlows, other.incomeFlows) &&
+              const MapEquality().equals(expenseFlows, other.expenseFlows);
 
-  int get hashCode => hash2(const MapEquality().hash(incomeFlows), const MapEquality().hash(expenseFlows));
+  int get hashCode =>
+      hash2(
+          const MapEquality().hash(incomeFlows),
+          const MapEquality().hash(expenseFlows));
 
   copy() => new RealizedFlows._copy(this);
-  final Map<String,IncomeFlows> incomeFlows;
-  final Map<String,ExpenseFlows> expenseFlows;
+  final Map<String, IncomeFlows> incomeFlows;
+  final Map<String, ExpenseFlows> expenseFlows;
   // custom <class RealizedFlows>
 
   RealizedFlows.courtesy(this.incomeFlows, this.expenseFlows);
@@ -510,39 +512,40 @@ class RealizedFlows {
   // end <class RealizedFlows>
 
   Map toJson() => {
-      "incomeFlows": ebisu_utils.toJson(incomeFlows),
-      "expenseFlows": ebisu_utils.toJson(expenseFlows),
+    "incomeFlows": ebisu_utils.toJson(incomeFlows),
+    "expenseFlows": ebisu_utils.toJson(expenseFlows),
   };
 
   static RealizedFlows fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new RealizedFlows._fromJsonMapImpl(json);
   }
 
-  RealizedFlows._fromJsonMapImpl(Map jsonMap) :
-    // incomeFlows is Map<String,IncomeFlows>
-    incomeFlows = ebisu_utils
-      .constructMapFromJsonData(
-        jsonMap["incomeFlows"],
-        (value) => IncomeFlows.fromJson(value)),
-    // expenseFlows is Map<String,ExpenseFlows>
-    expenseFlows = ebisu_utils
-      .constructMapFromJsonData(
-        jsonMap["expenseFlows"],
-        (value) => ExpenseFlows.fromJson(value));
+  RealizedFlows._fromJsonMapImpl(Map jsonMap)
+      : // incomeFlows is Map<String,IncomeFlows>
+      incomeFlows = ebisu_utils.constructMapFromJsonData(
+          jsonMap["incomeFlows"],
+          (value) => IncomeFlows.fromJson(value)),
+        // expenseFlows is Map<String,ExpenseFlows>
+      expenseFlows = ebisu_utils.constructMapFromJsonData(
+          jsonMap["expenseFlows"],
+          (value) => ExpenseFlows.fromJson(value));
 
-  RealizedFlows._copy(RealizedFlows other) :
-    incomeFlows = valueApply(other.incomeFlows, (v) =>
-      v == null? null : v.copy()),
-    expenseFlows = valueApply(other.expenseFlows, (v) =>
-      v == null? null : v.copy());
+  RealizedFlows._copy(RealizedFlows other)
+      : incomeFlows = valueApply(
+          other.incomeFlows,
+          (v) => v == null ? null : v.copy()),
+        expenseFlows = valueApply(
+          other.expenseFlows,
+          (v) => v == null ? null : v.copy());
 
 }
 
 Random _randomJsonGenerator = new Random(0);
 // custom <library flow_model>
 // end <library flow_model>
+

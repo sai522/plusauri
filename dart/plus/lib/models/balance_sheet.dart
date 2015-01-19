@@ -20,7 +20,7 @@ import 'package:plus/date_value.dart';
 
 final _logger = new Logger('balance_sheet');
 
-/// 
+///
 /// The holding for a given symbol (or a sythetic aggregate as in an account other_holdings).
 ///
 /// Both quantity and unitValue have dates associated with them. The marketValue of
@@ -28,19 +28,17 @@ final _logger = new Logger('balance_sheet');
 /// (most likely older) than the date associated with the BalanceSheet owning the
 /// holding.
 class Holding {
-  const Holding(this.holdingType, this.quantity, this.unitValue, this.costBasis);
+  const Holding(this.holdingType, this.quantity, this.unitValue,
+      this.costBasis);
 
-  bool operator==(Holding other) =>
-    identical(this, other) ||
-    holdingType == other.holdingType &&
-    quantity == other.quantity &&
-    unitValue == other.unitValue &&
-    costBasis == other.costBasis;
+  bool operator ==(Holding other) =>
+      identical(this, other) ||
+          holdingType == other.holdingType &&
+              quantity == other.quantity &&
+              unitValue == other.unitValue &&
+              costBasis == other.costBasis;
 
-  int get hashCode => hash4(holdingType,
-    quantity,
-    unitValue,
-    costBasis);
+  int get hashCode => hash4(holdingType, quantity, unitValue, costBasis);
 
   copy() => new Holding._copy(this);
   final HoldingType holdingType;
@@ -60,32 +58,34 @@ class Holding {
 
 
   Map toJson() => {
-      "holdingType": ebisu_utils.toJson(holdingType),
-      "quantity": ebisu_utils.toJson(quantity),
-      "unitValue": ebisu_utils.toJson(unitValue),
-      "costBasis": ebisu_utils.toJson(costBasis),
+    "holdingType": ebisu_utils.toJson(holdingType),
+    "quantity": ebisu_utils.toJson(quantity),
+    "unitValue": ebisu_utils.toJson(unitValue),
+    "costBasis": ebisu_utils.toJson(costBasis),
   };
 
   static Holding fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new Holding._fromJsonMapImpl(json);
   }
 
-  Holding._fromJsonMapImpl(Map jsonMap) :
-    holdingType = HoldingType.fromJson(jsonMap["holdingType"]),
-    quantity = DateValue.fromJson(jsonMap["quantity"]),
-    unitValue = DateValue.fromJson(jsonMap["unitValue"]),
-    costBasis = jsonMap["costBasis"];
+  Holding._fromJsonMapImpl(Map jsonMap)
+      : holdingType = HoldingType.fromJson(jsonMap["holdingType"]),
+        quantity = DateValue.fromJson(jsonMap["quantity"]),
+        unitValue = DateValue.fromJson(jsonMap["unitValue"]),
+        costBasis = jsonMap["costBasis"];
 
-  Holding._copy(Holding other) :
-    holdingType = other.holdingType == null? null : other.holdingType.copy(),
-    quantity = other.quantity == null? null : other.quantity.copy(),
-    unitValue = other.unitValue == null? null : other.unitValue.copy(),
-    costBasis = other.costBasis;
+  Holding._copy(Holding other)
+      : holdingType = other.holdingType == null ?
+          null :
+          other.holdingType.copy(),
+        quantity = other.quantity == null ? null : other.quantity.copy(),
+        unitValue = other.unitValue == null ? null : other.unitValue.copy(),
+        costBasis = other.costBasis;
 
 }
 
@@ -93,31 +93,34 @@ class Holding {
 ///
 class PortfolioAccount {
   const PortfolioAccount(this.accountType, this.descr, this.owner,
-    this.holdingMap, this.otherHoldings);
+      this.holdingMap, this.otherHoldings);
 
-  bool operator==(PortfolioAccount other) =>
-    identical(this, other) ||
-    accountType == other.accountType &&
-    descr == other.descr &&
-    owner == other.owner &&
-    const MapEquality().equals(holdingMap, other.holdingMap) &&
-    otherHoldings == other.otherHoldings;
+  bool operator ==(PortfolioAccount other) =>
+      identical(this, other) ||
+          accountType == other.accountType &&
+              descr == other.descr &&
+              owner == other.owner &&
+              const MapEquality().equals(holdingMap, other.holdingMap) &&
+              otherHoldings == other.otherHoldings;
 
-  int get hashCode => hashObjects([
-    accountType,
-    descr,
-    owner,
-    const MapEquality().hash(holdingMap),
-    otherHoldings]);
+  int get hashCode =>
+      hashObjects(
+          [
+              accountType,
+              descr,
+              owner,
+              const MapEquality().hash(holdingMap),
+              otherHoldings]);
 
   copy() => new PortfolioAccount._copy(this);
   final AccountType accountType;
   final String descr;
   final String owner;
-  final Map<String,Holding> holdingMap;
+  final Map<String, Holding> holdingMap;
   /// Market value of all account holdings not specified in the holding map.
   ///
-  /// This gives the ability to enter an account with a market value and specific tax
+
+      /// This gives the ability to enter an account with a market value and specific tax
   /// treatment without having to fully specify all holdings individually.
   final Holding otherHoldings;
   // custom <class PortfolioAccount>
@@ -172,40 +175,44 @@ class PortfolioAccount {
 
 
   Map toJson() => {
-      "accountType": ebisu_utils.toJson(accountType),
-      "descr": ebisu_utils.toJson(descr),
-      "owner": ebisu_utils.toJson(owner),
-      "holdingMap": ebisu_utils.toJson(holdingMap),
-      "otherHoldings": ebisu_utils.toJson(otherHoldings),
+    "accountType": ebisu_utils.toJson(accountType),
+    "descr": ebisu_utils.toJson(descr),
+    "owner": ebisu_utils.toJson(owner),
+    "holdingMap": ebisu_utils.toJson(holdingMap),
+    "otherHoldings": ebisu_utils.toJson(otherHoldings),
   };
 
   static PortfolioAccount fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new PortfolioAccount._fromJsonMapImpl(json);
   }
 
-  PortfolioAccount._fromJsonMapImpl(Map jsonMap) :
-    accountType = AccountType.fromJson(jsonMap["accountType"]),
-    descr = jsonMap["descr"],
-    owner = jsonMap["owner"],
-    // holdingMap is Map<String,Holding>
-    holdingMap = ebisu_utils
-      .constructMapFromJsonData(
-        jsonMap["holdingMap"],
-        (value) => Holding.fromJson(value)),
-    otherHoldings = Holding.fromJson(jsonMap["otherHoldings"]);
+  PortfolioAccount._fromJsonMapImpl(Map jsonMap)
+      : accountType = AccountType.fromJson(jsonMap["accountType"]),
+        descr = jsonMap["descr"],
+        owner = jsonMap["owner"],
+        // holdingMap is Map<String,Holding>
+      holdingMap = ebisu_utils.constructMapFromJsonData(
+          jsonMap["holdingMap"],
+          (value) => Holding.fromJson(value)),
+        otherHoldings = Holding.fromJson(jsonMap["otherHoldings"]);
 
-  PortfolioAccount._copy(PortfolioAccount other) :
-    accountType = other.accountType == null? null : other.accountType.copy(),
-    descr = other.descr,
-    owner = other.owner,
-    holdingMap = valueApply(other.holdingMap, (v) =>
-      v == null? null : v.copy()),
-    otherHoldings = other.otherHoldings == null? null : other.otherHoldings.copy();
+  PortfolioAccount._copy(PortfolioAccount other)
+      : accountType = other.accountType == null ?
+          null :
+          other.accountType.copy(),
+        descr = other.descr,
+        owner = other.owner,
+        holdingMap = valueApply(
+          other.holdingMap,
+          (v) => v == null ? null : v.copy()),
+        otherHoldings = other.otherHoldings == null ?
+          null :
+          other.otherHoldings.copy();
 
 }
 
@@ -215,57 +222,52 @@ class PortfolioAccountBuilder {
   AccountType accountType;
   String descr;
   String owner;
-  Map<String,Holding> holdingMap = {};
+  Map<String, Holding> holdingMap = {};
   Holding otherHoldings;
   // custom <class PortfolioAccountBuilder>
   // end <class PortfolioAccountBuilder>
-  PortfolioAccount buildInstance() => new PortfolioAccount(
-    accountType, descr, owner, holdingMap, otherHoldings);
+  PortfolioAccount buildInstance() =>
+      new PortfolioAccount(accountType, descr, owner, holdingMap, otherHoldings);
 
   factory PortfolioAccountBuilder.copyFrom(PortfolioAccount _) =>
-    new PortfolioAccountBuilder._copyImpl(_.copy());
+      new PortfolioAccountBuilder._copyImpl(_.copy());
 
-  PortfolioAccountBuilder._copyImpl(PortfolioAccount _) :
-    accountType = _.accountType,
-    descr = _.descr,
-    owner = _.owner,
-    holdingMap = _.holdingMap,
-    otherHoldings = _.otherHoldings;
+  PortfolioAccountBuilder._copyImpl(PortfolioAccount _)
+      : accountType = _.accountType,
+        descr = _.descr,
+        owner = _.owner,
+        holdingMap = _.holdingMap,
+        otherHoldings = _.otherHoldings;
 
 
 }
 
 /// Create a PortfolioAccountBuilder sans new, for more declarative construction
-PortfolioAccountBuilder
-portfolioAccountBuilder() =>
-  new PortfolioAccountBuilder();
+PortfolioAccountBuilder portfolioAccountBuilder() =>
+    new PortfolioAccountBuilder();
 
 
 /// A balance sheet item (i.d. data common to Assets and Liabilities)
 class BSItem {
   BSItem();
 
-  bool operator==(BSItem other) =>
-    identical(this, other) ||
-    acquired == other.acquired &&
-    retired == other.retired &&
-    descr == other.descr &&
-    owner == other.owner &&
-    currentValue == other.currentValue;
+  bool operator ==(BSItem other) =>
+      identical(this, other) ||
+          acquired == other.acquired &&
+              retired == other.retired &&
+              descr == other.descr &&
+              owner == other.owner &&
+              currentValue == other.currentValue;
 
-  int get hashCode => hashObjects([
-    acquired,
-    retired,
-    descr,
-    owner,
-    currentValue]);
+  int get hashCode =>
+      hashObjects([acquired, retired, descr, owner, currentValue]);
 
   copy() => new BSItem()
-    ..acquired = acquired == null? null : acquired.copy()
-    ..retired = retired == null? null : retired.copy()
-    ..descr = descr
-    ..owner = owner
-    ..currentValue = currentValue == null? null : currentValue.copy();
+      ..acquired = acquired == null ? null : acquired.copy()
+      ..retired = retired == null ? null : retired.copy()
+      ..descr = descr
+      ..owner = owner
+      ..currentValue = currentValue == null ? null : currentValue.copy();
 
   DateValue acquired;
   DateValue retired;
@@ -300,21 +302,20 @@ class BSItem {
 
 
   Map toJson() => {
-      "acquired": ebisu_utils.toJson(acquired),
-      "retired": ebisu_utils.toJson(retired),
-      "descr": ebisu_utils.toJson(descr),
-      "owner": ebisu_utils.toJson(owner),
-      "currentValue": ebisu_utils.toJson(currentValue),
+    "acquired": ebisu_utils.toJson(acquired),
+    "retired": ebisu_utils.toJson(retired),
+    "descr": ebisu_utils.toJson(descr),
+    "owner": ebisu_utils.toJson(owner),
+    "currentValue": ebisu_utils.toJson(currentValue),
   };
 
   static BSItem fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
-    return new BSItem()
-      .._fromJsonMapImpl(json);
+    return new BSItem().._fromJsonMapImpl(json);
   }
 
   void _fromJsonMapImpl(Map jsonMap) {
@@ -327,23 +328,20 @@ class BSItem {
 }
 
 /// Create a BSItem sans new, for more declarative construction
-BSItem
-bSItem() =>
-  new BSItem();
+BSItem bSItem() => new BSItem();
 
 class Asset {
   Asset();
 
-  bool operator==(Asset other) =>
-    identical(this, other) ||
-    assetType == other.assetType &&
-    bSItem == other.bSItem;
+  bool operator ==(Asset other) =>
+      identical(this, other) ||
+          assetType == other.assetType && bSItem == other.bSItem;
 
   int get hashCode => hash2(assetType, bSItem);
 
   copy() => new Asset()
-    ..assetType = assetType == null? null : assetType.copy()
-    ..bSItem = bSItem == null? null : bSItem.copy();
+      ..assetType = assetType == null ? null : assetType.copy()
+      ..bSItem = bSItem == null ? null : bSItem.copy();
 
   AssetType assetType;
   BSItem bSItem;
@@ -357,18 +355,17 @@ class Asset {
 
 
   Map toJson() => {
-      "assetType": ebisu_utils.toJson(assetType),
-      "bSItem": ebisu_utils.toJson(bSItem),
+    "assetType": ebisu_utils.toJson(assetType),
+    "bSItem": ebisu_utils.toJson(bSItem),
   };
 
   static Asset fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
-    return new Asset()
-      .._fromJsonMapImpl(json);
+    return new Asset().._fromJsonMapImpl(json);
   }
 
   void _fromJsonMapImpl(Map jsonMap) {
@@ -378,23 +375,20 @@ class Asset {
 }
 
 /// Create a Asset sans new, for more declarative construction
-Asset
-asset() =>
-  new Asset();
+Asset asset() => new Asset();
 
 class Liability {
   Liability();
 
-  bool operator==(Liability other) =>
-    identical(this, other) ||
-    liabilityType == other.liabilityType &&
-    bSItem == other.bSItem;
+  bool operator ==(Liability other) =>
+      identical(this, other) ||
+          liabilityType == other.liabilityType && bSItem == other.bSItem;
 
   int get hashCode => hash2(liabilityType, bSItem);
 
   copy() => new Liability()
-    ..liabilityType = liabilityType == null? null : liabilityType.copy()
-    ..bSItem = bSItem == null? null : bSItem.copy();
+      ..liabilityType = liabilityType == null ? null : liabilityType.copy()
+      ..bSItem = bSItem == null ? null : bSItem.copy();
 
   LiabilityType liabilityType;
   BSItem bSItem;
@@ -408,18 +402,17 @@ class Liability {
 
 
   Map toJson() => {
-      "liabilityType": ebisu_utils.toJson(liabilityType),
-      "bSItem": ebisu_utils.toJson(bSItem),
+    "liabilityType": ebisu_utils.toJson(liabilityType),
+    "bSItem": ebisu_utils.toJson(bSItem),
   };
 
   static Liability fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
-    return new Liability()
-      .._fromJsonMapImpl(json);
+    return new Liability().._fromJsonMapImpl(json);
   }
 
   void _fromJsonMapImpl(Map jsonMap) {
@@ -429,31 +422,31 @@ class Liability {
 }
 
 /// Create a Liability sans new, for more declarative construction
-Liability
-liability() =>
-  new Liability();
+Liability liability() => new Liability();
 
 class BalanceSheet {
   BalanceSheet(this.asOf, this.assetMap, this.liabilityMap,
-    this.portfolioAccountMap);
+      this.portfolioAccountMap);
 
-  bool operator==(BalanceSheet other) =>
-    identical(this, other) ||
-    asOf == other.asOf &&
-    const MapEquality().equals(assetMap, other.assetMap) &&
-    const MapEquality().equals(liabilityMap, other.liabilityMap) &&
-    const MapEquality().equals(portfolioAccountMap, other.portfolioAccountMap);
+  bool operator ==(BalanceSheet other) =>
+      identical(this, other) ||
+          asOf == other.asOf &&
+              const MapEquality().equals(assetMap, other.assetMap) &&
+              const MapEquality().equals(liabilityMap, other.liabilityMap) &&
+              const MapEquality().equals(portfolioAccountMap, other.portfolioAccountMap);
 
-  int get hashCode => hash4(asOf,
-    const MapEquality().hash(assetMap),
-    const MapEquality().hash(liabilityMap),
-    const MapEquality().hash(portfolioAccountMap));
+  int get hashCode =>
+      hash4(
+          asOf,
+          const MapEquality().hash(assetMap),
+          const MapEquality().hash(liabilityMap),
+          const MapEquality().hash(portfolioAccountMap));
 
   copy() => new BalanceSheet._copy(this);
   final Date asOf;
-  final Map<String,Asset> assetMap;
-  final Map<String,Liability> liabilityMap;
-  final Map<String,PortfolioAccount> portfolioAccountMap;
+  final Map<String, Asset> assetMap;
+  final Map<String, Liability> liabilityMap;
+  final Map<String, PortfolioAccount> portfolioAccountMap;
   // custom <class BalanceSheet>
 
   Asset asset(String id) => assetMap[id];
@@ -512,56 +505,56 @@ class BalanceSheet {
   // end <class BalanceSheet>
 
   Map toJson() => {
-      "asOf": ebisu_utils.toJson(asOf),
-      "assetMap": ebisu_utils.toJson(assetMap),
-      "liabilityMap": ebisu_utils.toJson(liabilityMap),
-      "portfolioAccountMap": ebisu_utils.toJson(portfolioAccountMap),
+    "asOf": ebisu_utils.toJson(asOf),
+    "assetMap": ebisu_utils.toJson(assetMap),
+    "liabilityMap": ebisu_utils.toJson(liabilityMap),
+    "portfolioAccountMap": ebisu_utils.toJson(portfolioAccountMap),
   };
 
   static BalanceSheet fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new BalanceSheet._fromJsonMapImpl(json);
   }
 
-  BalanceSheet._fromJsonMapImpl(Map jsonMap) :
-    asOf = Date.fromJson(jsonMap["asOf"]),
-    // assetMap is Map<String,Asset>
-    assetMap = ebisu_utils
-      .constructMapFromJsonData(
-        jsonMap["assetMap"],
-        (value) => Asset.fromJson(value)),
-    // liabilityMap is Map<String,Liability>
-    liabilityMap = ebisu_utils
-      .constructMapFromJsonData(
-        jsonMap["liabilityMap"],
-        (value) => Liability.fromJson(value)),
-    // portfolioAccountMap is Map<String,PortfolioAccount>
-    portfolioAccountMap = ebisu_utils
-      .constructMapFromJsonData(
-        jsonMap["portfolioAccountMap"],
-        (value) => PortfolioAccount.fromJson(value));
+  BalanceSheet._fromJsonMapImpl(Map jsonMap)
+      : asOf = Date.fromJson(jsonMap["asOf"]),
+        // assetMap is Map<String,Asset>
+      assetMap = ebisu_utils.constructMapFromJsonData(
+          jsonMap["assetMap"],
+          (value) => Asset.fromJson(value)),
+        // liabilityMap is Map<String,Liability>
+      liabilityMap = ebisu_utils.constructMapFromJsonData(
+          jsonMap["liabilityMap"],
+          (value) => Liability.fromJson(value)),
+        // portfolioAccountMap is Map<String,PortfolioAccount>
+      portfolioAccountMap = ebisu_utils.constructMapFromJsonData(
+          jsonMap["portfolioAccountMap"],
+          (value) => PortfolioAccount.fromJson(value));
 
-  BalanceSheet._copy(BalanceSheet other) :
-    asOf = other.asOf,
-    assetMap = valueApply(other.assetMap, (v) =>
-      v == null? null : v.copy()),
-    liabilityMap = valueApply(other.liabilityMap, (v) =>
-      v == null? null : v.copy()),
-    portfolioAccountMap = valueApply(other.portfolioAccountMap, (v) =>
-      v == null? null : v.copy()),
-    _accountsByType = valueApply(other._accountsByType, (v) =>
-      v == null? null :
-      (new List.from(v.map((e) =>
-        e == null? null : e.copy())))),
-    _holdingKeys = other._holdingKeys == null? null :
-      (new List.from(other._holdingKeys.map((e) =>
-        e == null? null : e.copy())));
+  BalanceSheet._copy(BalanceSheet other)
+      : asOf = other.asOf,
+        assetMap = valueApply(
+          other.assetMap,
+          (v) => v == null ? null : v.copy()),
+        liabilityMap = valueApply(
+          other.liabilityMap,
+          (v) => v == null ? null : v.copy()),
+        portfolioAccountMap = valueApply(
+          other.portfolioAccountMap,
+          (v) => v == null ? null : v.copy()),
+        _accountsByType = valueApply(
+          other._accountsByType,
+          (v) =>
+              v == null ? null : (new List.from(v.map((e) => e == null ? null : e.copy())))),
+        _holdingKeys = other._holdingKeys == null ?
+          null :
+          (new List.from(other._holdingKeys.map((e) => e == null ? null : e.copy())));
 
-  Map<AccountType,List<String>> _accountsByType;
+  Map<AccountType, List<String>> _accountsByType;
   List<HoldingKey> _holdingKeys;
 }
 
@@ -585,3 +578,4 @@ main() {
 }
 
 // end <library balance_sheet>
+

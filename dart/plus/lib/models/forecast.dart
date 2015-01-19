@@ -25,19 +25,17 @@ final _logger = new Logger('forecast');
 ///
 class DistributionBreakdown {
   DistributionBreakdown(this.qualified, this.unqualified,
-    this.capitalGainDistribution, this.interest);
+      this.capitalGainDistribution, this.interest);
 
-  bool operator==(DistributionBreakdown other) =>
-    identical(this, other) ||
-    qualified == other.qualified &&
-    unqualified == other.unqualified &&
-    capitalGainDistribution == other.capitalGainDistribution &&
-    interest == other.interest;
+  bool operator ==(DistributionBreakdown other) =>
+      identical(this, other) ||
+          qualified == other.qualified &&
+              unqualified == other.unqualified &&
+              capitalGainDistribution == other.capitalGainDistribution &&
+              interest == other.interest;
 
-  int get hashCode => hash4(qualified,
-    unqualified,
-    capitalGainDistribution,
-    interest);
+  int get hashCode =>
+      hash4(qualified, unqualified, capitalGainDistribution, interest);
 
   copy() => new DistributionBreakdown._copy(this);
   num qualified = 0.0;
@@ -85,55 +83,52 @@ class DistributionBreakdown {
 
 
   Map toJson() => {
-      "qualified": ebisu_utils.toJson(qualified),
-      "unqualified": ebisu_utils.toJson(unqualified),
-      "capitalGainDistribution": ebisu_utils.toJson(capitalGainDistribution),
-      "interest": ebisu_utils.toJson(interest),
+    "qualified": ebisu_utils.toJson(qualified),
+    "unqualified": ebisu_utils.toJson(unqualified),
+    "capitalGainDistribution": ebisu_utils.toJson(capitalGainDistribution),
+    "interest": ebisu_utils.toJson(interest),
   };
 
   static DistributionBreakdown fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new DistributionBreakdown._fromJsonMapImpl(json);
   }
 
-  DistributionBreakdown._fromJsonMapImpl(Map jsonMap) :
-    qualified = jsonMap["qualified"],
-    unqualified = jsonMap["unqualified"],
-    capitalGainDistribution = jsonMap["capitalGainDistribution"],
-    interest = jsonMap["interest"];
+  DistributionBreakdown._fromJsonMapImpl(Map jsonMap)
+      : qualified = jsonMap["qualified"],
+        unqualified = jsonMap["unqualified"],
+        capitalGainDistribution = jsonMap["capitalGainDistribution"],
+        interest = jsonMap["interest"];
 
-  DistributionBreakdown._copy(DistributionBreakdown other) :
-    qualified = other.qualified,
-    unqualified = other.unqualified,
-    capitalGainDistribution = other.capitalGainDistribution,
-    interest = other.interest;
+  DistributionBreakdown._copy(DistributionBreakdown other)
+      : qualified = other.qualified,
+        unqualified = other.unqualified,
+        capitalGainDistribution = other.capitalGainDistribution,
+        interest = other.interest;
 
 }
 
 /// Create a DistributionBreakdown sans new, for more declarative construction
-DistributionBreakdown
-distributionBreakdown([num qualified,
-  num unqualified,
-  num capitalGainDistribution,
-  num interest]) =>
-  new DistributionBreakdown(qualified,
-      unqualified,
-      capitalGainDistribution,
-      interest);
+DistributionBreakdown distributionBreakdown([num qualified, num unqualified,
+    num capitalGainDistribution, num interest]) =>
+    new DistributionBreakdown(
+        qualified,
+        unqualified,
+        capitalGainDistribution,
+        interest);
 
 /// Track distributions by those that are reinvested vs those that are distributed.
 ///
 class DistributionSummary {
   DistributionSummary(this.distributed, this.reinvested);
 
-  bool operator==(DistributionSummary other) =>
-    identical(this, other) ||
-    distributed == other.distributed &&
-    reinvested == other.reinvested;
+  bool operator ==(DistributionSummary other) =>
+      identical(this, other) ||
+          distributed == other.distributed && reinvested == other.reinvested;
 
   int get hashCode => hash2(distributed, reinvested);
 
@@ -180,50 +175,48 @@ class DistributionSummary {
 
 
   Map toJson() => {
-      "distributed": ebisu_utils.toJson(distributed),
-      "reinvested": ebisu_utils.toJson(reinvested),
+    "distributed": ebisu_utils.toJson(distributed),
+    "reinvested": ebisu_utils.toJson(reinvested),
   };
 
   static DistributionSummary fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new DistributionSummary._fromJsonMapImpl(json);
   }
 
-  DistributionSummary._fromJsonMapImpl(Map jsonMap) :
-    distributed = DistributionBreakdown.fromJson(jsonMap["distributed"]),
-    reinvested = DistributionBreakdown.fromJson(jsonMap["reinvested"]);
+  DistributionSummary._fromJsonMapImpl(Map jsonMap)
+      : distributed = DistributionBreakdown.fromJson(jsonMap["distributed"]),
+        reinvested = DistributionBreakdown.fromJson(jsonMap["reinvested"]);
 
-  DistributionSummary._copy(DistributionSummary other) :
-    distributed = other.distributed == null? null : other.distributed.copy(),
-    reinvested = other.reinvested == null? null : other.reinvested.copy();
+  DistributionSummary._copy(DistributionSummary other)
+      : distributed = other.distributed == null ?
+          null :
+          other.distributed.copy(),
+        reinvested = other.reinvested == null ? null : other.reinvested.copy();
 
 }
 
 /// Create a DistributionSummary sans new, for more declarative construction
-DistributionSummary
-distributionSummary([DistributionBreakdown distributed,
-  DistributionBreakdown reinvested]) =>
-  new DistributionSummary(distributed,
-      reinvested);
+DistributionSummary distributionSummary([DistributionBreakdown distributed,
+    DistributionBreakdown reinvested]) =>
+    new DistributionSummary(distributed, reinvested);
 
 /// Balance at endpoints of a given period
 class PeriodBalance {
   PeriodBalance();
 
-  bool operator==(PeriodBalance other) =>
-    identical(this, other) ||
-    start == other.start &&
-    end == other.end;
+  bool operator ==(PeriodBalance other) =>
+      identical(this, other) || start == other.start && end == other.end;
 
   int get hashCode => hash2(start, end);
 
   copy() => new PeriodBalance()
-    ..start = start == null? null : start.copy()
-    ..end = end == null? null : end.copy();
+      ..start = start == null ? null : start.copy()
+      ..end = end == null ? null : end.copy();
 
   DateValue start;
   DateValue end;
@@ -269,18 +262,17 @@ class PeriodBalance {
 
 
   Map toJson() => {
-      "start": ebisu_utils.toJson(start),
-      "end": ebisu_utils.toJson(end),
+    "start": ebisu_utils.toJson(start),
+    "end": ebisu_utils.toJson(end),
   };
 
   static PeriodBalance fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
-    return new PeriodBalance()
-      .._fromJsonMapImpl(json);
+    return new PeriodBalance().._fromJsonMapImpl(json);
   }
 
   void _fromJsonMapImpl(Map jsonMap) {
@@ -290,9 +282,7 @@ class PeriodBalance {
 }
 
 /// Create a PeriodBalance sans new, for more declarative construction
-PeriodBalance
-periodBalance() =>
-  new PeriodBalance();
+PeriodBalance periodBalance() => new PeriodBalance();
 
 /// Collection of the most prominant partitions.
 /// Can be applied to instrument valuations as well as accounts, synthetics, etc.
@@ -300,18 +290,18 @@ periodBalance() =>
 class InstrumentPartitionMappings {
   InstrumentPartitionMappings();
 
-  bool operator==(InstrumentPartitionMappings other) =>
-    identical(this, other) ||
-    allocation == other.allocation &&
-    style == other.style &&
-    capitalization == other.capitalization;
+  bool operator ==(InstrumentPartitionMappings other) =>
+      identical(this, other) ||
+          allocation == other.allocation &&
+              style == other.style &&
+              capitalization == other.capitalization;
 
   int get hashCode => hash3(allocation, style, capitalization);
 
   copy() => new InstrumentPartitionMappings()
-    ..allocation = allocation == null? null : allocation.copy()
-    ..style = style == null? null : style.copy()
-    ..capitalization = capitalization == null? null : capitalization.copy();
+      ..allocation = allocation == null ? null : allocation.copy()
+      ..style = style == null ? null : style.copy()
+      ..capitalization = capitalization == null ? null : capitalization.copy();
 
   PartitionMapping allocation;
   PartitionMapping style;
@@ -405,19 +395,18 @@ class InstrumentPartitionMappings {
 
 
   Map toJson() => {
-      "allocation": ebisu_utils.toJson(allocation),
-      "style": ebisu_utils.toJson(style),
-      "capitalization": ebisu_utils.toJson(capitalization),
+    "allocation": ebisu_utils.toJson(allocation),
+    "style": ebisu_utils.toJson(style),
+    "capitalization": ebisu_utils.toJson(capitalization),
   };
 
   static InstrumentPartitionMappings fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
-    return new InstrumentPartitionMappings()
-      .._fromJsonMapImpl(json);
+    return new InstrumentPartitionMappings().._fromJsonMapImpl(json);
   }
 
   void _fromJsonMapImpl(Map jsonMap) {
@@ -428,36 +417,37 @@ class InstrumentPartitionMappings {
 }
 
 /// Create a InstrumentPartitionMappings sans new, for more declarative construction
-InstrumentPartitionMappings
-instrumentPartitionMappings() =>
-  new InstrumentPartitionMappings();
+InstrumentPartitionMappings instrumentPartitionMappings() =>
+    new InstrumentPartitionMappings();
 
 /// Balance at endpoints of a given period plus additional dividend and balance change breakdown details
 class HoldingPeriodBalance {
   const HoldingPeriodBalance(this.holdingType, this.periodBalance,
-    this.distributionSummary, this.costBasis, this.capitalGain,
-    this.endValuePartitions, this.growthDetails, this.soldInvested);
+      this.distributionSummary, this.costBasis, this.capitalGain,
+      this.endValuePartitions, this.growthDetails, this.soldInvested);
 
-  bool operator==(HoldingPeriodBalance other) =>
-    identical(this, other) ||
-    holdingType == other.holdingType &&
-    periodBalance == other.periodBalance &&
-    distributionSummary == other.distributionSummary &&
-    costBasis == other.costBasis &&
-    capitalGain == other.capitalGain &&
-    endValuePartitions == other.endValuePartitions &&
-    const MapEquality().equals(growthDetails, other.growthDetails) &&
-    soldInvested == other.soldInvested;
+  bool operator ==(HoldingPeriodBalance other) =>
+      identical(this, other) ||
+          holdingType == other.holdingType &&
+              periodBalance == other.periodBalance &&
+              distributionSummary == other.distributionSummary &&
+              costBasis == other.costBasis &&
+              capitalGain == other.capitalGain &&
+              endValuePartitions == other.endValuePartitions &&
+              const MapEquality().equals(growthDetails, other.growthDetails) &&
+              soldInvested == other.soldInvested;
 
-  int get hashCode => hashObjects([
-    holdingType,
-    periodBalance,
-    distributionSummary,
-    costBasis,
-    capitalGain,
-    endValuePartitions,
-    const MapEquality().hash(growthDetails),
-    soldInvested]);
+  int get hashCode =>
+      hashObjects(
+          [
+              holdingType,
+              periodBalance,
+              distributionSummary,
+              costBasis,
+              capitalGain,
+              endValuePartitions,
+              const MapEquality().hash(growthDetails),
+              soldInvested]);
 
   copy() => new HoldingPeriodBalance._copy(this);
   final HoldingType holdingType;
@@ -466,8 +456,9 @@ class HoldingPeriodBalance {
   final PeriodBalance costBasis;
   final double capitalGain;
   final InstrumentPartitionMappings endValuePartitions;
-  /// Details on modeled growth from start to end - (does *not* including sales/investments)
-  final Map<HoldingReturnType,num> growthDetails;
+
+      /// Details on modeled growth from start to end - (does *not* including sales/investments)
+  final Map<HoldingReturnType, num> growthDetails;
   /// Value sold/invested into over the period
   final double soldInvested;
   // custom <class HoldingPeriodBalance>
@@ -587,72 +578,81 @@ class HoldingPeriodBalance {
 
 
   Map toJson() => {
-      "holdingType": ebisu_utils.toJson(holdingType),
-      "periodBalance": ebisu_utils.toJson(periodBalance),
-      "distributionSummary": ebisu_utils.toJson(distributionSummary),
-      "costBasis": ebisu_utils.toJson(costBasis),
-      "capitalGain": ebisu_utils.toJson(capitalGain),
-      "endValuePartitions": ebisu_utils.toJson(endValuePartitions),
-      "growthDetails": ebisu_utils.toJson(growthDetails),
-      "soldInvested": ebisu_utils.toJson(soldInvested),
+    "holdingType": ebisu_utils.toJson(holdingType),
+    "periodBalance": ebisu_utils.toJson(periodBalance),
+    "distributionSummary": ebisu_utils.toJson(distributionSummary),
+    "costBasis": ebisu_utils.toJson(costBasis),
+    "capitalGain": ebisu_utils.toJson(capitalGain),
+    "endValuePartitions": ebisu_utils.toJson(endValuePartitions),
+    "growthDetails": ebisu_utils.toJson(growthDetails),
+    "soldInvested": ebisu_utils.toJson(soldInvested),
   };
 
   static HoldingPeriodBalance fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
     return new HoldingPeriodBalance._fromJsonMapImpl(json);
   }
 
-  HoldingPeriodBalance._fromJsonMapImpl(Map jsonMap) :
-    holdingType = HoldingType.fromJson(jsonMap["holdingType"]),
-    periodBalance = PeriodBalance.fromJson(jsonMap["periodBalance"]),
-    distributionSummary = DistributionSummary.fromJson(jsonMap["distributionSummary"]),
-    costBasis = PeriodBalance.fromJson(jsonMap["costBasis"]),
-    capitalGain = jsonMap["capitalGain"],
-    endValuePartitions = InstrumentPartitionMappings.fromJson(jsonMap["endValuePartitions"]),
-    // growthDetails is Map<HoldingReturnType,num>
-    growthDetails = ebisu_utils
-      .constructMapFromJsonData(
-        jsonMap["growthDetails"],
-        (value) => value,
-        (key) => HoldingReturnType.fromString(key)),
-    soldInvested = jsonMap["soldInvested"];
+  HoldingPeriodBalance._fromJsonMapImpl(Map jsonMap)
+      : holdingType = HoldingType.fromJson(jsonMap["holdingType"]),
+        periodBalance = PeriodBalance.fromJson(jsonMap["periodBalance"]),
+        distributionSummary = DistributionSummary.fromJson(
+          jsonMap["distributionSummary"]),
+        costBasis = PeriodBalance.fromJson(jsonMap["costBasis"]),
+        capitalGain = jsonMap["capitalGain"],
+        endValuePartitions = InstrumentPartitionMappings.fromJson(
+          jsonMap["endValuePartitions"]),
+        // growthDetails is Map<HoldingReturnType,num>
+      growthDetails = ebisu_utils.constructMapFromJsonData(
+          jsonMap["growthDetails"],
+          (value) => value,
+          (key) => HoldingReturnType.fromString(key)),
+        soldInvested = jsonMap["soldInvested"];
 
-  HoldingPeriodBalance._copy(HoldingPeriodBalance other) :
-    holdingType = other.holdingType == null? null : other.holdingType.copy(),
-    periodBalance = other.periodBalance == null? null : other.periodBalance.copy(),
-    distributionSummary = other.distributionSummary == null? null : other.distributionSummary.copy(),
-    costBasis = other.costBasis == null? null : other.costBasis.copy(),
-    capitalGain = other.capitalGain,
-    endValuePartitions = other.endValuePartitions == null? null : other.endValuePartitions.copy(),
-    growthDetails = valueApply(other.growthDetails, (v) =>
-      v),
-    soldInvested = other.soldInvested;
+  HoldingPeriodBalance._copy(HoldingPeriodBalance other)
+      : holdingType = other.holdingType == null ?
+          null :
+          other.holdingType.copy(),
+        periodBalance = other.periodBalance == null ?
+          null :
+          other.periodBalance.copy(),
+        distributionSummary = other.distributionSummary == null ?
+          null :
+          other.distributionSummary.copy(),
+        costBasis = other.costBasis == null ? null : other.costBasis.copy(),
+        capitalGain = other.capitalGain,
+        endValuePartitions = other.endValuePartitions == null ?
+          null :
+          other.endValuePartitions.copy(),
+        growthDetails = valueApply(other.growthDetails, (v) => v),
+        soldInvested = other.soldInvested;
 
 }
 
 class TaxAssessment {
   TaxAssessment();
 
-  bool operator==(TaxAssessment other) =>
-    identical(this, other) ||
-    taxingAuthority == other.taxingAuthority &&
-    const MapEquality().equals(taxBases, other.taxBases) &&
-    taxBill == other.taxBill;
+  bool operator ==(TaxAssessment other) =>
+      identical(this, other) ||
+          taxingAuthority == other.taxingAuthority &&
+              const MapEquality().equals(taxBases, other.taxBases) &&
+              taxBill == other.taxBill;
 
-  int get hashCode => hash3(taxingAuthority, const MapEquality().hash(taxBases), taxBill);
+  int get hashCode =>
+      hash3(taxingAuthority, const MapEquality().hash(taxBases), taxBill);
 
   copy() => new TaxAssessment()
-    ..taxingAuthority = taxingAuthority == null? null : taxingAuthority.copy()
-    ..taxBases = valueApply(taxBases, (v) =>
-    v)
-    ..taxBill = taxBill;
+      ..taxingAuthority =
+          taxingAuthority == null ? null : taxingAuthority.copy()
+      ..taxBases = valueApply(taxBases, (v) => v)
+      ..taxBill = taxBill;
 
   TaxingAuthority taxingAuthority;
-  Map<TaxCategory,num> taxBases = {};
+  Map<TaxCategory, num> taxBases = {};
   num taxBill = 0.0;
   // custom <class TaxAssessment>
   // end <class TaxAssessment>
@@ -661,38 +661,33 @@ class TaxAssessment {
 
 
   Map toJson() => {
-      "taxingAuthority": ebisu_utils.toJson(taxingAuthority),
-      "taxBases": ebisu_utils.toJson(taxBases),
-      "taxBill": ebisu_utils.toJson(taxBill),
+    "taxingAuthority": ebisu_utils.toJson(taxingAuthority),
+    "taxBases": ebisu_utils.toJson(taxBases),
+    "taxBill": ebisu_utils.toJson(taxBill),
   };
 
   static TaxAssessment fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
-    return new TaxAssessment()
-      .._fromJsonMapImpl(json);
+    return new TaxAssessment().._fromJsonMapImpl(json);
   }
 
   void _fromJsonMapImpl(Map jsonMap) {
     taxingAuthority = TaxingAuthority.fromJson(jsonMap["taxingAuthority"]);
     // taxBases is Map<TaxCategory,num>
-    taxBases = ebisu_utils
-      .constructMapFromJsonData(
+    taxBases = ebisu_utils.constructMapFromJsonData(
         jsonMap["taxBases"],
         (value) => value,
-        (key) => TaxCategory.fromString(key))
-    ;
+        (key) => TaxCategory.fromString(key));
     taxBill = jsonMap["taxBill"];
   }
 }
 
 /// Create a TaxAssessment sans new, for more declarative construction
-TaxAssessment
-taxAssessment() =>
-  new TaxAssessment();
+TaxAssessment taxAssessment() => new TaxAssessment();
 
 Random _randomJsonGenerator = new Random(0);
 // custom <library forecast>
@@ -717,3 +712,4 @@ typedef void AccountVisitor(String account, AccountType accountType,
     String symbol, HoldingPeriodBalance hpb);
 
 // end <library forecast>
+

@@ -7,22 +7,21 @@ class Portfolio {
   Portfolio._default();
 
   Date get asOf => _asOf;
-  Map<String,double> get holdings => _holdings;
+  Map<String, double> get holdings => _holdings;
   // custom <class Portfolio>
 
   Portfolio.empty(this._asOf);
 
   PortfolioHistory createPortfolioHistory(TradeJournal journal) =>
-    new PortfolioHistory(this, journal);
+      new PortfolioHistory(this, journal);
 
-  toString([ bool includeFlat = true ]) {
-    var details = [ 'AsOf($_asOf)' ];
+  toString([bool includeFlat = true]) {
+    var details = ['AsOf($_asOf)'];
     _holdings.keys.toList()
-      ..sort()
-      ..forEach(
-        (k) {
+        ..sort()
+        ..forEach((k) {
           double value = _holdings[k];
-          if(includeFlat || value.abs() > 0.001) {
+          if (includeFlat || value.abs() > 0.001) {
             details.add('\t$k ${commifyNum(value)}');
           }
         });
@@ -33,11 +32,10 @@ class Portfolio {
 
   double holdingOf(String symbol) {
     var result = _holdings[symbol];
-    return result == null? 0.0 : result;
+    return result == null ? 0.0 : result;
   }
 
-  updateHolding(String symbol, double value)
-    => _holdings[symbol] = value;
+  updateHolding(String symbol, double value) => _holdings[symbol] = value;
 
   addToHolding(String symbol, double additional) {
     _holdings.putIfAbsent(symbol, () => 0.0);
@@ -47,39 +45,32 @@ class Portfolio {
   // end <class Portfolio>
 
   Map toJson() => {
-      "asOf": ebisu_utils.toJson(asOf),
-      "holdings": ebisu_utils.toJson(holdings),
+    "asOf": ebisu_utils.toJson(asOf),
+    "holdings": ebisu_utils.toJson(holdings),
   };
 
   static Portfolio fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
-    return new Portfolio._default()
-      .._fromJsonMapImpl(json);
+    return new Portfolio._default().._fromJsonMapImpl(json);
   }
 
   void _fromJsonMapImpl(Map jsonMap) {
     _asOf = Date.fromJson(jsonMap["asOf"]);
     // holdings is Map<String,double>
-    _holdings = ebisu_utils
-      .constructMapFromJsonData(
-        jsonMap["holdings"],
-        (value) => value)
-  ;
+    _holdings =
+        ebisu_utils.constructMapFromJsonData(jsonMap["holdings"], (value) => value);
   }
   Date _asOf;
-  Map<String,double> _holdings = {};
+  Map<String, double> _holdings = {};
 }
 
 /// Create a Portfolio sans new, for more declarative construction
-Portfolio
-portfolio([Date _asOf,
-  Map<String,double> _holdings]) =>
-  new Portfolio(_asOf,
-      _holdings);
+Portfolio portfolio([Date _asOf, Map<String, double> _holdings]) =>
+    new Portfolio(_asOf, _holdings);
 
 class PortfolioHistory {
   PortfolioHistory._default();
@@ -87,18 +78,19 @@ class PortfolioHistory {
   Portfolio get portfolioSource => _portfolioSource;
   TradeJournal get tradeJournal => _tradeJournal;
   DateRange get dateRange => _dateRange;
-  Map<String,TimeSeries> get holdingHistories => _holdingHistories;
+  Map<String, TimeSeries> get holdingHistories => _holdingHistories;
   // custom <class PortfolioHistory>
 
-  PortfolioHistory(this._portfolioSource, [ TradeJournal journal ]) {
+  PortfolioHistory(this._portfolioSource, [TradeJournal journal]) {
     _dateRange = oneDayRange(_portfolioSource.asOf);
     addTrades(journal);
   }
 
-  PortfolioHistory.fromAllTrades(TradeJournal journal) :
-    _portfolioSource = new Portfolio.empty(journal.dateRange.start.priorDay),
-    _dateRange = oneDayRange(journal.dateRange.start.priorDay),
-    _tradeJournal = new TradeJournal.empty() {
+  PortfolioHistory.fromAllTrades(TradeJournal journal)
+      : _portfolioSource = new Portfolio.empty(
+          journal.dateRange.start.priorDay),
+        _dateRange = oneDayRange(journal.dateRange.start.priorDay),
+        _tradeJournal = new TradeJournal.empty() {
     addTrades(journal);
   }
 
@@ -108,13 +100,13 @@ class PortfolioHistory {
     _updateHoldings(journal);
   }
 
-  Portfolio portfolioAsOf(Date asOf, { bool includeZeros : true }) {
+  Portfolio portfolioAsOf(Date asOf, {bool includeZeros: true}) {
     var holdings = {};
     _holdingHistories.forEach((k, ts) {
       DateValue dv = ts.firstOnOrBefore(asOf);
-      double qty = dv == null? 0.0 : dv.value;
+      double qty = dv == null ? 0.0 : dv.value;
       bool isZero = qty.abs() < 0.001;
-      if(includeZeros || !isZero) {
+      if (includeZeros || !isZero) {
         holdings[k] = qty;
       }
     });
@@ -123,28 +115,28 @@ class PortfolioHistory {
 
   _updateHoldings(TradeJournal journal) {
     bool arePriorTrades = journal.dateRange.isStrictlyBefore(_dateRange);
-    var additions = arePriorTrades?
-      _walkTradesBackward(journal) : _walkTradesForward(journal);
-    additions.forEach((k,v) {
-      _holdingHistories[k] =
-        splice(_holdingHistories.putIfAbsent(k, () => new TimeSeries([])),
-            timeSeries(v));
+    var additions =
+        arePriorTrades ? _walkTradesBackward(journal) : _walkTradesForward(journal);
+    additions.forEach((k, v) {
+      _holdingHistories[k] = splice(
+          _holdingHistories.putIfAbsent(k, () => new TimeSeries([])),
+          timeSeries(v));
     });
   }
 
   Map<String, TimeSeries> _walkTradesForward(journal) {
     Map result = {};
 
-    for(var trade in journal.trades) {
+    for (var trade in journal.trades) {
       var symbol = trade.symbol;
-      if(!result.containsKey(symbol)) {
+      if (!result.containsKey(symbol)) {
         double lastValue = _portfolioSource.holdingOf(symbol);
         result[symbol] =
-          [ dateValue(trade.date, lastValue + trade.signedQuantity) ];
+            [dateValue(trade.date, lastValue + trade.signedQuantity)];
       } else {
         var tsData = result[symbol];
         var last = tsData.last;
-        if(last.date == trade.date) {
+        if (last.date == trade.date) {
           last.value += trade.signedQuantity;
         } else {
           tsData.add(dateValue(trade.date, last.value + trade.signedQuantity));
@@ -157,7 +149,8 @@ class PortfolioHistory {
   Map<String, TimeSeries> _walkTradesBackward(journal) {
 
     // Track latest holdings per symbol
-    var latestHoldings = valueApply(_portfolioSource.holdings,
+    var latestHoldings = valueApply(
+        _portfolioSource.holdings,
         (v) => dateValue(_portfolioSource.asOf, v));
 
     ////////////////////////////////////////////////////////////////////////////
@@ -183,15 +176,15 @@ class PortfolioHistory {
     ////////////////////////////////////////////////////////////////////////////
     Map result = {};
 
-    for(var trade in journal.trades.reversed) {
+    for (var trade in journal.trades.reversed) {
       var symbol = trade.symbol;
       var qtyDelta = trade.signedQuantity;
       var tradeDate = trade.date;
       var tsData = result.putIfAbsent(symbol, () => []);
-      var latest = latestHoldings.putIfAbsent(symbol,
-          () => dateValue(tradeDate, 0.0));
+      var latest =
+          latestHoldings.putIfAbsent(symbol, () => dateValue(tradeDate, 0.0));
 
-      if(trade.date < latest.date) {
+      if (trade.date < latest.date) {
         tsData.add(dateValue(tradeDate, latest.value));
       }
 
@@ -214,7 +207,8 @@ class PortfolioHistory {
     orderedKeys.forEach((k) {
       var ts = _holdingHistories[k];
       result.add('$k\n\t');
-      ts.data.forEach((dv) => result.add('\t${dv.date}, ${commifyNum(dv.value)}'));
+      ts.data.forEach(
+          (dv) => result.add('\t${dv.date}, ${commifyNum(dv.value)}'));
     });
     return result.join('\n');
   }
@@ -222,20 +216,19 @@ class PortfolioHistory {
   // end <class PortfolioHistory>
 
   Map toJson() => {
-      "portfolioSource": ebisu_utils.toJson(portfolioSource),
-      "tradeJournal": ebisu_utils.toJson(tradeJournal),
-      "dateRange": ebisu_utils.toJson(dateRange),
-      "holdingHistories": ebisu_utils.toJson(holdingHistories),
+    "portfolioSource": ebisu_utils.toJson(portfolioSource),
+    "tradeJournal": ebisu_utils.toJson(tradeJournal),
+    "dateRange": ebisu_utils.toJson(dateRange),
+    "holdingHistories": ebisu_utils.toJson(holdingHistories),
   };
 
   static PortfolioHistory fromJson(Object json) {
-    if(json == null) return null;
-    if(json is String) {
+    if (json == null) return null;
+    if (json is String) {
       json = convert.JSON.decode(json);
     }
     assert(json is Map);
-    return new PortfolioHistory._default()
-      .._fromJsonMapImpl(json);
+    return new PortfolioHistory._default().._fromJsonMapImpl(json);
   }
 
   void _fromJsonMapImpl(Map jsonMap) {
@@ -243,18 +236,17 @@ class PortfolioHistory {
     _tradeJournal = TradeJournal.fromJson(jsonMap["tradeJournal"]);
     _dateRange = DateRange.fromJson(jsonMap["dateRange"]);
     // holdingHistories is Map<String,TimeSeries>
-    _holdingHistories = ebisu_utils
-      .constructMapFromJsonData(
+    _holdingHistories = ebisu_utils.constructMapFromJsonData(
         jsonMap["holdingHistories"],
-        (value) => TimeSeries.fromJson(value))
-  ;
+        (value) => TimeSeries.fromJson(value));
   }
   Portfolio _portfolioSource;
   TradeJournal _tradeJournal = new TradeJournal.empty();
   DateRange _dateRange;
-  Map<String,TimeSeries> _holdingHistories = {};
+  Map<String, TimeSeries> _holdingHistories = {};
 }
 
 
 // custom <part portfolio>
 // end <part portfolio>
+

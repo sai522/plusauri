@@ -26,3 +26,4 @@ abstract class InvestmentStrategy {
 
 // custom <library strategy>
 // end <library strategy>
+

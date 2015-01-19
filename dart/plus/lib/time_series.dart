@@ -25,9 +25,8 @@ class TimeSeries {
     // end <TimeSeries>
   }
 
-  bool operator==(TimeSeries other) =>
-    identical(this, other) ||
-    const ListEquality().equals(_data, other._data);
+  bool operator ==(TimeSeries other) =>
+      identical(this, other) || const ListEquality().equals(_data, other._data);
 
   int get hashCode => const ListEquality<DateValue>().hash(_data).hashCode;
 
@@ -97,18 +96,16 @@ class TimeSeries {
   }
 
   // end <class TimeSeries>
-  TimeSeries._copy(TimeSeries other) :
-    _data = other._data == null? null :
-      (new List.from(other._data.map((e) =>
-        e == null? null : e.copy())));
+  TimeSeries._copy(TimeSeries other)
+      : _data = other._data == null ?
+          null :
+          (new List.from(other._data.map((e) => e == null ? null : e.copy())));
 
   final List<DateValue> _data;
 }
 
 /// Create a TimeSeries sans new, for more declarative construction
-TimeSeries
-timeSeries([List<DateValue> _data]) =>
-  new TimeSeries(_data);
+TimeSeries timeSeries([List<DateValue> _data]) => new TimeSeries(_data);
 
 // custom <library time_series>
 
@@ -117,3 +114,4 @@ splice(TimeSeries ts1, TimeSeries ts2) =>
 
 
 // end <library time_series>
+

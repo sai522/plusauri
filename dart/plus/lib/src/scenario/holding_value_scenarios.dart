@@ -1,7 +1,6 @@
 part of plus.scenario;
 
-class HoldingChangeByFactor
-  implements ScenarioGenerator {
+class HoldingChangeByFactor implements ScenarioGenerator {
   const HoldingChangeByFactor(this.factor);
 
   final double factor;
@@ -16,3 +15,4 @@ class HoldingChangeByFactor
 }
 // custom <part holding_value_scenarios>
 // end <part holding_value_scenarios>
+

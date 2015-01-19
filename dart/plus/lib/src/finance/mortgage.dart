@@ -8,28 +8,27 @@ class MortgageSpec {
   num term;
   // custom <class MortgageSpec>
 
-  num get payment =>
-    mortgagePayment(principal, rate, term);
+  num get payment => mortgagePayment(principal, rate, term);
 
   List<MortgagePaydownRecord> paymentSchedule(DateTime startDate) {
-    if(rate <=0 || term <=0) return [];
+    if (rate <= 0 || term <= 0) return [];
     var pmt = payment;
-    var monthlyRate = rate/12.0;
-    var months = (12*term).ceil();
+    var monthlyRate = rate / 12.0;
+    var months = (12 * term).ceil();
     var result = new List<MortgagePaydownRecord>(months);
     var remainingPrincipal = principal;
 
-    for(int i=0; i<months && remainingPrincipal>0; i++) {
-      startDate = new DateTime(startDate.year,
-          startDate.month + 1, startDate.day);
+    for (int i = 0; i < months && remainingPrincipal > 0; i++) {
+      startDate =
+          new DateTime(startDate.year, startDate.month + 1, startDate.day);
       var periodInterestPaid = remainingPrincipal * monthlyRate;
       var principalPaid = pmt - periodInterestPaid;
       remainingPrincipal -= principalPaid;
       result[i] = new MortgagePaydownRecord()
-        ..date = startDate
-        ..periodInterestPaid = periodInterestPaid
-        ..periodPrincipalPaid = principalPaid
-        ..remainingPrincipal = remainingPrincipal;
+          ..date = startDate
+          ..periodInterestPaid = periodInterestPaid
+          ..periodPrincipalPaid = principalPaid
+          ..remainingPrincipal = remainingPrincipal;
     }
     return result;
   }
@@ -62,9 +61,10 @@ Remaining Principal: $remainingPrincipal
 // custom <part mortgage>
 
 double mortgagePayment(principal, rate, years) {
-  var monthlyRate = rate/12.0;
-  var months = 12.0*years;
-  return principal*(monthlyRate/(1.0 - pow(1.0 + monthlyRate, -months)));
+  var monthlyRate = rate / 12.0;
+  var months = 12.0 * years;
+  return principal * (monthlyRate / (1.0 - pow(1.0 + monthlyRate, -months)));
 }
 
 // end <part mortgage>
+

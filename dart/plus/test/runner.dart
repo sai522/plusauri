@@ -17,6 +17,14 @@ import 'test_scenario.dart' as test_scenario;
 import 'test_strategy.dart' as test_strategy;
 import 'test_test_utils.dart' as test_test_utils;
 import 'test_time_series.dart' as test_time_series;
+import 'test_model_assumption.dart' as test_model_assumption;
+import 'test_model_balance_sheet.dart' as test_model_balance_sheet;
+import 'test_model_common.dart' as test_model_common;
+import 'test_model_dossier.dart' as test_model_dossier;
+import 'test_model_flow_model.dart' as test_model_flow_model;
+import 'test_model_forecast.dart' as test_model_forecast;
+import 'test_model_income_statement.dart' as test_model_income_statement;
+import 'test_model_liquidation_summary.dart' as test_model_liquidation_summary;
 
 void testCore(Configuration config) {
   unittestConfiguration = config;
@@ -46,5 +54,13 @@ main() {
   test_strategy.main();
   test_test_utils.main();
   test_time_series.main();
+  test_model_assumption.main();
+  test_model_balance_sheet.main();
+  test_model_common.main();
+  test_model_dossier.main();
+  test_model_flow_model.main();
+  test_model_forecast.main();
+  test_model_income_statement.main();
+  test_model_liquidation_summary.main();
 }
 

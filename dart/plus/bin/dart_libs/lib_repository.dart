@@ -1,4 +1,4 @@
-library plus.codegen.dart.libs.repository;
+library plus.bin.dart_libs.repository;
 
 import "dart:io";
 import "package:path/path.dart";

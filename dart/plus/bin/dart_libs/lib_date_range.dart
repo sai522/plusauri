@@ -1,4 +1,4 @@
-library plus.bing.dart_libs.date_range;
+library plus.bin.dart_libs.date_range;
 
 import "dart:io";
 import "package:path/path.dart";

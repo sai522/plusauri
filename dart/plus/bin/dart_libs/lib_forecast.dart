@@ -1,4 +1,4 @@
-library plus.codegen.dart.libs.forecast;
+library plus.bin.dart_libs.forecast;
 
 import "package:ebisu/ebisu_dart_meta.dart";
 import "../plus_system.dart";

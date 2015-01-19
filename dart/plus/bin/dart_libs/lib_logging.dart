@@ -1,4 +1,4 @@
-library plus.codegen.dart.libs.binary_search;
+library plus.bin.dart_libs.logging;
 
 import "package:ebisu/ebisu_dart_meta.dart";
 import "../plus_system.dart";

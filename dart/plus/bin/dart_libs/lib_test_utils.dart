@@ -1,4 +1,4 @@
-library plus.codegen.dart.libs.test_utils;
+library plus.bin.dart_libs.test_utils;
 
 import "package:ebisu/ebisu_dart_meta.dart";
 import "../plus_system.dart";

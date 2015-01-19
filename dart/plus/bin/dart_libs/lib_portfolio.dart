@@ -1,4 +1,4 @@
-library plus.codegen.dart.libs.portfolio;
+library plus.bin.dart_libs.portfolio;
 
 import "package:ebisu/ebisu_dart_meta.dart";
 import "../plus_system.dart";

@@ -10,6 +10,9 @@ dependencies:
   ebisu:
     git: git://github.com/patefacio/ebisu
 
+  ebisu_web_ui:
+    git: git://github.com/patefacio/ebisu_web_ui
+
   json_schema:
     git: git://github.com/patefacio/json_schema
 

@@ -38,6 +38,7 @@ void main() {
   strategy.updateSystem(plus);  
   test_utils.updateSystem(plus);
   time_series.updateSystem(plus);
+  all_schema.updateSystem(plus);
   
   plus.generate(generateHop : true);
 }

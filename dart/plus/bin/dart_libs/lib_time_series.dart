@@ -1,4 +1,4 @@
-library plus.codegen.dart.libs.time_series;
+library plus.bin.dart_libs.time_series;
 
 import "package:ebisu/ebisu_dart_meta.dart";
 import "../plus_system.dart";

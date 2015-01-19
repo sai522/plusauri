@@ -231,19 +231,11 @@ get testLibs => libs.map((l) =>
     library('test_model_${l.id.snake}')
     ..isTest = true);
 
-main() {
+generateDiagrams() =>
+  _models.forEach((model) => diagramSupport(model));
 
-  final schemaLibs = libs;
+updateSystem(System system) =>
+  system..libraries.addAll(libs)..testLibraries.addAll(testLibs);
 
-  plus
-    ..libraries.addAll(schemaLibs)
-    ..testLibraries.addAll(testLibs)
-    ..generate(generateHop:false);
-  
-  models.forEach((Package model) {
-    //modelSupport(model);
+void main() => updateSystem(plus).generate(generateHop:false);
 
-    //diagramSupport(model);
-  });
-  
-}

@@ -1,6 +1,7 @@
 library plus.codegen.dart.libs.plus_system;
 
 import 'root_path.dart';
+import "package:ebisu/ebisu.dart";
 import "package:ebisu/ebisu_dart_meta.dart";
 import 'package:quiver/iterables.dart';
 import 'dart_libs/lib_date.dart' as date;
@@ -18,13 +19,15 @@ import 'dart_libs/lib_test_utils.dart' as test_utils;
 import 'dart_libs/lib_time_series.dart' as time_series;
 import 'all_schema.dart' as all_schema;
 
-System plus = system('plus')
+System plus = () {
+  useDartFormatter = true;
+  return system('plus')
   ..includeHop = true
   ..generatePubSpec = true
   ..rootPath = rootPath;
+}();
 
 void main() {
-
   binary_search.updateSystem(plus);
   date.updateSystem(plus);
   date_range.updateSystem(plus);

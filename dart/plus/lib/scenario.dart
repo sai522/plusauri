@@ -18,12 +18,11 @@ part 'src/scenario/asset_return_scenarios.dart';
 abstract class ScenarioGenerator {
   // custom <class ScenarioGenerator>
 
-  AssumptionModel generateScenario(Dossier dossier,
-      AssumptionModel assumptionModel);
+  AssumptionModel generateScenario(
+      Dossier dossier, AssumptionModel assumptionModel);
 
   // end <class ScenarioGenerator>
 }
 
 // custom <library scenario>
 // end <library scenario>
-

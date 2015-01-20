@@ -68,7 +68,6 @@ class CapitalizationType implements Comparable<CapitalizationType> {
   static CapitalizationType fromJson(int v) {
     return v == null ? null : values[v];
   }
-
 }
 
 const SMALL_CAP = CapitalizationType.SMALL_CAP;
@@ -123,7 +122,6 @@ class InvestmentStyle implements Comparable<InvestmentStyle> {
   static InvestmentStyle fromJson(int v) {
     return v == null ? null : values[v];
   }
-
 }
 
 const VALUE_INVESTMENT = InvestmentStyle.VALUE_INVESTMENT;
@@ -184,7 +182,6 @@ class AllocationType implements Comparable<AllocationType> {
   static AllocationType fromJson(int v) {
     return v == null ? null : values[v];
   }
-
 }
 
 const STOCK_ALLOCATION = AllocationType.STOCK_ALLOCATION;
@@ -195,4 +192,3 @@ const OTHER = AllocationType.OTHER;
 // custom <library finance>
 
 // end <library finance>
-

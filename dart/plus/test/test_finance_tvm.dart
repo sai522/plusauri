@@ -15,12 +15,10 @@ main() {
 // custom <main>
 
   group('test_finance_tvm.dart', () {
-
     group('ccRate', () {
       final d1 = date(2000, 1, 1);
       final d2 = date(2010, 1, 1);
-      expect(
-          ccRate(dateValue(d1, 1.0), dateValue(d2, 1.25)),
+      expect(ccRate(dateValue(d1, 1.0), dateValue(d2, 1.25)),
           log(1.25) / years(d1, d2));
     });
 
@@ -38,27 +36,21 @@ main() {
 
     group('moveValueInTime', () {
       test('move forward in time', () {
-        expect(
-            moveValueInTime(1.0, 0.05, date(2001, 1, 1), date(2001, 1, 2)),
+        expect(moveValueInTime(1.0, 0.05, date(2001, 1, 1), date(2001, 1, 2)),
             exp(0.05 * 1 / DaysPerYear));
-        expect(
-            moveValueInTime(1.0, 0.05, date(2001, 1, 1), date(2003, 1, 2)),
+        expect(moveValueInTime(1.0, 0.05, date(2001, 1, 1), date(2003, 1, 2)),
             exp(0.05 * (731.0) / DaysPerYear));
       });
 
       test('move back in time', () {
-        expect(
-            moveValueInTime(1.0, 0.05, date(2001, 1, 2), date(2001, 1, 1)),
+        expect(moveValueInTime(1.0, 0.05, date(2001, 1, 2), date(2001, 1, 1)),
             exp(-0.05 * 1 / DaysPerYear));
-        expect(
-            moveValueInTime(1.0, 0.05, date(2003, 1, 2), date(2001, 1, 1)),
+        expect(moveValueInTime(1.0, 0.05, date(2003, 1, 2), date(2001, 1, 1)),
             exp(-0.05 * (731.0) / DaysPerYear));
       });
-
     });
   });
 
 // end <main>
 
 }
-

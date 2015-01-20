@@ -18,9 +18,8 @@ class YearRange {
   // custom <class YearRange>
 
   _init() {
-    if (_start >
-        _end) throw new ArgumentError(
-            "Year range start $start must be on or before end $end");
+    if (_start > _end) throw new ArgumentError(
+        "Year range start $start must be on or before end $end");
   }
 
   DateRange get dateRange =>
@@ -36,9 +35,8 @@ class YearRange {
 class DateRange implements Comparable<DateRange> {
   DateRange(this._start, this._end) {
     // custom <DateRange>
-    if (_start >
-        _end) throw new ArgumentError(
-            "Date range start $start must be on or before end $end");
+    if (_start > _end) throw new ArgumentError(
+        "Date range start $start must be on or before end $end");
     // end <DateRange>
   }
 
@@ -74,10 +72,8 @@ class DateRange implements Comparable<DateRange> {
 
   // end <class DateRange>
 
-  Map toJson() => {
-    "start": ebisu_utils.toJson(start),
-    "end": ebisu_utils.toJson(end),
-  };
+  Map toJson() =>
+      {"start": ebisu_utils.toJson(start), "end": ebisu_utils.toJson(end),};
 
   static DateRange fromJson(Object json) {
     if (json == null) return null;
@@ -104,22 +100,17 @@ class DateRange implements Comparable<DateRange> {
 DateRange dateRange([Date _start, Date _end]) => new DateRange(_start, _end);
 
 class IntervalDateRange {
-  const IntervalDateRange(this._start, this._end, this._frequency,
-      this._dateRanges);
+  const IntervalDateRange(
+      this._start, this._end, this._frequency, this._dateRanges);
 
-  bool operator ==(IntervalDateRange other) =>
-      identical(this, other) ||
-          _start == other._start &&
-              _end == other._end &&
-              _frequency == other._frequency &&
-              const ListEquality().equals(_dateRanges, other._dateRanges);
+  bool operator ==(IntervalDateRange other) => identical(this, other) ||
+      _start == other._start &&
+          _end == other._end &&
+          _frequency == other._frequency &&
+          const ListEquality().equals(_dateRanges, other._dateRanges);
 
-  int get hashCode =>
-      hash4(
-          _start,
-          _end,
-          _frequency,
-          const ListEquality<DateRange>().hash(_dateRanges));
+  int get hashCode => hash4(_start, _end, _frequency,
+      const ListEquality<DateRange>().hash(_dateRanges));
 
   copy() => new IntervalDateRange._copy(this);
   Date get start => _start;
@@ -128,20 +119,18 @@ class IntervalDateRange {
   List<DateRange> get dateRanges => _dateRanges;
   // custom <class IntervalDateRange>
 
-  factory IntervalDateRange.basic(Date _start, Date _end, [Frequency _frequency
-      = ANNUAL]) {
+  factory IntervalDateRange.basic(Date _start, Date _end,
+      [Frequency _frequency = ANNUAL]) {
     var _dateRanges = [];
-    if (_start >
-        _end) throw new ArgumentError("IntervalDateRange start $_start must <= $_end");
+    if (_start > _end) throw new ArgumentError(
+        "IntervalDateRange start $_start must <= $_end");
 
-    visitDateRange(
-        new DateRange(_start, _end),
+    visitDateRange(new DateRange(_start, _end),
         (Date start, Date end) => _dateRanges.add(dateRange(start, end)),
         _frequency);
 
     return new IntervalDateRange(_start, _end, _frequency, _dateRanges);
   }
-
 
   String toString() => '''
 start: $_start
@@ -150,7 +139,6 @@ frequency: $_frequency
 dateRanges:\n\t${_dateRanges.join('\n\t')}
 ''';
 
-
   get numIntervals => _dateRanges.length;
 
   // end <class IntervalDateRange>
@@ -158,9 +146,10 @@ dateRanges:\n\t${_dateRanges.join('\n\t')}
       : _start = other._start,
         _end = other._end,
         _frequency = other._frequency == null ? null : other._frequency.copy(),
-        _dateRanges = other._dateRanges == null ?
-          null :
-          (new List.from(other._dateRanges.map((e) => e == null ? null : e.copy())));
+        _dateRanges = other._dateRanges == null
+            ? null
+            : (new List.from(
+                other._dateRanges.map((e) => e == null ? null : e.copy())));
 
   final Date _start;
   final Date _end;
@@ -170,11 +159,8 @@ dateRanges:\n\t${_dateRanges.join('\n\t')}
 
 // custom <library date_range>
 IntervalDateRange intervalDateRange(Date _start, Date _end,
-    [Frequency _frequency]) =>
-    new IntervalDateRange.basic(
-        _start,
-        _end,
-        _frequency == null ? Frequency.ANNUAL : _frequency);
+    [Frequency _frequency]) => new IntervalDateRange.basic(
+        _start, _end, _frequency == null ? Frequency.ANNUAL : _frequency);
 
 fiscalRange(int year) => dateRange(startOfYear(year), startOfYear(year + 1));
 
@@ -210,4 +196,3 @@ void visitDateRange(DateRange dateRange, DateRangeVisitor visitor,
 }
 
 // end <library date_range>
-

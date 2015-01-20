@@ -10,10 +10,8 @@ class CFlowSequence {
 
   static _sortFlows(flows) => new List.from(flows)..sort();
 
-  double valueOn(Date onDate, RateCurve curve) =>
-      _flows.fold(
-          0.0,
-          (prev, flow) => prev + flow.value * curve.scaleFromTo(flow.date, onDate));
+  double valueOn(Date onDate, RateCurve curve) => _flows.fold(0.0,
+      (prev, flow) => prev + flow.value * curve.scaleFromTo(flow.date, onDate));
 
   double valueOnFixedRate(Date onDate, double rate) {
     if (_flows.length == 0) return 0.0;
@@ -39,4 +37,3 @@ CFlowSequence cFlowSequence([List<DateValue> _flows]) =>
     new CFlowSequence(_flows);
 
 // end <part cash_flow>
-

@@ -16,4 +16,3 @@ double ccRate(DateValue start, DateValue end) =>
 double ccToAnnual(double r) => exp(r) - 1.0;
 
 // end <part tvm>
-

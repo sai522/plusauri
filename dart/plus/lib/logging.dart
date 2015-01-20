@@ -23,9 +23,7 @@ plusLogAlways(Logger logger, makeMessage) {
   Logger.root.level = was;*/
 }
 
-
 // end <additional imports>
 
 // custom <library logging>
 // end <library logging>
-

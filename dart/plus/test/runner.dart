@@ -8,7 +8,8 @@ import 'test_finance_mortgage.dart' as test_finance_mortgage;
 import 'test_finance_rate_curve.dart' as test_finance_rate_curve;
 import 'test_finance_cash_flow.dart' as test_finance_cash_flow;
 import 'test_finance_tvm.dart' as test_finance_tvm;
-import 'test_finance_curves_attribution.dart' as test_finance_curves_attribution;
+import 'test_finance_curves_attribution.dart'
+    as test_finance_curves_attribution;
 import 'test_forecast_grid.dart' as test_forecast_grid;
 import 'test_forecast.dart' as test_forecast;
 import 'test_portfolio.dart' as test_portfolio;
@@ -63,4 +64,3 @@ main() {
   test_model_income_statement.main();
   test_model_liquidation_summary.main();
 }
-

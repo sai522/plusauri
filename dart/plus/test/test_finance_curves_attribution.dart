@@ -22,13 +22,13 @@ class HoldingReturnType implements Comparable<HoldingReturnType> {
   static const CAPITAL_GAIN_DISTRIBUTION = const HoldingReturnType._(3);
   static const CAPITAL_APPRECIATION = const HoldingReturnType._(4);
 
-  static get values =>
-      [
-          INTEREST,
-          QUALIFIED_DIVIDEND,
-          UNQUALIFIED_DIVIDEND,
-          CAPITAL_GAIN_DISTRIBUTION,
-          CAPITAL_APPRECIATION];
+  static get values => [
+    INTEREST,
+    QUALIFIED_DIVIDEND,
+    UNQUALIFIED_DIVIDEND,
+    CAPITAL_GAIN_DISTRIBUTION,
+    CAPITAL_APPRECIATION
+  ];
 
   final int value;
 
@@ -82,7 +82,6 @@ class HoldingReturnType implements Comparable<HoldingReturnType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(5)].toString();
   }
-
 }
 
 // end <library test_finance_curves_attribution>
@@ -90,7 +89,6 @@ main() {
 // custom <main>
 
   group('test_finance_curves_attribution.dart', () {
-
     final d1 = date(2001, 1, 1),
         d2 = date(2020, 1, 1);
     final r1 = 0.03;
@@ -98,7 +96,6 @@ main() {
     final dr = dateRange(d1, d2);
 
     group('curves_attribution', () {
-
       test('with no curves', () {
         var curvesAttribution = new CurvesAttribution({});
         var attribution = curvesAttribution.scaleOnIntervals(dr);
@@ -107,16 +104,12 @@ main() {
       });
 
       test('with one curve', () {
-        var curvesAttribution = new CurvesAttribution({
-          HoldingReturnType.QUALIFIED_DIVIDEND: rc1
-        });
+        var curvesAttribution =
+            new CurvesAttribution({HoldingReturnType.QUALIFIED_DIVIDEND: rc1});
         var attribution = curvesAttribution.scaleOnIntervals(dr);
         var expected = rc1.scaleFromTo(d1, d2) - 1.0;
-        expect(
-            closeEnough(
-                attribution.contributionDelta(HoldingReturnType.QUALIFIED_DIVIDEND, 1.0),
-                expected),
-            true);
+        expect(closeEnough(attribution.contributionDelta(
+            HoldingReturnType.QUALIFIED_DIVIDEND, 1.0), expected), true);
       });
 
       test('with two curves', () {
@@ -145,7 +138,6 @@ main() {
         expect(excessiveCompounding > attribution.totalValue(), true);
         expect(attribution.totalValue() > grossSeparate, true);
       });
-
     });
 
     test('with mixed signs', () {
@@ -159,14 +151,15 @@ main() {
             [dv(d1, 0.04), dv(negativeYear, -0.04), dv(positiveYear, 0.04)])
       });
 
-      final attribution =
-          curvesAttribution.scaleOnIntervals(dateRange(negativeYear, positiveYear));
+      final attribution = curvesAttribution
+          .scaleOnIntervals(dateRange(negativeYear, positiveYear));
 
       double total = 0.0;
       [
-          HoldingReturnType.QUALIFIED_DIVIDEND,
-          HoldingReturnType.UNQUALIFIED_DIVIDEND,
-          HoldingReturnType.CAPITAL_APPRECIATION].forEach((HoldingReturnType ht) {
+        HoldingReturnType.QUALIFIED_DIVIDEND,
+        HoldingReturnType.UNQUALIFIED_DIVIDEND,
+        HoldingReturnType.CAPITAL_APPRECIATION
+      ].forEach((HoldingReturnType ht) {
         print('\t$ht => ${attribution.contributionDelta(ht, 1.0)}');
         total += attribution.contributionDelta(ht, 1.0);
       });
@@ -177,4 +170,3 @@ main() {
 // end <main>
 
 }
-

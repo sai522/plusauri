@@ -23,18 +23,17 @@ final _logger = new Logger('dossier');
 class Person {
   Person();
 
-  bool operator ==(Person other) =>
-      identical(this, other) ||
-          birthDate == other.birthDate &&
-              deathDate == other.deathDate &&
-              retirementDate == other.retirementDate;
+  bool operator ==(Person other) => identical(this, other) ||
+      birthDate == other.birthDate &&
+          deathDate == other.deathDate &&
+          retirementDate == other.retirementDate;
 
   int get hashCode => hash3(birthDate, deathDate, retirementDate);
 
   copy() => new Person()
-      ..birthDate = birthDate
-      ..deathDate = deathDate
-      ..retirementDate = retirementDate;
+    ..birthDate = birthDate
+    ..deathDate = deathDate
+    ..retirementDate = retirementDate;
 
   Date birthDate;
   Date deathDate;
@@ -43,7 +42,6 @@ class Person {
   // end <class Person>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "birthDate": ebisu_utils.toJson(birthDate),
@@ -75,30 +73,27 @@ class Dossier {
       this.assumptionModel, this.alternateAssumptionModels, this.fundingLinks,
       this.investmentLinks);
 
-  bool operator ==(Dossier other) =>
-      identical(this, other) ||
-          id == other.id &&
-              const MapEquality().equals(personMap, other.personMap) &&
-              balanceSheet == other.balanceSheet &&
-              flowModel == other.flowModel &&
-              assumptionModel == other.assumptionModel &&
-              const MapEquality().equals(
-                  alternateAssumptionModels,
-                  other.alternateAssumptionModels) &&
-              const MapEquality().equals(fundingLinks, other.fundingLinks) &&
-              const MapEquality().equals(investmentLinks, other.investmentLinks);
+  bool operator ==(Dossier other) => identical(this, other) ||
+      id == other.id &&
+          const MapEquality().equals(personMap, other.personMap) &&
+          balanceSheet == other.balanceSheet &&
+          flowModel == other.flowModel &&
+          assumptionModel == other.assumptionModel &&
+          const MapEquality().equals(
+              alternateAssumptionModels, other.alternateAssumptionModels) &&
+          const MapEquality().equals(fundingLinks, other.fundingLinks) &&
+          const MapEquality().equals(investmentLinks, other.investmentLinks);
 
-  int get hashCode =>
-      hashObjects(
-          [
-              id,
-              const MapEquality().hash(personMap),
-              balanceSheet,
-              flowModel,
-              assumptionModel,
-              const MapEquality().hash(alternateAssumptionModels),
-              const MapEquality().hash(fundingLinks),
-              const MapEquality().hash(investmentLinks)]);
+  int get hashCode => hashObjects([
+    id,
+    const MapEquality().hash(personMap),
+    balanceSheet,
+    flowModel,
+    assumptionModel,
+    const MapEquality().hash(alternateAssumptionModels),
+    const MapEquality().hash(fundingLinks),
+    const MapEquality().hash(investmentLinks)
+  ]);
 
   copy() => new Dossier._copy(this);
   final String id;
@@ -110,8 +105,7 @@ class Dossier {
   /// Links a flow model expense to an account for funding
   ///
   /// Note: A funding source can only be used its specified expense. However,
-
-      /// expenses can be funded by other sources. The intent is to model constraints like
+  /// expenses can be funded by other sources. The intent is to model constraints like
   /// college expenses being funded first by college funds.
   final Map<String, String> fundingLinks;
   /// Links a flow model income to one or more accounts.
@@ -139,13 +133,10 @@ class Dossier {
       result[flowName] = holdingKeyList;
       final accountName = src[flowName];
 
-      holdingKeys.skipWhile(
-          (HoldingKey key) =>
-              key.accountName !=
-                  accountName).takeWhile(
-                      (HoldingKey key) =>
-                          key.accountName ==
-                              accountName).forEach((HoldingKey key) => holdingKeyList.add(key));
+      holdingKeys
+          .skipWhile((HoldingKey key) => key.accountName != accountName)
+          .takeWhile((HoldingKey key) => key.accountName == accountName)
+          .forEach((HoldingKey key) => holdingKeyList.add(key));
     }
     return result;
   }
@@ -162,8 +153,7 @@ class Dossier {
           if (accounts != null) {
             final accountHoldings = _preferredExpenseSources[expenseType] = [];
             for (final account in accounts) {
-              balanceSheet.visitAccountHoldings(
-                  account,
+              balanceSheet.visitAccountHoldings(account,
                   (String accountName, String holdingName, Holding holding) {
                 if (holding != null) {
                   accountHoldings.add(new HoldingKey(accountName, holdingName));
@@ -183,16 +173,17 @@ class Dossier {
       if (_incomePreferredLinks.length == 0) {
         _incomeHoldingKeys = balanceSheet.holdingKeys;
       } else {
-        _incomeHoldingKeys = allHoldingKeys.where(
-            (HoldingKey holdingKey) =>
-                !incomePreferredLinks.containsValue(holdingKey)).toList(growable: false);
+        _incomeHoldingKeys = allHoldingKeys
+            .where((HoldingKey holdingKey) =>
+                !incomePreferredLinks.containsValue(holdingKey))
+            .toList(growable: false);
       }
     }
     return _incomeHoldingKeys;
   }
 
-  bool _mapValuesContainsKey(Map<Object, List<HoldingKey>> map,
-      HoldingKey key) {
+  bool _mapValuesContainsKey(
+      Map<Object, List<HoldingKey>> map, HoldingKey key) {
     for (List<HoldingKey> keys in map.values) {
       if (keys.contains(key)) return true;
     }
@@ -203,8 +194,8 @@ class Dossier {
     if (_expenseHoldingKeys == null) {
       final allHoldingKeys = balanceSheet.holdingKeys;
       _expenseHoldingKeys = allHoldingKeys.where((HoldingKey holdingKey) {
-        bool result =
-            !_mapValuesContainsKey(preferredExpenseSources, holdingKey) &&
+        bool result = !_mapValuesContainsKey(
+                preferredExpenseSources, holdingKey) &&
             !_mapValuesContainsKey(expensePreferredLinks, holdingKey);
         return result;
       }).toList(growable: false);
@@ -242,7 +233,6 @@ class Dossier {
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
   Map toJson() => {
     "id": ebisu_utils.toJson(id),
     "personMap": ebisu_utils.toJson(personMap),
@@ -266,72 +256,65 @@ class Dossier {
   Dossier._fromJsonMapImpl(Map jsonMap)
       : id = jsonMap["id"],
         // personMap is Map<String,Person>
-      personMap = ebisu_utils.constructMapFromJsonData(
-          jsonMap["personMap"],
-          (value) => Person.fromJson(value)),
+        personMap = ebisu_utils.constructMapFromJsonData(
+            jsonMap["personMap"], (value) => Person.fromJson(value)),
         balanceSheet = BalanceSheet.fromJson(jsonMap["balanceSheet"]),
         flowModel = FlowModel.fromJson(jsonMap["flowModel"]),
         assumptionModel = AssumptionModel.fromJson(jsonMap["assumptionModel"]),
         // alternateAssumptionModels is Map<String,AssumptionModel>
-      alternateAssumptionModels = ebisu_utils.constructMapFromJsonData(
-          jsonMap["alternateAssumptionModels"],
-          (value) => AssumptionModel.fromJson(value)),
+        alternateAssumptionModels = ebisu_utils.constructMapFromJsonData(
+            jsonMap["alternateAssumptionModels"],
+            (value) => AssumptionModel.fromJson(value)),
         // fundingLinks is Map<String,String>
-      fundingLinks = ebisu_utils.constructMapFromJsonData(
-          jsonMap["fundingLinks"],
-          (value) => value),
+        fundingLinks = ebisu_utils.constructMapFromJsonData(
+            jsonMap["fundingLinks"], (value) => value),
         // investmentLinks is Map<String,String>
-      investmentLinks = ebisu_utils.constructMapFromJsonData(
-          jsonMap["investmentLinks"],
-          (value) => value);
+        investmentLinks = ebisu_utils.constructMapFromJsonData(
+            jsonMap["investmentLinks"], (value) => value);
 
   Dossier._copy(Dossier other)
       : id = other.id,
         personMap = valueApply(
-          other.personMap,
-          (v) => v == null ? null : v.copy()),
-        balanceSheet = other.balanceSheet == null ?
-          null :
-          other.balanceSheet.copy(),
+            other.personMap, (v) => v == null ? null : v.copy()),
+        balanceSheet = other.balanceSheet == null
+            ? null
+            : other.balanceSheet.copy(),
         flowModel = other.flowModel == null ? null : other.flowModel.copy(),
-        assumptionModel = other.assumptionModel == null ?
-          null :
-          other.assumptionModel.copy(),
-        alternateAssumptionModels = valueApply(
-          other.alternateAssumptionModels,
-          (v) => v == null ? null : v.copy()),
+        assumptionModel = other.assumptionModel == null
+            ? null
+            : other.assumptionModel.copy(),
+        alternateAssumptionModels = valueApply(other.alternateAssumptionModels,
+            (v) => v == null ? null : v.copy()),
         fundingLinks = valueApply(other.fundingLinks, (v) => v),
         investmentLinks = valueApply(other.investmentLinks, (v) => v),
-        _incomePreferredLinks = valueApply(
-          other._incomePreferredLinks,
-          (v) =>
-              v == null ? null : (new List.from(v.map((e) => e == null ? null : e.copy())))),
-        _expensePreferredLinks = valueApply(
-          other._expensePreferredLinks,
-          (v) =>
-              v == null ? null : (new List.from(v.map((e) => e == null ? null : e.copy())))),
-        _preferredExpenseSources = valueApply(
-          other._preferredExpenseSources,
-          (v) =>
-              v == null ? null : (new List.from(v.map((e) => e == null ? null : e.copy())))),
-        _incomeHoldingKeys = other._incomeHoldingKeys == null ?
-          null :
-          (new List.from(
-              other._incomeHoldingKeys.map((e) => e == null ? null : e.copy()))),
-        _expenseHoldingKeys = other._expenseHoldingKeys == null ?
-          null :
-          (new List.from(
-              other._expenseHoldingKeys.map((e) => e == null ? null : e.copy())));
+        _incomePreferredLinks = valueApply(other._incomePreferredLinks,
+            (v) => v == null
+                ? null
+                : (new List.from(v.map((e) => e == null ? null : e.copy())))),
+        _expensePreferredLinks = valueApply(other._expensePreferredLinks,
+            (v) => v == null
+                ? null
+                : (new List.from(v.map((e) => e == null ? null : e.copy())))),
+        _preferredExpenseSources = valueApply(other._preferredExpenseSources,
+            (v) => v == null
+                ? null
+                : (new List.from(v.map((e) => e == null ? null : e.copy())))),
+        _incomeHoldingKeys = other._incomeHoldingKeys == null
+            ? null
+            : (new List.from(other._incomeHoldingKeys
+                .map((e) => e == null ? null : e.copy()))),
+        _expenseHoldingKeys = other._expenseHoldingKeys == null
+            ? null
+            : (new List.from(other._expenseHoldingKeys
+                .map((e) => e == null ? null : e.copy())));
 
   Map<String, List<HoldingKey>> _incomePreferredLinks;
   Map<String, List<HoldingKey>> _expensePreferredLinks;
-
-      /// Preferred source based on busines rules (eg College Expense paid by College Accounts)
+  /// Preferred source based on busines rules (eg College Expense paid by College Accounts)
   Map<ExpenseType, List<HoldingKey>> _preferredExpenseSources;
   /// List of sources that have not been covered by incomePreferredLinks
   List<HoldingKey> _incomeHoldingKeys;
-
-      /// List of sources that have not been covered by expensePreferredLinks or preferredExpenseSources
+  /// List of sources that have not been covered by expensePreferredLinks or preferredExpenseSources
   List<HoldingKey> _expenseHoldingKeys;
 }
 
@@ -353,16 +336,9 @@ class DossierBuilder {
   List<HoldingKey> expenseHoldingKeys;
   // custom <class DossierBuilder>
   // end <class DossierBuilder>
-  Dossier buildInstance() =>
-      new Dossier(
-          id,
-          personMap,
-          balanceSheet,
-          flowModel,
-          assumptionModel,
-          alternateAssumptionModels,
-          fundingLinks,
-          investmentLinks);
+  Dossier buildInstance() => new Dossier(id, personMap, balanceSheet, flowModel,
+      assumptionModel, alternateAssumptionModels, fundingLinks,
+      investmentLinks);
 
   factory DossierBuilder.copyFrom(Dossier _) =>
       new DossierBuilder._copyImpl(_.copy());
@@ -376,13 +352,10 @@ class DossierBuilder {
         alternateAssumptionModels = _.alternateAssumptionModels,
         fundingLinks = _.fundingLinks,
         investmentLinks = _.investmentLinks;
-
-
 }
 
 /// Create a DossierBuilder sans new, for more declarative construction
 DossierBuilder dossierBuilder() => new DossierBuilder();
-
 
 Random _randomJsonGenerator = new Random(0);
 // custom <library dossier>
@@ -393,4 +366,3 @@ const _ExpenseToAccountTypeLinks = const {
 };
 
 // end <library dossier>
-

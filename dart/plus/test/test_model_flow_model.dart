@@ -17,22 +17,18 @@ main() {
     test('hashCode/equality', () {
       var a = new FlowModel({
         'fullTimeJob': new IncomeSpec(
-            IncomeType.LABOR_INCOME,
-            new FlowSpec('Labor income', 'src', null))
+            IncomeType.LABOR_INCOME, new FlowSpec('Labor income', 'src', null))
       }, {
         'palimony': new ExpenseSpec(
-            ExpenseType.ALIMONY,
-            new FlowSpec('Alimony payments', 'src', null))
+            ExpenseType.ALIMONY, new FlowSpec('Alimony payments', 'src', null))
       });
 
       var b = new FlowModel({
         'fullTimeJob': new IncomeSpec(
-            IncomeType.LABOR_INCOME,
-            new FlowSpec('Labor income', 'src', null))
+            IncomeType.LABOR_INCOME, new FlowSpec('Labor income', 'src', null))
       }, {
         'palimony': new ExpenseSpec(
-            ExpenseType.ALIMONY,
-            new FlowSpec('Alimony payments', 'src', null))
+            ExpenseType.ALIMONY, new FlowSpec('Alimony payments', 'src', null))
       });
 
       expect(a, b);
@@ -43,4 +39,3 @@ main() {
   // end <main>
 
 }
-

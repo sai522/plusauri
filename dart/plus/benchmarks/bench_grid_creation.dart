@@ -45,5 +45,3 @@ class BenchGridCreation extends BenchmarkBase {
 main() {
   BenchGridCreation.main();
 }
-
-

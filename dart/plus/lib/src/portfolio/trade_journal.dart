@@ -1,16 +1,15 @@
 part of plus.portfolio;
 
 class Trade implements Comparable<Trade> {
-  const Trade(this.date, this.symbol, this.tradeType, this.quantity,
-      this.price);
+  const Trade(
+      this.date, this.symbol, this.tradeType, this.quantity, this.price);
 
-  bool operator ==(Trade other) =>
-      identical(this, other) ||
-          date == other.date &&
-              symbol == other.symbol &&
-              tradeType == other.tradeType &&
-              quantity == other.quantity &&
-              price == other.price;
+  bool operator ==(Trade other) => identical(this, other) ||
+      date == other.date &&
+          symbol == other.symbol &&
+          tradeType == other.tradeType &&
+          quantity == other.quantity &&
+          price == other.price;
 
   int get hashCode => hashObjects([date, symbol, tradeType, quantity, price]);
 
@@ -73,7 +72,6 @@ class Trade implements Comparable<Trade> {
         tradeType = other.tradeType == null ? null : other.tradeType.copy(),
         quantity = other.quantity,
         price = other.price;
-
 }
 
 class TradeBuilder {
@@ -97,30 +95,26 @@ class TradeBuilder {
         tradeType = _.tradeType,
         quantity = _.quantity,
         price = _.price;
-
-
 }
 
 /// Create a TradeBuilder sans new, for more declarative construction
 TradeBuilder tradeBuilder() => new TradeBuilder();
 
-
 class TradeJournal {
   TradeJournal._default();
 
-  bool operator ==(TradeJournal other) =>
-      identical(this, other) ||
-          const ListEquality().equals(_trades, other._trades) &&
-              _dateRange == other._dateRange;
+  bool operator ==(TradeJournal other) => identical(this, other) ||
+      const ListEquality().equals(_trades, other._trades) &&
+          _dateRange == other._dateRange;
 
   int get hashCode =>
       hash2(const ListEquality<Trade>().hash(_trades), _dateRange);
 
   copy() => new TradeJournal._default()
-      .._trades = _trades == null ?
-          null :
-          (new List.from(_trades.map((e) => e == null ? null : e.copy())))
-      .._dateRange = _dateRange == null ? null : _dateRange.copy();
+    .._trades = _trades == null
+        ? null
+        : (new List.from(_trades.map((e) => e == null ? null : e.copy())))
+    .._dateRange = _dateRange == null ? null : _dateRange.copy();
 
   List<Trade> get trades => _trades;
   DateRange get dateRange => _dateRange;
@@ -174,8 +168,7 @@ class TradeJournal {
   void _fromJsonMapImpl(Map jsonMap) {
     // trades is List<Trade>
     _trades = ebisu_utils.constructListFromJsonData(
-        jsonMap["trades"],
-        (data) => Trade.fromJson(data));
+        jsonMap["trades"], (data) => Trade.fromJson(data));
     _dateRange = DateRange.fromJson(jsonMap["dateRange"]);
   }
   List<Trade> _trades;
@@ -192,9 +185,7 @@ class TradeAccountCollection {
   // custom <class TradeAccountCollection>
   // end <class TradeAccountCollection>
 
-  Map toJson() => {
-    "tradeJournalMap": ebisu_utils.toJson(tradeJournalMap),
-  };
+  Map toJson() => {"tradeJournalMap": ebisu_utils.toJson(tradeJournalMap),};
 
   static TradeAccountCollection fromJson(Object json) {
     if (json == null) return null;
@@ -208,8 +199,7 @@ class TradeAccountCollection {
   void _fromJsonMapImpl(Map jsonMap) {
     // tradeJournalMap is Map<String,TradeJournal>
     tradeJournalMap = ebisu_utils.constructMapFromJsonData(
-        jsonMap["tradeJournalMap"],
-        (value) => TradeJournal.fromJson(value));
+        jsonMap["tradeJournalMap"], (value) => TradeJournal.fromJson(value));
   }
 }
 
@@ -238,16 +228,16 @@ CostBasisEntry
   // end <class CostBasisEntry>
   CostBasisEntry._copy(CostBasisEntry other)
       : sell = other.sell == null ? null : other.sell.copy(),
-        offsettingBuys = other.offsettingBuys == null ?
-          null :
-          (new List.from(other.offsettingBuys.map((e) => e == null ? null : e.copy()))),
+        offsettingBuys = other.offsettingBuys == null
+            ? null
+            : (new List.from(
+                other.offsettingBuys.map((e) => e == null ? null : e.copy()))),
         cost = other.cost,
         shortTermGain = other.shortTermGain,
         longTermGain = other.longTermGain,
-        lotCloseMethod = other.lotCloseMethod == null ?
-          null :
-          other.lotCloseMethod.copy();
-
+        lotCloseMethod = other.lotCloseMethod == null
+            ? null
+            : other.lotCloseMethod.copy();
 }
 
 class CostBasisEntryBuilder {
@@ -261,14 +251,8 @@ class CostBasisEntryBuilder {
   LotCloseMethod lotCloseMethod;
   // custom <class CostBasisEntryBuilder>
   // end <class CostBasisEntryBuilder>
-  CostBasisEntry buildInstance() =>
-      new CostBasisEntry(
-          sell,
-          offsettingBuys,
-          cost,
-          shortTermGain,
-          longTermGain,
-          lotCloseMethod);
+  CostBasisEntry buildInstance() => new CostBasisEntry(
+      sell, offsettingBuys, cost, shortTermGain, longTermGain, lotCloseMethod);
 
   factory CostBasisEntryBuilder.copyFrom(CostBasisEntry _) =>
       new CostBasisEntryBuilder._copyImpl(_.copy());
@@ -280,13 +264,10 @@ class CostBasisEntryBuilder {
         shortTermGain = _.shortTermGain,
         longTermGain = _.longTermGain,
         lotCloseMethod = _.lotCloseMethod;
-
-
 }
 
 /// Create a CostBasisEntryBuilder sans new, for more declarative construction
 CostBasisEntryBuilder costBasisEntryBuilder() => new CostBasisEntryBuilder();
-
 
 abstract class LotCloser {
   // custom <class LotCloser>
@@ -300,8 +281,8 @@ abstract class LotCloser {
     while (openLots.length > 0) {
       final nextSellIndex = _indexOfNextSale(openLots);
 
-      if (Logger.root.level <=
-          Level.FINER) _logger.finer('OpenLots => $openLots => $nextSellIndex');
+      if (Logger.root.level <= Level.FINER) _logger
+          .finer('OpenLots => $openLots => $nextSellIndex');
 
       assert(nextSellIndex != 0);
       if (nextSellIndex > 0) {
@@ -309,16 +290,16 @@ abstract class LotCloser {
         final sale = openLots[nextSellIndex];
         final matchResult = closeLot(buys, sale);
 
-        if (Logger.root.level <=
-            Level.FINER) _logger.finer(
-                'MR => $matchResult => ${matchResult.createCostBasisEntry()}');
+        if (Logger.root.level <= Level.FINER) _logger.finer(
+            'MR => $matchResult => ${matchResult.createCostBasisEntry()}');
 
         tradeTaxAssessor._addCostBasisEntry(matchResult.createCostBasisEntry());
 
-        openLots =
-            (matchResult.residualTrade != null ? [matchResult.residualTrade] : [])
-            ..addAll(matchResult.remainingBuys)
-            ..addAll(openLots.sublist(nextSellIndex + 1));
+        openLots = (matchResult.residualTrade != null
+            ? [matchResult.residualTrade]
+            : [])
+          ..addAll(matchResult.remainingBuys)
+          ..addAll(openLots.sublist(nextSellIndex + 1));
         closedLots.addAll(matchResult.matchedBuys);
       } else {
         break;
@@ -327,8 +308,8 @@ abstract class LotCloser {
 
     tradeTaxAssessor._closedLots.addAll(closedLots);
     tradeTaxAssessor._openLots = openLots;
-    if (Logger.root.level <=
-        Level.FINER) _logger.finer('Remainging lots ${openLots.length}');
+    if (Logger.root.level <= Level.FINER) _logger
+        .finer('Remainging lots ${openLots.length}');
   }
 
   MatchResult closeLot(List<Trade> openBuys, Trade sale);
@@ -401,12 +382,9 @@ class TradeTaxAssessor {
     lotCloser.closeLots(this, onRange);
   }
 
-  _checkForNewLots() =>
-      _openLots.addAll(
-          _tradeJournal.after(
-              _openLots.length > 0 ?
-                  _openLots.last.date :
-                  EarliestDate).map((trade) => trade.copy()));
+  _checkForNewLots() => _openLots.addAll(_tradeJournal
+      .after(_openLots.length > 0 ? _openLots.last.date : EarliestDate)
+      .map((trade) => trade.copy()));
 
   _addCostBasisEntry(CostBasisEntry cbe) {
     _costBasisEntries.add(cbe);
@@ -434,8 +412,8 @@ class MatchResult {
   final LotCloseMethod lotCloseMethod;
   // custom <class MatchResult>
 
-  factory MatchResult.fromBuys(Iterable<Trade> allBuys, Trade sell,
-      LotCloseMethod lotCloseMethod) {
+  factory MatchResult.fromBuys(
+      Iterable<Trade> allBuys, Trade sell, LotCloseMethod lotCloseMethod) {
     var toBeSold = sell.quantity;
     List<Trade> matchedBuys = [];
     Trade residualTrade;
@@ -453,20 +431,16 @@ class MatchResult {
         break;
       } else {
         // Overmatched the units sold
-        matchedBuys.add((new TradeBuilder.copyFrom(buy)..quantity =
-            toBeSold).buildInstance());
-        residualTrade =
-            (new TradeBuilder.copyFrom(buy)..quantity = buyQty - toBeSold).buildInstance();
+        matchedBuys.add((new TradeBuilder.copyFrom(buy)..quantity = toBeSold)
+            .buildInstance());
+        residualTrade = (new TradeBuilder.copyFrom(buy)
+          ..quantity = buyQty - toBeSold).buildInstance();
         break;
       }
     }
 
-    return new MatchResult(
-        sell,
-        matchedBuys,
-        residualTrade,
-        allBuys.skip(count).toList(),
-        lotCloseMethod);
+    return new MatchResult(sell, matchedBuys, residualTrade,
+        allBuys.skip(count).toList(), lotCloseMethod);
   }
 
   CostBasisEntry createCostBasisEntry() {
@@ -487,12 +461,7 @@ class MatchResult {
     assert((longTermGain + shortTermGain - (sell.marketValue - cost)).abs() <
         0.0001);
     return new CostBasisEntry(
-        sell,
-        matchedBuys,
-        cost,
-        shortTermGain,
-        longTermGain,
-        lotCloseMethod);
+        sell, matchedBuys, cost, shortTermGain, longTermGain, lotCloseMethod);
   }
 
   toString() => '''
@@ -511,9 +480,9 @@ class AvgCostAccumulator {
   AvgCostAccumulator._default();
 
   copy() => new AvgCostAccumulator._default()
-      ..totalCost = totalCost
-      ..totalValue = totalValue
-      ..totalQty = totalQty;
+    ..totalCost = totalCost
+    ..totalValue = totalValue
+    ..totalQty = totalQty;
 
   double totalCost;
   double totalValue;
@@ -616,4 +585,3 @@ int _indexOfNextSale(Iterable<Trade> trades) {
 const double MinAccountBalance = 0.01;
 
 // end <part trade_journal>
-

@@ -15,7 +15,6 @@ main() {
 // custom <main>
 
   group('test_model_dossier.dart', () {
-
     final dossier = repository.dossiers.middleIncome;
 
     test('dossier toJson', () {
@@ -27,8 +26,8 @@ main() {
       expect(dossier.expensePreferredLinks.length, 1);
       dossier.expensePreferredLinks.values.forEach(
           (List<HoldingKey> holdingKeys) {
-        expect(
-            holdingKeys.every((HoldingKey hk) => hk.accountName == 'college junior'),
+        expect(holdingKeys
+                .every((HoldingKey hk) => hk.accountName == 'college junior'),
             true);
       });
     });
@@ -36,15 +35,12 @@ main() {
     test('preferred expense sources', () {
       expect(dossier.preferredExpenseSources.length, 1);
       dossier.preferredExpenseSources.values.forEach(
-          (List<HoldingKey> holdingKeys) =>
-              expect(
-                  holdingKeys.every((HoldingKey hk) => hk.accountName == 'college junior'),
-                  true));
+          (List<HoldingKey> holdingKeys) => expect(holdingKeys
+                  .every((HoldingKey hk) => hk.accountName == 'college junior'),
+              true));
     });
-
   });
 
 // end <main>
 
 }
-

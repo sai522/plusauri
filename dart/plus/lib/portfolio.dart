@@ -66,7 +66,6 @@ class TradeType implements Comparable<TradeType> {
   static TradeType fromJson(int v) {
     return v == null ? null : values[v];
   }
-
 }
 
 const BUY = TradeType.BUY;
@@ -120,7 +119,6 @@ class Capitalization implements Comparable<Capitalization> {
   static Capitalization fromJson(int v) {
     return v == null ? null : values[v];
   }
-
 }
 
 const LARGE_CAP = Capitalization.LARGE_CAP;
@@ -175,7 +173,6 @@ class InvestmentStyle implements Comparable<InvestmentStyle> {
   static InvestmentStyle fromJson(int v) {
     return v == null ? null : values[v];
   }
-
 }
 
 const VALUE = InvestmentStyle.VALUE;
@@ -240,7 +237,6 @@ class LotCloseMethod implements Comparable<LotCloseMethod> {
   static LotCloseMethod fromJson(int v) {
     return v == null ? null : values[v];
   }
-
 }
 
 const FIFO = LotCloseMethod.FIFO;
@@ -273,9 +269,7 @@ class PRResults {
 
   // end <class PRResults>
 
-  Map toJson() => {
-    "prices": ebisu_utils.toJson(prices),
-  };
+  Map toJson() => {"prices": ebisu_utils.toJson(prices),};
 
   static PRResults fromJson(Object json) {
     if (json == null) return null;
@@ -289,8 +283,7 @@ class PRResults {
   void _fromJsonMapImpl(Map jsonMap) {
     // prices is Map<String,TimeSeries>
     prices = ebisu_utils.constructMapFromJsonData(
-        jsonMap["prices"],
-        (value) => TimeSeries.fromJson(value));
+        jsonMap["prices"], (value) => TimeSeries.fromJson(value));
   }
 }
 
@@ -317,4 +310,3 @@ main() {
 // end <main>
 
 }
-

@@ -3,9 +3,8 @@ part of plus.finance;
 class RateCurve {
   RateCurve.assumeSorted(this._curveData);
 
-  bool operator ==(RateCurve other) =>
-      identical(this, other) ||
-          const ListEquality().equals(_curveData, other._curveData);
+  bool operator ==(RateCurve other) => identical(this, other) ||
+      const ListEquality().equals(_curveData, other._curveData);
 
   int get hashCode => const ListEquality<DateValue>().hash(_curveData).hashCode;
 
@@ -147,9 +146,7 @@ class RateCurve {
   }
 
   Map toJson() {
-    return {
-      "curveData": ebisu_utils.toJson(curveData),
-    };
+    return {"curveData": ebisu_utils.toJson(curveData),};
   }
 
   static RateCurve fromJson(Object json) {
@@ -170,12 +167,11 @@ class RateCurve {
 }
 // custom <part rate_curve>
 
-RateCurve rateCurve([List<DateValue> curveData = const [
-    ]]) => new RateCurve(curveData);
+RateCurve rateCurve([List<DateValue> curveData = const []]) =>
+    new RateCurve(curveData);
 
 typedef CurveAdjuster(RateCurve curve);
 
 final ZeroRateCurve = rateCurve();
 
 // end <part rate_curve>
-

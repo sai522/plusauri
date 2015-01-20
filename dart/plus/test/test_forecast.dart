@@ -43,38 +43,32 @@ main() {
     });
     group('DistributionSummary', () {
       test('operator+', () {
-        expect(
-            (new DistributionSummary(reinvested, distributed)) +
+        expect((new DistributionSummary(reinvested, distributed)) +
                 (new DistributionSummary(reinvested, distributed)),
-            new DistributionSummary(reinvested + reinvested, distributed + distributed));
+            new DistributionSummary(
+                reinvested + reinvested, distributed + distributed));
       });
 
       test('operator-', () {
-        expect(
-            -(new DistributionSummary(reinvested, distributed)),
+        expect(-(new DistributionSummary(reinvested, distributed)),
             new DistributionSummary(-reinvested, -distributed));
       });
     });
 
     group('PeriodBalance', () {
       test('operator+', () {
-        expect(
-            (new PeriodBalance.courtesy(
-                dv(date(2001, 1, 1), 1.0),
-                dv(date(2002, 1, 1), 2.0))) +
+        expect((new PeriodBalance.courtesy(
+                    dv(date(2001, 1, 1), 1.0), dv(date(2002, 1, 1), 2.0))) +
                 (new PeriodBalance.courtesy(
-                    dv(date(2001, 1, 1), 1.0),
-                    dv(date(2002, 1, 1), 2.0))),
+                    dv(date(2001, 1, 1), 1.0), dv(date(2002, 1, 1), 2.0))),
             new PeriodBalance.courtesy(
-                dv(date(2001, 1, 1), 2.0),
-                dv(date(2002, 1, 1), 4.0)));
+                dv(date(2001, 1, 1), 2.0), dv(date(2002, 1, 1), 4.0)));
       });
     });
 
     group('PeriodBalance', () {
       var apb = new PeriodBalance.courtesy(
-          dv(date(2001, 1, 1), 1.0),
-          dv(date(2002, 1, 1), 2.0));
+          dv(date(2001, 1, 1), 1.0), dv(date(2002, 1, 1), 2.0));
 
       test('operator+=', () {
         var pb = apb.copy();
@@ -92,81 +86,42 @@ main() {
 
       test('operator-', () {
         var pb = apb.copy();
-        expect(
-            -pb,
-            new PeriodBalance.courtesy(
-                dv(date(2001, 1, 1), -1.0),
-                dv(date(2002, 1, 1), -2.0)));
+        expect(-pb, new PeriodBalance.courtesy(
+            dv(date(2001, 1, 1), -1.0), dv(date(2002, 1, 1), -2.0)));
       });
     });
-
 
     group('HoldingPeriodBalance', () {
       final startDate = date(2001, 1, 1);
       final NoCostBasis = new PeriodBalance.empty(2001);
       var ds = divSum;
-      var pb =
-          new PeriodBalance.courtesy(dv(startDate, 1.0), dv(date(2002, 1, 1), 2.0));
+      var pb = new PeriodBalance.courtesy(
+          dv(startDate, 1.0), dv(date(2002, 1, 1), 2.0));
       var ipm = new InstrumentPartitionMappings.empty().newValue(2.0);
-      var details = {
-        HoldingReturnType.INTEREST: 0.02
-      };
+      var details = {HoldingReturnType.INTEREST: 0.02};
       var hpb = new HoldingPeriodBalance(
-          HoldingType.CASH,
-          pb,
-          ds,
-          NoCostBasis,
-          0.0,
-          ipm,
-          details,
-          0.0);
+          HoldingType.CASH, pb, ds, NoCostBasis, 0.0, ipm, details, 0.0);
       test('operator-', () {
-        expect(
-            -hpb,
-            new HoldingPeriodBalance(
-                HoldingType.CASH,
-                -pb,
-                -ds,
-                NoCostBasis,
-                0.0,
-                -ipm,
-                valueApply(details, (v) => -v),
-                0.0));
+        expect(-hpb, new HoldingPeriodBalance(HoldingType.CASH, -pb, -ds,
+            NoCostBasis, 0.0, -ipm, valueApply(details, (v) => -v), 0.0));
       });
       test('operator-(other)', () {
         var zero = hpb - hpb;
-        expect(
-            zero,
-            new HoldingPeriodBalance(
-                HoldingType.CASH,
-                pb - pb,
-                ds - ds,
-                NoCostBasis,
-                0.0,
-                ipm - ipm,
-                valueApply(details, (v) => 0.0),
-                0.0));
+        expect(zero, new HoldingPeriodBalance(HoldingType.CASH, pb - pb,
+            ds - ds, NoCostBasis, 0.0, ipm - ipm,
+            valueApply(details, (v) => 0.0), 0.0));
       });
       test('operator-=', () {
         var zero = hpb.copy();
         zero -= hpb;
-        expect(
-            zero,
-            new HoldingPeriodBalance(
-                HoldingType.CASH,
-                pb - pb,
-                ds - ds,
-                NoCostBasis,
-                0.0,
-                ipm - ipm,
-                valueApply(details, (v) => 0.0),
-                0.0));
+        expect(zero, new HoldingPeriodBalance(HoldingType.CASH, pb - pb,
+            ds - ds, NoCostBasis, 0.0, ipm - ipm,
+            valueApply(details, (v) => 0.0), 0.0));
       });
       test('operator+', () {
         final twice = hpb + hpb;
         expect(twice.periodBalance, hpb.periodBalance + hpb.periodBalance);
-        expect(
-            twice.distributionSummary,
+        expect(twice.distributionSummary,
             hpb.distributionSummary + hpb.distributionSummary);
         twice.growthDetails.forEach(
             (k, v) => expect(closeEnough(v, 2 * hpb.growthDetails[k]), true));
@@ -180,20 +135,16 @@ main() {
       test('hpb not changed', () {
         expect(hpb.periodBalance.start, dv(date(2001, 1, 1), 1.0));
         expect(hpb.periodBalance.end, dv(date(2002, 1, 1), 2.0));
-        expect(hpb.growthDetails, {
-          HoldingReturnType.INTEREST: .02
-        });
+        expect(hpb.growthDetails, {HoldingReturnType.INTEREST: .02});
         expect(hpb.distributionSummary, divSum);
       });
     });
   });
 
   group('test_forecast.dart', () {
-    group('forecaster', () {
-    });
+    group('forecaster', () {});
   });
 
 // end <main>
 
 }
-

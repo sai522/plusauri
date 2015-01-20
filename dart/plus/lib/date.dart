@@ -58,7 +58,6 @@ class Frequency implements Comparable<Frequency> {
   static Frequency fromJson(int v) {
     return v == null ? null : values[v];
   }
-
 }
 
 const ONCE = Frequency.ONCE;
@@ -85,7 +84,6 @@ class Date implements Comparable<Date> {
     assert(dt.isUtc);
   }
 
-
   String toString() => _dateTime.toString().substring(0, 10);
   String toJson() => toString();
 
@@ -94,7 +92,6 @@ class Date implements Comparable<Date> {
     var d = DateTime.parse(dt);
     return new Date(d.year, d.month, d.day);
   }
-
 
   int get year => _dateTime.year;
   int get month => _dateTime.month;
@@ -192,4 +189,3 @@ Date advanceDate(Frequency frequency, Date date, [int desiredDay]) {
 }
 
 // end <library date>
-

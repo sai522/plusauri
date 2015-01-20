@@ -25,10 +25,10 @@ class MortgageSpec {
       var principalPaid = pmt - periodInterestPaid;
       remainingPrincipal -= principalPaid;
       result[i] = new MortgagePaydownRecord()
-          ..date = startDate
-          ..periodInterestPaid = periodInterestPaid
-          ..periodPrincipalPaid = principalPaid
-          ..remainingPrincipal = remainingPrincipal;
+        ..date = startDate
+        ..periodInterestPaid = periodInterestPaid
+        ..periodPrincipalPaid = principalPaid
+        ..remainingPrincipal = remainingPrincipal;
     }
     return result;
   }
@@ -67,4 +67,3 @@ double mortgagePayment(principal, rate, years) {
 }
 
 // end <part mortgage>
-

@@ -51,8 +51,8 @@ class TimeSeries {
     var result = dateValue();
     if (_data.length > 0) {
       result
-          ..date = _data.last.date
-          ..value = sum;
+        ..date = _data.last.date
+        ..value = sum;
     }
     return result;
   }
@@ -62,18 +62,16 @@ class TimeSeries {
 
   int get length => _data.length;
 
-  filterOnRange(DateRange range) =>
-      _data.skipWhile(
-          (dv) => dv.date < range.start).takeWhile((dv) => dv.date < range.end);
+  filterOnRange(DateRange range) => _data
+      .skipWhile((dv) => dv.date < range.start)
+      .takeWhile((dv) => dv.date < range.end);
 
-  filterOnYear(int year) =>
-      _data.skipWhile(
-          (dv) => dv.date.year < year).takeWhile((dv) => dv.date.year == year);
+  filterOnYear(int year) => _data
+      .skipWhile((dv) => dv.date.year < year)
+      .takeWhile((dv) => dv.date.year == year);
 
   Map toJson() {
-    return {
-      "data": ebisu_utils.toJson(data),
-    };
+    return {"data": ebisu_utils.toJson(data),};
   }
 
   static TimeSeries fromJson(Object json) {
@@ -96,10 +94,10 @@ class TimeSeries {
   }
 
   // end <class TimeSeries>
-  TimeSeries._copy(TimeSeries other)
-      : _data = other._data == null ?
-          null :
-          (new List.from(other._data.map((e) => e == null ? null : e.copy())));
+  TimeSeries._copy(TimeSeries other) : _data = other._data == null
+          ? null
+          : (new List.from(
+              other._data.map((e) => e == null ? null : e.copy())));
 
   final List<DateValue> _data;
 }
@@ -112,6 +110,4 @@ TimeSeries timeSeries([List<DateValue> _data]) => new TimeSeries(_data);
 splice(TimeSeries ts1, TimeSeries ts2) =>
     timeSeries(merge(ts1._data, ts2._data));
 
-
 // end <library time_series>
-

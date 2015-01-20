@@ -14,11 +14,9 @@ main() {
 // custom <main>
 
   final repo = repository;
-  test(
-      'did repository load - check john doe',
+  test('did repository load - check john doe',
       () => expect(repository.people.johnDoe.birthDate, date(1965, 1, 1)));
 
 // end <main>
 
 }
-

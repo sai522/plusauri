@@ -42,50 +42,40 @@ class BenchGridTimelineCreation extends BenchmarkBase {
 
       final bsm = annualForecastModel.balanceSheetModel;
 
-
       bsm.visitAssets((String name, double startValue, double endValue) {
         //print('$name, $startValue, $endValue');
       });
 
-      bsm.visitLiabilities((String name, double startValue, double endValue) {
-
-      });
-
+      bsm.visitLiabilities(
+          (String name, double startValue, double endValue) {});
 
       for (int i = 0; i < 1; i++) {
         bsm.visitAccounts((String accountName, int numHoldings) {
           final hpb = bsm.createAccountHoldingPeriodBalance(accountName);
-          bsm.visitAccountOtherHoldings(
-              accountName,
+          bsm.visitAccountOtherHoldings(accountName,
               (HoldingKey hk, double startValue, double endValue) {
             //        print('<OTHER>: $hk $startValue, $endValue');
-
-
             //print("Doing $accountName, $hk");
             bsm.createHoldingPeriodBalance(accountName, hk.holdingName);
-
-
           });
-          bsm.visitAccountHoldings(
-              accountName,
+          bsm.visitAccountHoldings(accountName,
               (HoldingKey hk, double startValue, double endValue) {
             //        print('<OTHER>: $hk $startValue, $endValue');
           });
-
         });
       }
 
       final lsm = annualForecastModel.liquidationSummaryModel;
-      lsm.visitCredits(
-          (HoldingKey holdingKey, String incomeName, double amount, double balance) {
+      lsm.visitCredits((HoldingKey holdingKey, String incomeName, double amount,
+          double balance) {
 
-            //print('$year - $holdingKey credited $amount from $incomeName $balance');
+        //print('$year - $holdingKey credited $amount from $incomeName $balance');
       });
 
-      lsm.visitDebits(
-          (HoldingKey holdingKey, String expenseName, double amount, double balance) {
+      lsm.visitDebits((HoldingKey holdingKey, String expenseName, double amount,
+          double balance) {
 
-            //print('$year - $holdingKey debited $amount from $expenseName $balance');
+        //print('$year - $holdingKey debited $amount from $expenseName $balance');
       });
 
       if (false) {
@@ -119,4 +109,3 @@ class BenchGridTimelineCreation extends BenchmarkBase {
 main() {
   BenchGridTimelineCreation.main();
 }
-

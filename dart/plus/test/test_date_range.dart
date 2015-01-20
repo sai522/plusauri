@@ -20,8 +20,7 @@ main() {
       test('yearRange captures start/end', () {
         expect(yearRange.start, 2000);
         expect(yearRange.end, 2010);
-        expect(
-            yearRange.dateRange,
+        expect(yearRange.dateRange,
             dateRange(startOfYear(2000), startOfYear(2010)));
       });
     });
@@ -35,8 +34,7 @@ main() {
         expect(dr.end, date(2002, 1, 1));
       });
       test('start not after end', () {
-        expect(
-            () => dateRange(date(2003, 1, 1), date(2002, 1, 1)),
+        expect(() => dateRange(date(2003, 1, 1), date(2002, 1, 1)),
             throwsA(new isInstanceOf<ArgumentError>()));
       });
       test('copy produces equal', () {
@@ -46,14 +44,11 @@ main() {
         // actual sharing is allowed since dates are immutable
         expect(identical(dr.start, dr2.start), true);
       });
-
     });
 
     group('IntervalDateRange', () {
       var idrRanges = intervalDateRange(
-          date(2001, 1, 31),
-          date(2004, 3, 1),
-          Frequency.MONTHLY).dateRanges;
+          date(2001, 1, 31), date(2004, 3, 1), Frequency.MONTHLY).dateRanges;
 
       expect(idrRanges[0], dateRange(date(2001, 1, 31), date(2001, 2, 28)));
       expect(idrRanges[1], dateRange(date(2001, 2, 28), date(2001, 3, 31)));
@@ -67,7 +62,6 @@ main() {
       expect(idrRanges[9], dateRange(date(2001, 10, 31), date(2001, 11, 30)));
       expect(idrRanges[10], dateRange(date(2001, 11, 30), date(2001, 12, 31)));
       expect(idrRanges[11], dateRange(date(2001, 12, 31), date(2002, 1, 31)));
-
 
       expect(idrRanges[12], dateRange(date(2002, 1, 31), date(2002, 2, 28)));
       expect(idrRanges[13], dateRange(date(2002, 2, 28), date(2002, 3, 31)));
@@ -95,42 +89,32 @@ main() {
       expect(idrRanges[34], dateRange(date(2003, 11, 30), date(2003, 12, 31)));
       expect(idrRanges[35], dateRange(date(2003, 12, 31), date(2004, 1, 31)));
 
-      expect(
-          idrRanges[36],
+      expect(idrRanges[36],
           dateRange(date(2004, 1, 31), date(2004, 2, 29))); // leap
       expect(idrRanges[37], dateRange(date(2004, 2, 29), date(2004, 3, 1)));
 
       test('contains', () {
-        expect(
-            dateRange(date(2001, 1, 1), date(2010, 1, 1)).contains(date(2001, 1, 2)),
-            true);
+        expect(dateRange(date(2001, 1, 1), date(2010, 1, 1))
+            .contains(date(2001, 1, 2)), true);
 
-        expect(
-            dateRange(date(2001, 1, 1), date(2010, 1, 1)).contains(date(2001, 1, 1)),
-            true);
+        expect(dateRange(date(2001, 1, 1), date(2010, 1, 1))
+            .contains(date(2001, 1, 1)), true);
 
-        expect(
-            dateRange(date(2001, 1, 1), date(2010, 1, 1)).contains(date(2010, 1, 2)),
-            false);
+        expect(dateRange(date(2001, 1, 1), date(2010, 1, 1))
+            .contains(date(2010, 1, 2)), false);
 
-        expect(
-            dateRange(date(2001, 1, 1), date(2010, 1, 1)).contains(date(2010, 1, 1)),
-            false);
-
+        expect(dateRange(date(2001, 1, 1), date(2010, 1, 1))
+            .contains(date(2010, 1, 1)), false);
       });
 
       test('containsYear', () {
-        expect(
-            dateRange(date(2000, 1, 1), date(2010, 1, 1)).containsYear(2001),
+        expect(dateRange(date(2000, 1, 1), date(2010, 1, 1)).containsYear(2001),
             true);
-        expect(
-            dateRange(date(2001, 1, 1), date(2010, 1, 1)).containsYear(2001),
+        expect(dateRange(date(2001, 1, 1), date(2010, 1, 1)).containsYear(2001),
             true);
-        expect(
-            dateRange(date(2002, 1, 1), date(2010, 1, 1)).containsYear(2001),
+        expect(dateRange(date(2002, 1, 1), date(2010, 1, 1)).containsYear(2001),
             false);
-        expect(
-            dateRange(date(2000, 1, 1), date(2001, 1, 1)).containsYear(2001),
+        expect(dateRange(date(2000, 1, 1), date(2001, 1, 1)).containsYear(2001),
             false);
       });
 
@@ -157,8 +141,7 @@ main() {
       });
 
       test('oneDayRange', () {
-        expect(
-            oneDayRange(date(2001, 1, 1)),
+        expect(oneDayRange(date(2001, 1, 1)),
             dateRange(date(2001, 1, 1), date(2001, 1, 2)));
       });
 
@@ -170,8 +153,7 @@ main() {
 
         var rc = rateCurve([dv(date(1900, 1, 1), 0.03)]);
         var oneBigInterval = rc.scaleFromTo(start, end);
-        var multipleIntervals = idrRanges.fold(
-            1.0,
+        var multipleIntervals = idrRanges.fold(1.0,
             (prev, range) => prev * rc.scaleFromTo(range.start, range.end));
 
         expect(closeEnough(oneBigInterval, multipleIntervals), true);
@@ -185,8 +167,7 @@ main() {
 
         var rc = rateCurve([dv(date(1900, 1, 1), 0.03)]);
         var oneBigInterval = rc.scaleFromTo(start, end);
-        var multipleIntervals = idrRanges.fold(
-            1.0,
+        var multipleIntervals = idrRanges.fold(1.0,
             (prev, range) => prev * rc.scaleFromTo(range.start, range.end));
 
         expect(closeEnough(oneBigInterval, multipleIntervals), true);
@@ -194,15 +175,11 @@ main() {
 
       test('fiscalRange should return SOY to SOY', () {
         expect(
-            fiscalRange(1944),
-            dateRange(date(1944, 1, 1), date(1945, 1, 1)));
+            fiscalRange(1944), dateRange(date(1944, 1, 1), date(1945, 1, 1)));
       });
-
     });
-
   });
 
 // end <main>
 
 }
-

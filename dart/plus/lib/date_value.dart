@@ -38,10 +38,7 @@ class DateValue implements Comparable<DateValue> {
     return new DateValue(Date.fromJson(dv['date']), dv['value']);
   }
 
-  Map toJson() => {
-    'date': date.toJson(),
-    'value': value
-  };
+  Map toJson() => {'date': date.toJson(), 'value': value};
 
   operator +(DateValue other) =>
       dateValue(maxDate(date, other.date), value + other.value);
@@ -54,7 +51,6 @@ class DateValue implements Comparable<DateValue> {
   DateValue._copy(DateValue other)
       : date = other.date,
         value = other.value;
-
 }
 
 /// Create a DateValue sans new, for more declarative construction
@@ -85,10 +81,9 @@ int _binarySearch(List<DateValue> list, Date date, [int startIndex = 0]) {
 int firstOnOrBefore(List<DateValue> list, Date date, [int startIndex = 0]) {
   if (list.length == 0) return -1;
   int index = _binarySearch(list, date, startIndex);
-  return (index < 0) ?
-      index :
-      ((list[index].date.compareTo(date) > 0) ? index - 1 : index);
+  return (index < 0)
+      ? index
+      : ((list[index].date.compareTo(date) > 0) ? index - 1 : index);
 }
 
 // end <library date_value>
-

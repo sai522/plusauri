@@ -32,22 +32,22 @@ class IncomeType implements Comparable<IncomeType> {
   static const LABOR_INCOME = const IncomeType._(12);
   static const LOTTERY_INCOME = const IncomeType._(13);
 
-  static get values =>
-      [
-          OTHER,
-          INTEREST_INCOME,
-          CAPITAL_GAIN,
-          LONG_TERM_CAPITAL_GAIN,
-          SHORT_TERM_CAPITAL_GAIN,
-          QUALIFIED_DIVIDEND_INCOME,
-          NONQUALIFIED_DIVIDEND_INCOME,
-          CAPITAL_GAIN_DISTRIBUTION_INCOME,
-          INHERITANCE_INCOME,
-          PENSION_INCOME,
-          RENTAL_INCOME,
-          SOCIAL_SECURITY_INCOME,
-          LABOR_INCOME,
-          LOTTERY_INCOME];
+  static get values => [
+    OTHER,
+    INTEREST_INCOME,
+    CAPITAL_GAIN,
+    LONG_TERM_CAPITAL_GAIN,
+    SHORT_TERM_CAPITAL_GAIN,
+    QUALIFIED_DIVIDEND_INCOME,
+    NONQUALIFIED_DIVIDEND_INCOME,
+    CAPITAL_GAIN_DISTRIBUTION_INCOME,
+    INHERITANCE_INCOME,
+    PENSION_INCOME,
+    RENTAL_INCOME,
+    SOCIAL_SECURITY_INCOME,
+    LABOR_INCOME,
+    LOTTERY_INCOME
+  ];
 
   final int value;
 
@@ -137,7 +137,6 @@ class IncomeType implements Comparable<IncomeType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(14)].toString();
   }
-
 }
 
 class ExpenseType implements Comparable<ExpenseType> {
@@ -160,26 +159,26 @@ class ExpenseType implements Comparable<ExpenseType> {
   static const DEBT_MORTGAGE = const ExpenseType._(16);
   static const DEBT_COLLEGE = const ExpenseType._(17);
 
-  static get values =>
-      [
-          OTHER,
-          INTEREST_EXPENSE,
-          CAPITAL_DEPRECIATION,
-          LONG_TERM_CAPITAL_LOSS,
-          SHORT_TERM_CAPITAL_LOSS,
-          LIVING_EXPENSE,
-          PENSION_CONTRIBUTION,
-          AUTO_EXPENSE,
-          COLLEGE_EXPENSE,
-          MEDICAL_EXPENSE,
-          ALIMONY,
-          PALIMONY,
-          CHARITABLE_DONATION,
-          TAXES_FEDERAL,
-          TAXES_STATE,
-          TAXES_PROPERTY,
-          DEBT_MORTGAGE,
-          DEBT_COLLEGE];
+  static get values => [
+    OTHER,
+    INTEREST_EXPENSE,
+    CAPITAL_DEPRECIATION,
+    LONG_TERM_CAPITAL_LOSS,
+    SHORT_TERM_CAPITAL_LOSS,
+    LIVING_EXPENSE,
+    PENSION_CONTRIBUTION,
+    AUTO_EXPENSE,
+    COLLEGE_EXPENSE,
+    MEDICAL_EXPENSE,
+    ALIMONY,
+    PALIMONY,
+    CHARITABLE_DONATION,
+    TAXES_FEDERAL,
+    TAXES_STATE,
+    TAXES_PROPERTY,
+    DEBT_MORTGAGE,
+    DEBT_COLLEGE
+  ];
 
   final int value;
 
@@ -291,7 +290,6 @@ class ExpenseType implements Comparable<ExpenseType> {
   bool get isObligatory =>
       value == DEBT_MORTGAGE.value || value == DEBT_COLLEGE.value;
 
-
   // end <enum ExpenseType>
 }
 
@@ -341,28 +339,23 @@ class ItemSource implements Comparable<ItemSource> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(2)].toString();
   }
-
 }
 
 class IncomeStatement {
   IncomeStatement();
 
-  bool operator ==(IncomeStatement other) =>
-      identical(this, other) ||
-          year == other.year &&
-              const MapEquality().equals(incomes, other.incomes) &&
-              const MapEquality().equals(expenses, other.expenses);
+  bool operator ==(IncomeStatement other) => identical(this, other) ||
+      year == other.year &&
+          const MapEquality().equals(incomes, other.incomes) &&
+          const MapEquality().equals(expenses, other.expenses);
 
-  int get hashCode =>
-      hash3(
-          year,
-          const MapEquality().hash(incomes),
-          const MapEquality().hash(expenses));
+  int get hashCode => hash3(year, const MapEquality().hash(incomes),
+      const MapEquality().hash(expenses));
 
   copy() => new IncomeStatement()
-      ..year = year
-      ..incomes = valueApply(incomes, (v) => v == null ? null : v.copy())
-      ..expenses = valueApply(expenses, (v) => v == null ? null : v.copy());
+    ..year = year
+    ..incomes = valueApply(incomes, (v) => v == null ? null : v.copy())
+    ..expenses = valueApply(expenses, (v) => v == null ? null : v.copy());
 
   int year = 0;
   Map<String, IEItem> incomes = {};
@@ -375,7 +368,6 @@ class IncomeStatement {
   // end <class IncomeStatement>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "year": ebisu_utils.toJson(year),
@@ -396,12 +388,10 @@ class IncomeStatement {
     year = jsonMap["year"];
     // incomes is Map<String,IEItem>
     incomes = ebisu_utils.constructMapFromJsonData(
-        jsonMap["incomes"],
-        (value) => IEItem.fromJson(value));
+        jsonMap["incomes"], (value) => IEItem.fromJson(value));
     // expenses is Map<String,IEItem>
     expenses = ebisu_utils.constructMapFromJsonData(
-        jsonMap["expenses"],
-        (value) => IEItem.fromJson(value));
+        jsonMap["expenses"], (value) => IEItem.fromJson(value));
   }
 }
 
@@ -411,18 +401,17 @@ IncomeStatement incomeStatement() => new IncomeStatement();
 class IEItem {
   IEItem();
 
-  bool operator ==(IEItem other) =>
-      identical(this, other) ||
-          source == other.source &&
-              itemSource == other.itemSource &&
-              details == other.details;
+  bool operator ==(IEItem other) => identical(this, other) ||
+      source == other.source &&
+          itemSource == other.itemSource &&
+          details == other.details;
 
   int get hashCode => hash3(source, itemSource, details);
 
   copy() => new IEItem()
-      ..source = source
-      ..itemSource = itemSource == null ? null : itemSource.copy()
-      ..details = details == null ? null : details.copy();
+    ..source = source
+    ..itemSource = itemSource == null ? null : itemSource.copy()
+    ..details = details == null ? null : details.copy();
 
   String source;
   ItemSource itemSource;
@@ -434,7 +423,6 @@ class IEItem {
   // end <class IEItem>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "source": ebisu_utils.toJson(source),
@@ -465,4 +453,3 @@ Random _randomJsonGenerator = new Random(0);
 // custom <library income_statement>
 
 // end <library income_statement>
-

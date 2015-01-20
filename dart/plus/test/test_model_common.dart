@@ -26,31 +26,29 @@ main() {
     //print(middleClassLifeGross);
     test('CFlowSequenceSpec expand - frequency once', () {
       var spec = (cFlowSequenceSpec()
-          ..dateRange = dateRange(date(2000, 1, 1), date(2000, 1, 1))
-          ..paymentFrequency = PaymentFrequency.ONCE
-          ..initialValue = dateValue(date(2000, 1, 1), 1.0));
+        ..dateRange = dateRange(date(2000, 1, 1), date(2000, 1, 1))
+        ..paymentFrequency = PaymentFrequency.ONCE
+        ..initialValue = dateValue(date(2000, 1, 1), 1.0));
 
-      expect(
-          spec.expand(dateRange(date(2000, 1, 2), date(2011, 1, 1))),
+      expect(spec.expand(dateRange(date(2000, 1, 2), date(2011, 1, 1))),
           timeSeries([]));
-      expect(
-          spec.expand(dateRange(date(2000, 1, 1), date(2011, 1, 1))),
+      expect(spec.expand(dateRange(date(2000, 1, 1), date(2011, 1, 1))),
           timeSeries([dateValue(date(2000, 1, 1), 1.0)]));
     });
 
     test('CFlowSequenceSpec expand - frequency monthly - no growth', () {
       var spec = (cFlowSequenceSpec()
-          ..dateRange = dateRange(date(2000, 1, 1), date(2001, 1, 1))
-          ..paymentFrequency = PaymentFrequency.MONTHLY
-          ..initialValue = dateValue(date(2000, 1, 1), 1.0));
+        ..dateRange = dateRange(date(2000, 1, 1), date(2001, 1, 1))
+        ..paymentFrequency = PaymentFrequency.MONTHLY
+        ..initialValue = dateValue(date(2000, 1, 1), 1.0));
 
-      expect(
-          spec.expand(dateRange(date(2000, 1, 1), date(2000, 3, 1))),
-          timeSeries(
-              [dateValue(date(2000, 1, 1), 1.0), dateValue(date(2000, 2, 1), 1.0),]));
+      expect(spec.expand(dateRange(date(2000, 1, 1), date(2000, 3, 1))),
+          timeSeries([
+        dateValue(date(2000, 1, 1), 1.0),
+        dateValue(date(2000, 2, 1), 1.0),
+      ]));
 
-      expect(
-          spec.expand(dateRange(date(2000, 1, 1), date(2020, 1, 1))).length,
+      expect(spec.expand(dateRange(date(2000, 1, 1), date(2020, 1, 1))).length,
           12);
     });
 
@@ -61,22 +59,9 @@ main() {
           'b': 0.6
         }), throwsA(new isInstanceOf<ArgumentError>()));
       });
-      final p1 = {
-        "foo": .3,
-        "bar": .2,
-        "goo": .5
-      };
-      final p2 = {
-        "foo": .5,
-        "bar": .2,
-        "goo": .3
-      };
-      final p3 = {
-        "foo": .5,
-        "bar": .2,
-        "goo": .3,
-        "moo": 0.0
-      };
+      final p1 = {"foo": .3, "bar": .2, "goo": .5};
+      final p2 = {"foo": .5, "bar": .2, "goo": .3};
+      final p3 = {"foo": .5, "bar": .2, "goo": .3, "moo": 0.0};
 
       final pm1 = new PartitionMapping.validated(1000.0, 0.0, p1);
       final pm2 = new PartitionMapping.validated(1000.0, 0.0, p2);
@@ -103,7 +88,6 @@ main() {
         expect(sum.partitioned, 0.0);
         expect(sum.unpartitioned, 2000.0);
       });
-
     });
 
     /*
@@ -157,10 +141,10 @@ main() {
 
     test('CFlowSequenceSpec expand - frequency monthly - with growth', () {
       var spec = (cFlowSequenceSpec()
-          ..dateRange = dateRange(date(2000, 1, 1), date(2001, 1, 1))
-          ..paymentFrequency = PaymentFrequency.MONTHLY
-          ..initialValue = dateValue(date(2000, 1, 1), 1.0)
-          ..growth = rateCurve([dateValue(date(1900, 1, 1), 0.03)]));
+        ..dateRange = dateRange(date(2000, 1, 1), date(2001, 1, 1))
+        ..paymentFrequency = PaymentFrequency.MONTHLY
+        ..initialValue = dateValue(date(2000, 1, 1), 1.0)
+        ..growth = rateCurve([dateValue(date(1900, 1, 1), 0.03)]));
 
       var expanded = spec.expand(dateRange(date(2000, 1, 1), date(2000, 6, 1)));
       expect(expanded[0], spec.initialValue);
@@ -171,19 +155,15 @@ main() {
 
         var nextDate = advanceDate(MONTHLY, current.date);
 
-        current =
-            dateValue(nextDate, spec.growth.revalueOn(spec.initialValue, nextDate));
+        current = dateValue(
+            nextDate, spec.growth.revalueOn(spec.initialValue, nextDate));
       }
 
-      expect(
-          spec.expand(dateRange(date(2000, 1, 1), date(2020, 1, 1))).length,
+      expect(spec.expand(dateRange(date(2000, 1, 1), date(2020, 1, 1))).length,
           12);
     });
-
   });
-
 
 // end <main>
 
 }
-

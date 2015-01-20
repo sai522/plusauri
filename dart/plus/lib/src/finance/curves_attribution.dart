@@ -3,9 +3,8 @@ part of plus.finance;
 class CurvesAttribution {
   CurvesAttribution(this._curvesAttribution);
 
-  bool operator ==(CurvesAttribution other) =>
-      identical(this, other) ||
-          const MapEquality().equals(_curvesAttribution, other._curvesAttribution);
+  bool operator ==(CurvesAttribution other) => identical(this, other) ||
+      const MapEquality().equals(_curvesAttribution, other._curvesAttribution);
 
   int get hashCode => const MapEquality().hash(_curvesAttribution).hashCode;
 
@@ -35,8 +34,8 @@ class CurvesAttribution {
   String toString() {
     List parts = [];
     _curvesAttribution.keys.toList()
-        ..sort()
-        ..forEach((id) => parts.add('${id} => ${_curvesAttribution[id]}'));
+      ..sort()
+      ..forEach((id) => parts.add('${id} => ${_curvesAttribution[id]}'));
     return parts.join('\n');
   }
 
@@ -45,16 +44,15 @@ class CurvesAttribution {
 }
 
 /// Create a CurvesAttribution sans new, for more declarative construction
-CurvesAttribution curvesAttribution([Map<Object, RateCurve> _curvesAttribution])
-    =>
-    new CurvesAttribution(_curvesAttribution);
+CurvesAttribution curvesAttribution(
+    [Map<Object, RateCurve> _curvesAttribution]) =>
+        new CurvesAttribution(_curvesAttribution);
 
 class Attribution {
   Attribution(this._attribution);
 
-  bool operator ==(Attribution other) =>
-      identical(this, other) ||
-          const MapEquality().equals(_attribution, other._attribution);
+  bool operator ==(Attribution other) => identical(this, other) ||
+      const MapEquality().equals(_attribution, other._attribution);
 
   int get hashCode => const MapEquality().hash(_attribution).hashCode;
 
@@ -91,4 +89,3 @@ Attribution attribution([Map<Object, double> _attribution]) =>
 typedef double AttributionAdjustor(double net, Map<Object, double> attribution);
 
 // end <part curves_attribution>
-

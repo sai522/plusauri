@@ -22,12 +22,11 @@ final _logger = new Logger('liquidation_summary');
 class FlowDetail implements Comparable<FlowDetail> {
   FlowDetail(this.date, this.type, this.flow, this.name);
 
-  bool operator ==(FlowDetail other) =>
-      identical(this, other) ||
-          date == other.date &&
-              type == other.type &&
-              flow == other.flow &&
-              name == other.name;
+  bool operator ==(FlowDetail other) => identical(this, other) ||
+      date == other.date &&
+          type == other.type &&
+          flow == other.flow &&
+          name == other.name;
 
   int get hashCode => hash4(date, type, flow, name);
 
@@ -41,10 +40,8 @@ class FlowDetail implements Comparable<FlowDetail> {
   int compareTo(FlowDetail other) {
     int result = 0;
     ((result = date.compareTo(other.date)) == 0) &&
-        ((result = (flow > 0.0 && flow < 0.0) ?
-            -1 :
-            (flow < 0.0 && flow > 0.0) ? 1 : 0) ==
-            0) &&
+        ((result = (flow > 0.0 &&
+            flow < 0.0) ? -1 : (flow < 0.0 && flow > 0.0) ? 1 : 0) == 0) &&
         ((result = name.compareTo(other.name)) == 0) &&
         ((result = flow.compareTo(other.flow)) == 0);
     return result;
@@ -55,8 +52,8 @@ class FlowDetail implements Comparable<FlowDetail> {
   get flowType =>
       flow < 0 ? ExpenseType.fromJson(type) : IncomeType.fromJson(type);
 
-  FlowKey get flowKey => _flowKey == null ? (_flowKey =
-      new FlowKey(name, isIncome)) : _flowKey;
+  FlowKey get flowKey =>
+      _flowKey == null ? (_flowKey = new FlowKey(name, isIncome)) : _flowKey;
 
   toString() => 'Flow ($date, $flowType, $name, $flow)';
 
@@ -99,13 +96,12 @@ class FundingAdjustment {
   const FundingAdjustment(this.flowDetail, this.holdingKey, this.amount,
       this.endBalance, this.flowRemaining);
 
-  bool operator ==(FundingAdjustment other) =>
-      identical(this, other) ||
-          flowDetail == other.flowDetail &&
-              holdingKey == other.holdingKey &&
-              amount == other.amount &&
-              endBalance == other.endBalance &&
-              flowRemaining == other.flowRemaining;
+  bool operator ==(FundingAdjustment other) => identical(this, other) ||
+      flowDetail == other.flowDetail &&
+          holdingKey == other.holdingKey &&
+          amount == other.amount &&
+          endBalance == other.endBalance &&
+          flowRemaining == other.flowRemaining;
 
   int get hashCode =>
       hashObjects([flowDetail, holdingKey, amount, endBalance, flowRemaining]);
@@ -119,15 +115,13 @@ class FundingAdjustment {
   final double flowRemaining;
   // custom <class FundingAdjustment>
 
-  bool isValid() =>
-      endBalance >= 0.0 &&
-          ((amount >= 0.0 && flowRemaining >= 0.0) ||
-              (amount <= 0.0 && flowRemaining <= 0.0));
+  bool isValid() => endBalance >= 0.0 &&
+      ((amount >= 0.0 && flowRemaining >= 0.0) ||
+          (amount <= 0.0 && flowRemaining <= 0.0));
 
   // end <class FundingAdjustment>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "flowDetail": ebisu_utils.toJson(flowDetail),
@@ -159,21 +153,18 @@ class FundingAdjustment {
         amount = other.amount,
         endBalance = other.endBalance,
         flowRemaining = other.flowRemaining;
-
 }
 
 class FlowEntry {
   const FlowEntry(this.flowDetail, this.fundingAdjustments);
 
-  bool operator ==(FlowEntry other) =>
-      identical(this, other) ||
-          flowDetail == other.flowDetail &&
-              const ListEquality().equals(fundingAdjustments, other.fundingAdjustments);
+  bool operator ==(FlowEntry other) => identical(this, other) ||
+      flowDetail == other.flowDetail &&
+          const ListEquality().equals(
+              fundingAdjustments, other.fundingAdjustments);
 
-  int get hashCode =>
-      hash2(
-          flowDetail,
-          const ListEquality<FundingAdjustment>().hash(fundingAdjustments));
+  int get hashCode => hash2(flowDetail,
+      const ListEquality<FundingAdjustment>().hash(fundingAdjustments));
 
   copy() => new FlowEntry._copy(this);
   final FlowDetail flowDetail;
@@ -186,7 +177,6 @@ class FlowEntry {
   // end <class FlowEntry>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "flowDetail": ebisu_utils.toJson(flowDetail),
@@ -205,17 +195,16 @@ class FlowEntry {
   FlowEntry._fromJsonMapImpl(Map jsonMap)
       : flowDetail = FlowDetail.fromJson(jsonMap["flowDetail"]),
         // fundingAdjustments is List<FundingAdjustment>
-      fundingAdjustments = ebisu_utils.constructListFromJsonData(
-          jsonMap["fundingAdjustments"],
-          (data) => FundingAdjustment.fromJson(data));
+        fundingAdjustments = ebisu_utils.constructListFromJsonData(
+            jsonMap["fundingAdjustments"],
+            (data) => FundingAdjustment.fromJson(data));
 
   FlowEntry._copy(FlowEntry other)
       : flowDetail = other.flowDetail == null ? null : other.flowDetail.copy(),
-        fundingAdjustments = other.fundingAdjustments == null ?
-          null :
-          (new List.from(
-              other.fundingAdjustments.map((e) => e == null ? null : e.copy())));
-
+        fundingAdjustments = other.fundingAdjustments == null
+            ? null
+            : (new List.from(other.fundingAdjustments
+                .map((e) => e == null ? null : e.copy())));
 }
 
 class FlowEntryBuilder {
@@ -241,15 +230,13 @@ class FlowEntryBuilder {
     return flowDetail;
   }
 
-  double get flowRemaining =>
-      fundingAdjustments.length > 0 ?
-          fundingAdjustments.last.flowRemaining :
-          flowDetail.flow;
+  double get flowRemaining => fundingAdjustments.length > 0
+      ? fundingAdjustments.last.flowRemaining
+      : flowDetail.flow;
 
-  bool get hasFlowRemaining =>
-      isIncome ?
-          flowRemaining > MinimumFlowResidual :
-          flowRemaining < -MinimumFlowResidual;
+  bool get hasFlowRemaining => isIncome
+      ? flowRemaining > MinimumFlowResidual
+      : flowRemaining < -MinimumFlowResidual;
 
   toString() => 'FEB($flowDetail, $fundingAdjustments)';
 
@@ -262,20 +249,16 @@ class FlowEntryBuilder {
   FlowEntryBuilder._copyImpl(FlowEntry _)
       : flowDetail = _.flowDetail,
         fundingAdjustments = _.fundingAdjustments;
-
-
 }
 
 /// Create a FlowEntryBuilder sans new, for more declarative construction
 FlowEntryBuilder flowEntryBuilder() => new FlowEntryBuilder();
 
-
 class LiquidationSummary {
   const LiquidationSummary(this.flowEntries);
 
-  bool operator ==(LiquidationSummary other) =>
-      identical(this, other) ||
-          const ListEquality().equals(flowEntries, other.flowEntries);
+  bool operator ==(LiquidationSummary other) => identical(this, other) ||
+      const ListEquality().equals(flowEntries, other.flowEntries);
 
   int get hashCode =>
       const ListEquality<FlowEntry>().hash(flowEntries).hashCode;
@@ -287,10 +270,7 @@ class LiquidationSummary {
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
-  Map toJson() => {
-    "flowEntries": ebisu_utils.toJson(flowEntries),
-  };
+  Map toJson() => {"flowEntries": ebisu_utils.toJson(flowEntries),};
 
   static LiquidationSummary fromJson(Object json) {
     if (json == null) return null;
@@ -301,17 +281,16 @@ class LiquidationSummary {
     return new LiquidationSummary._fromJsonMapImpl(json);
   }
 
-  LiquidationSummary._fromJsonMapImpl(Map jsonMap)
-      : // flowEntries is List<FlowEntry>
+  LiquidationSummary._fromJsonMapImpl(Map jsonMap) :
+      // flowEntries is List<FlowEntry>
       flowEntries = ebisu_utils.constructListFromJsonData(
-          jsonMap["flowEntries"],
-          (data) => FlowEntry.fromJson(data));
+          jsonMap["flowEntries"], (data) => FlowEntry.fromJson(data));
 
   LiquidationSummary._copy(LiquidationSummary other)
-      : flowEntries = other.flowEntries == null ?
-          null :
-          (new List.from(other.flowEntries.map((e) => e == null ? null : e.copy())));
-
+      : flowEntries = other.flowEntries == null
+          ? null
+          : (new List.from(
+              other.flowEntries.map((e) => e == null ? null : e.copy())));
 }
 
 Random _randomJsonGenerator = new Random(0);
@@ -320,4 +299,3 @@ Random _randomJsonGenerator = new Random(0);
 const MinimumFlowResidual = 0.0001;
 
 // end <library liquidation_summary>
-

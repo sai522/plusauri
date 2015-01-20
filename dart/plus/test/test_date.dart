@@ -21,8 +21,7 @@ main() {
         expect(new Date(2001, 1, 1) > new Date(2001, 1, 1), false);
       });
       test('truncate to day', () {
-        expect(
-            new Date.fromDateTime(new DateTime.utc(1000, 1, 1, 23)),
+        expect(new Date.fromDateTime(new DateTime.utc(1000, 1, 1, 23)),
             new Date(1000, 1, 1));
       });
       test('min date', () {
@@ -55,14 +54,11 @@ main() {
         expect(Date.fromJson(date(2001, 1, 1).toJson()), date(2001, 1, 1));
       });
       test('difference', () {
-        expect(
-            date(2001, 1, 1).difference(date(2000, 1, 1)),
+        expect(date(2001, 1, 1).difference(date(2000, 1, 1)),
             new Duration(days: 366));
-        expect(
-            date(2001, 1, 15).difference(date(2001, 1, 1)),
+        expect(date(2001, 1, 15).difference(date(2001, 1, 1)),
             new Duration(days: 14));
-        expect(
-            date(2001, 1, 1).difference(date(2001, 1, 1)),
+        expect(date(2001, 1, 1).difference(date(2001, 1, 1)),
             new Duration(days: 0));
       });
     });
@@ -90,16 +86,12 @@ main() {
       });
 
       test('advanceDate', () {
-        expect(
-            advanceDate(Frequency.MONTHLY, date(2000, 12, 31)),
+        expect(advanceDate(Frequency.MONTHLY, date(2000, 12, 31)),
             date(2001, 1, 31));
-        expect(
-            advanceDate(Frequency.MONTHLY, date(2000, 1, 31)),
+        expect(advanceDate(Frequency.MONTHLY, date(2000, 1, 31)),
             date(2000, 2, 29));
-        expect(
-            advanceDate(Frequency.MONTHLY, date(2001, 1, 31)),
+        expect(advanceDate(Frequency.MONTHLY, date(2001, 1, 31)),
             date(2001, 2, 28));
-
       });
     });
 
@@ -108,10 +100,8 @@ main() {
       final t2 = new Date.fromDateTime(new DateTime.now().toUtc());
       expect(t1, t2);
     });
-
   });
 
 // end <main>
 
 }
-

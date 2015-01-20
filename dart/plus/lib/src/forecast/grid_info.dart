@@ -1,8 +1,8 @@
 part of plus.forecast;
 
 class AccountInfo {
-  const AccountInfo(this.accountName, this.portfolioAccount, this.startIndex,
-      this.endIndex);
+  const AccountInfo(
+      this.accountName, this.portfolioAccount, this.startIndex, this.endIndex);
 
   final String accountName;
   final PortfolioAccount portfolioAccount;
@@ -19,7 +19,8 @@ class AccountInfo {
 
 class HoldingInfo {
   const HoldingInfo(this.holdingKey, this.holding, this.curvesAttribution,
-      this.reinvestmentPolicy, this.instrumentPartitions, this.distanceToTarget);
+      this.reinvestmentPolicy, this.instrumentPartitions,
+      this.distanceToTarget);
 
   final HoldingKey holdingKey;
   final Holding holding;
@@ -72,11 +73,9 @@ class IncomeInfo {
   final List<FlowDetail> flowDetails;
   // custom <class IncomeInfo>
 
-  Iterable<FlowDetail> flowsOnYearIterator(int year) =>
-      flowDetails.skipWhile(
-          (FlowDetail flowDetail) =>
-              flowDetail.date.year <
-                  year).takeWhile((FlowDetail flowDetail) => flowDetail.date.year == year);
+  Iterable<FlowDetail> flowsOnYearIterator(int year) => flowDetails
+      .skipWhile((FlowDetail flowDetail) => flowDetail.date.year < year)
+      .takeWhile((FlowDetail flowDetail) => flowDetail.date.year == year);
 
   String toString() => '$name(${flowDetails.length} inc flows)';
 
@@ -91,21 +90,16 @@ class ExpenseInfo {
   final List<FlowDetail> flowDetails;
   // custom <class ExpenseInfo>
 
-  Iterable<FlowDetail> flowsOnYearIterator(int year) =>
-      flowDetails.skipWhile(
-          (FlowDetail flowDetail) =>
-              flowDetail.date.year <
-                  year).takeWhile((FlowDetail flowDetail) => flowDetail.date.year == year);
+  Iterable<FlowDetail> flowsOnYearIterator(int year) => flowDetails
+      .skipWhile((FlowDetail flowDetail) => flowDetail.date.year < year)
+      .takeWhile((FlowDetail flowDetail) => flowDetail.date.year == year);
 
   double pvFromYear(int year, RateCurve discount) {
     final endDate = endOfYear(year);
-    List<DateValue> flows = new List.from(
-        flowDetails.skipWhile(
-            (FlowDetail flowDetail) =>
-                flowDetail.date.year <
-                    year).map(
-                        (FlowDetail flowDetail) => new DateValue(flowDetail.date, flowDetail.flow)),
-        growable: false);
+    List<DateValue> flows = new List.from(flowDetails
+        .skipWhile((FlowDetail flowDetail) => flowDetail.date.year < year)
+        .map((FlowDetail flowDetail) =>
+            new DateValue(flowDetail.date, flowDetail.flow)), growable: false);
     print("Calculating pv of $flows");
     final sequence = new CFlowSequence.assumeSorted(flows);
     return sequence.valueOn(endDate, discount);
@@ -120,4 +114,3 @@ class ExpenseInfo {
 // custom <part grid_info>
 
 // end <part grid_info>
-

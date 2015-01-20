@@ -1,16 +1,16 @@
 part of plus.scenario;
 
 class InflationGeometricShift implements ScenarioGenerator {
-  const InflationGeometricShift(this._shift, this._shiftExpenses,
-      this._shiftIncomes);
+  const InflationGeometricShift(
+      this._shift, this._shiftExpenses, this._shiftIncomes);
 
   double get shift => _shift;
   bool get shiftExpenses => _shiftExpenses;
   bool get shiftIncomes => _shiftIncomes;
   // custom <class InflationGeometricShift>
 
-  AssumptionModel generateScenario(Dossier dossier,
-      AssumptionModel assumptionModel) {
+  AssumptionModel generateScenario(
+      Dossier dossier, AssumptionModel assumptionModel) {
     final srcFlowModel = dossier.flowModel;
     final result = new AssumptionModelBuilder.copyFrom(assumptionModel);
     result.inflation = result.inflation * _shift;
@@ -32,16 +32,16 @@ class InflationGeometricShift implements ScenarioGenerator {
 }
 
 class InflationArithmeticShift implements ScenarioGenerator {
-  const InflationArithmeticShift(this._shift, this._shiftExpenses,
-      this._shiftIncomes);
+  const InflationArithmeticShift(
+      this._shift, this._shiftExpenses, this._shiftIncomes);
 
   double get shift => _shift;
   bool get shiftExpenses => _shiftExpenses;
   bool get shiftIncomes => _shiftIncomes;
   // custom <class InflationArithmeticShift>
 
-  AssumptionModel generateScenario(Dossier dossier,
-      AssumptionModel assumptionModel) {
+  AssumptionModel generateScenario(
+      Dossier dossier, AssumptionModel assumptionModel) {
     final srcFlowModel = dossier.flowModel;
     final result = new AssumptionModelBuilder.copyFrom(assumptionModel);
     result.inflation = result.inflation + _shift;
@@ -63,31 +63,26 @@ class InflationArithmeticShift implements ScenarioGenerator {
 }
 // custom <part inflation_scenarios>
 
-Map<String, ExpenseSpec> _updateExpenseMap(Map<String,
-    ExpenseSpec> expenseModel, CurveAdjuster curveAdjuster) =>
-    valueApply(expenseModel, (es) {
-
+Map<String, ExpenseSpec> _updateExpenseMap(
+    Map<String, ExpenseSpec> expenseModel, CurveAdjuster curveAdjuster) =>
+        valueApply(expenseModel, (es) {
   final originalFlowSpec = es.flowSpec;
   CFlowSequenceSpec cFlowSpec = originalFlowSpec.cFlowSequenceSpec.copy();
   cFlowSpec.growth = curveAdjuster(cFlowSpec.growth);
 
-  return new ExpenseSpec(
-      es.expenseType,
+  return new ExpenseSpec(es.expenseType,
       new FlowSpec(originalFlowSpec.descr, originalFlowSpec.source, cFlowSpec));
 });
 
-Map<String, ExpenseSpec> _updateIncomeMap(Map<String, IncomeSpec> incomeModel,
-    CurveAdjuster curveAdjuster) =>
-    valueApply(incomeModel, (incomeSpec) {
-
+Map<String, ExpenseSpec> _updateIncomeMap(
+    Map<String, IncomeSpec> incomeModel, CurveAdjuster curveAdjuster) =>
+        valueApply(incomeModel, (incomeSpec) {
   final originalFlowSpec = incomeSpec.flowSpec;
   CFlowSequenceSpec cFlowSpec = originalFlowSpec.cFlowSequenceSpec.copy();
   cFlowSpec.growth = curveAdjuster(cFlowSpec.growth);
 
-  return new IncomeSpec(
-      incomeSpec.incomeType,
+  return new IncomeSpec(incomeSpec.incomeType,
       new FlowSpec(originalFlowSpec.descr, originalFlowSpec.source, cFlowSpec));
 });
 
 // end <part inflation_scenarios>
-

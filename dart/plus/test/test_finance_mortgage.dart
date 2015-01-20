@@ -15,7 +15,6 @@ main() {
 // custom <main>
 
   group('test_finance_mortgage.dart', () {
-
     test('mortgagePayment', () {
       expect(
           closeEnough(mortgagePayment(1000000, 0.05, 30), 5368.2162301213975),
@@ -34,4 +33,3 @@ main() {
 // end <main>
 
 }
-

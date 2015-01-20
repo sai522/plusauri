@@ -47,8 +47,8 @@ class ForecastGrid {
 
   void visitIncomesOnYear(int year, GridFlowVisitor visitor) {
     _incomeInfos.forEach((IncomeInfo incomeInfo) {
-      double sum = incomeInfo.flowsOnYearIterator(
-          year).fold(0.0, (double sum, FlowDetail flowDetail) => flowDetail.flow + sum);
+      double sum = incomeInfo.flowsOnYearIterator(year).fold(
+          0.0, (double sum, FlowDetail flowDetail) => flowDetail.flow + sum);
       visitor(incomeInfo.name, sum);
     });
     final gridYear = this.gridYear(year);
@@ -58,20 +58,22 @@ class ForecastGrid {
   }
 
   void visitObligatoryExpensesOnYear(int year, GridFlowVisitor visitor) {
-    _expenseInfos.where(
-        (ExpenseInfo expenseInfo) =>
-            expenseInfo.expenseType.isObligatory).forEach((ExpenseInfo expenseInfo) {
-      double sum = expenseInfo.flowsOnYearIterator(
-          year).fold(0.0, (double sum, FlowDetail flowDetail) => flowDetail.flow + sum);
+    _expenseInfos
+        .where(
+            (ExpenseInfo expenseInfo) => expenseInfo.expenseType.isObligatory)
+        .forEach((ExpenseInfo expenseInfo) {
+      double sum = expenseInfo.flowsOnYearIterator(year).fold(
+          0.0, (double sum, FlowDetail flowDetail) => flowDetail.flow + sum);
       visitor(expenseInfo.name, sum);
     });
   }
 
-  void visitPVObligatoryExpensesFromYear(int year, RateCurve discount,
-      GridFlowVisitor visitor) {
-    _expenseInfos.where(
-        (ExpenseInfo expenseInfo) =>
-            expenseInfo.expenseType.isObligatory).forEach((ExpenseInfo expenseInfo) {
+  void visitPVObligatoryExpensesFromYear(
+      int year, RateCurve discount, GridFlowVisitor visitor) {
+    _expenseInfos
+        .where(
+            (ExpenseInfo expenseInfo) => expenseInfo.expenseType.isObligatory)
+        .forEach((ExpenseInfo expenseInfo) {
       double sum = expenseInfo.pvFromYear(year, discount);
       visitor(expenseInfo.name, sum);
     });
@@ -79,8 +81,8 @@ class ForecastGrid {
 
   void visitExpensesOnYear(int year, GridFlowVisitor visitor) {
     _expenseInfos.forEach((ExpenseInfo expenseInfo) {
-      double sum = expenseInfo.flowsOnYearIterator(
-          year).fold(0.0, (double sum, FlowDetail flowDetail) => flowDetail.flow + sum);
+      double sum = expenseInfo.flowsOnYearIterator(year).fold(
+          0.0, (double sum, FlowDetail flowDetail) => flowDetail.flow + sum);
       visitor(expenseInfo.name, sum);
     });
     final gridYear = this.gridYear(year);
@@ -92,8 +94,8 @@ class ForecastGrid {
   void visitAccounts(GridAccountVisitor visitor) =>
       _accountInfos.forEach((AccountInfo accountInfo) => visitor(accountInfo));
 
-  void visitAccountOtherHoldings(GridYear gridYear, String accountName,
-      GridHoldingValueVisitor visitor) {
+  void visitAccountOtherHoldings(
+      GridYear gridYear, String accountName, GridHoldingValueVisitor visitor) {
     final accountInfo = _accountInfos.firstWhere(
         (AccountInfo accountInfo) => accountInfo.accountName == accountName);
     for (int i = accountInfo.startIndex; i < accountInfo.endIndex; i++) {
@@ -107,8 +109,8 @@ class ForecastGrid {
     }
   }
 
-  void visitAccountHoldings(GridYear gridYear, String accountName,
-      GridHoldingValueVisitor visitor) {
+  void visitAccountHoldings(
+      GridYear gridYear, String accountName, GridHoldingValueVisitor visitor) {
     final accountInfo = _accountInfos.firstWhere(
         (AccountInfo accountInfo) => accountInfo.accountName == accountName);
     for (int i = accountInfo.startIndex; i < accountInfo.endIndex; i++) {
@@ -142,26 +144,24 @@ class ForecastGrid {
     }
   }
 
-  int _findAccountStartIndex(String accountName) =>
-      _accountInfos.firstWhere(
-          (AccountInfo accountInfo) => accountInfo.accountName == accountName).startIndex;
+  int _findAccountStartIndex(String accountName) => _accountInfos.firstWhere(
+      (AccountInfo accountInfo) =>
+          accountInfo.accountName == accountName).startIndex;
 
   int _findHoldingInfoIndex(String accountName, String holdingName) {
     final startIndex = _findAccountStartIndex(accountName);
     return startIndex +
-        _holdingInfos.skip(
-            startIndex).takeWhile(
-                (HoldingInfo holdingInfo) => holdingInfo.holdingName != holdingName).length;
+        _holdingInfos.skip(startIndex).takeWhile((HoldingInfo holdingInfo) =>
+            holdingInfo.holdingName != holdingName).length;
   }
 
-  HoldingPeriodBalance createHoldingPeriodBalance(GridYear gridYear,
-      String accountName, String holdingName) =>
+  HoldingPeriodBalance createHoldingPeriodBalance(
+      GridYear gridYear, String accountName, String holdingName) =>
       _createHoldingPeriodBalance(
-          gridYear,
-          _findHoldingInfoIndex(accountName, holdingName));
+          gridYear, _findHoldingInfoIndex(accountName, holdingName));
 
-  HoldingPeriodBalance _createHoldingPeriodBalance(GridYear gridYear,
-      int index) {
+  HoldingPeriodBalance _createHoldingPeriodBalance(
+      GridYear gridYear, int index) {
     HoldingPeriodBalance result;
     final holdingInfo = _holdingInfos[index];
     final holding = holdingInfo.holding;
@@ -171,8 +171,7 @@ class ForecastGrid {
         dateValue(gridYear.endDate, gridHolding.balance));
     final instrumentPartitionMappings =
         new InstrumentPartitionMappings.fromAssumptions(
-            periodBalance.endValue,
-            holdingInfo.instrumentPartitions);
+            periodBalance.endValue, holdingInfo.instrumentPartitions);
 
     final distributionSummary = new DistributionSummary(
         gridHolding.distributedDistributions,
@@ -184,30 +183,20 @@ class ForecastGrid {
     final prevHolding = prevYear.gridHoldings[index];
     final prevAvgCostAccumulator = prevHolding.avgCostAccumulator;
 
+    //print('HPB ${gridYear.year} capGain ${gridHolding.unshelteredCapitalGain}');
 
-
-
-
-
-        //print('HPB ${gridYear.year} capGain ${gridHolding.unshelteredCapitalGain}');
-
-    result = new HoldingPeriodBalance(
-        holding.holdingType,
-        periodBalance,
-        distributionSummary,
-        new PeriodBalance.courtesy(
+    result = new HoldingPeriodBalance(holding.holdingType, periodBalance,
+        distributionSummary, new PeriodBalance.courtesy(
             dateValue(gridYear.startDate, prevAvgCostAccumulator.totalCost),
             dateValue(gridYear.endDate, avgCostAccumulator.totalCost)),
-        gridHolding.unshelteredCapitalGain,
-        instrumentPartitionMappings,
-        gridHolding.growthDetails,
-        gridHolding.netTrade);
+        gridHolding.unshelteredCapitalGain, instrumentPartitionMappings,
+        gridHolding.growthDetails, gridHolding.netTrade);
 
     return result;
   }
 
-  HoldingPeriodBalance createAccountHoldingPeriodBalance(GridYear gridYear,
-      String accountName) {
+  HoldingPeriodBalance createAccountHoldingPeriodBalance(
+      GridYear gridYear, String accountName) {
     final accountInfo = _accountInfos.firstWhere(
         (AccountInfo accountInfo) => accountInfo.accountName == accountName);
     final startIndex = accountInfo.startIndex;
@@ -228,7 +217,6 @@ class ForecastGrid {
     }
     return result;
   }
-
 
   toString() => '''
 holdings: $numHoldings
@@ -271,19 +259,19 @@ ${_printGrid()}
   }
 
   void _initializeLinkPreferences() {
-    _incomePreferredLinks = valueApply(
-        _dossier.incomePreferredLinks,
-        (List<HoldingKey> holdingKeys) => _matchingGridHoldings(holdingKeys).toList());
-    _expensePreferredLinks = valueApply(
-        _dossier.expensePreferredLinks,
-        (List<HoldingKey> holdingKeys) => _matchingGridHoldings(holdingKeys).toList());
-    _preferredExpenseSources = valueApply(
-        _dossier.preferredExpenseSources,
-        (List<HoldingKey> holdingKeys) => _matchingGridHoldings(holdingKeys).toList());
-    _incomeHoldings =
-        _matchingGridHoldings(_dossier.incomeHoldingKeys).toList(growable: false);
-    _expenseHoldings =
-        _matchingGridHoldings(_dossier.expenseHoldingKeys).toList(growable: false);
+    _incomePreferredLinks = valueApply(_dossier.incomePreferredLinks,
+        (List<HoldingKey> holdingKeys) =>
+            _matchingGridHoldings(holdingKeys).toList());
+    _expensePreferredLinks = valueApply(_dossier.expensePreferredLinks,
+        (List<HoldingKey> holdingKeys) =>
+            _matchingGridHoldings(holdingKeys).toList());
+    _preferredExpenseSources = valueApply(_dossier.preferredExpenseSources,
+        (List<HoldingKey> holdingKeys) =>
+            _matchingGridHoldings(holdingKeys).toList());
+    _incomeHoldings = _matchingGridHoldings(_dossier.incomeHoldingKeys).toList(
+        growable: false);
+    _expenseHoldings = _matchingGridHoldings(_dossier.expenseHoldingKeys)
+        .toList(growable: false);
 
     plusLogFiner(_logger, () => '''\n
 INCOME_PREFERRED:
@@ -308,7 +296,6 @@ ${_incomeHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
 REMAINING_EXPENSE:
 ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
 ''');
-
   }
 
   int _matchingGridHolding(HoldingKey holdingKey) {
@@ -322,13 +309,13 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
   }
 
   Iterable<int> _matchingGridHoldings(Iterable<HoldingKey> holdingKeys) =>
-      holdingKeys.map((HoldingKey holdingKey) => _matchingGridHolding(holdingKey));
-
+      holdingKeys
+          .map((HoldingKey holdingKey) => _matchingGridHolding(holdingKey));
 
   void _initializeAssumptions(AssumptionModel assumptionModelOverride) {
-    _assumptionModel = assumptionModelOverride == null ?
-        _dossier.assumptionModel :
-        assumptionModelOverride;
+    _assumptionModel = assumptionModelOverride == null
+        ? _dossier.assumptionModel
+        : assumptionModelOverride;
     _balanceSheetAssumptions = _assumptionModel.balanceSheetAssumptions;
     _flowModel = overrideFlowModel(_dossier.flowModel, _assumptionModel);
     _taxRateAssumptions = _assumptionModel.taxRateAssumptions;
@@ -355,10 +342,9 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
           _balanceSheetAssumptions.getReinvestmentPolicy(holdingKey);
 
       gridHoldings[i] = new GridHolding(holdingKey, reinvestmentPolicy)
-          ..distributionsSheltered =
-              _dossier.distributionsSheltered(accountName)
-          ..canCapitalGainBeSheltered =
-              _dossier.canCapitalGainBeSheltered(accountName);
+        ..distributionsSheltered = _dossier.distributionsSheltered(accountName)
+        ..canCapitalGainBeSheltered =
+        _dossier.canCapitalGainBeSheltered(accountName);
     }
     final assetBalances = gridYear.assetBalances;
     for (int i = 0; i < numAssets; i++) {
@@ -368,7 +354,6 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
     for (int i = 0; i < numLiabilities; i++) {
       liabilityBalances[i] = new GridBalance.empty();
     }
-
   }
 
   void _initializeGrid() {
@@ -379,12 +364,8 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
       final startYear = _completeYearRange.start + i;
       final startDate = prevEnd == null ? startOfYear(startYear) : prevEnd;
       final endDate = startOfYear(startYear + 1);
-      final gridYear = _gridYears[i] = new GridYear(
-          startDate,
-          endDate,
-          _holdingInfos.length,
-          _assetInfos.length,
-          _liabilityInfos.length);
+      final gridYear = _gridYears[i] = new GridYear(startDate, endDate,
+          _holdingInfos.length, _assetInfos.length, _liabilityInfos.length);
       _initializeGridYear(gridYear);
 
       if (_trackDetails) {
@@ -411,8 +392,9 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
   }
 
   void _createIncomeInfos() {
-    _incomeInfos = _flowModel.incomeModel.keys.map(
-        (String incomeName) => _createIncomeInfo(incomeName)).toList(growable: false);
+    _incomeInfos = _flowModel.incomeModel.keys
+        .map((String incomeName) => _createIncomeInfo(incomeName))
+        .toList(growable: false);
   }
 
   ExpenseInfo _createExpenseInfo(String expenseName) {
@@ -420,8 +402,8 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
     final expenseFlowDetails = new List<FlowDetail>();
     expenseSpec.visitFlows(_completeDateRange, (Date date, double flow) {
       final gridYear = this.gridYear(date.year);
-      final flowDetail =
-          new FlowDetail(date, expenseSpec.expenseType.value, -flow, expenseName);
+      final flowDetail = new FlowDetail(
+          date, expenseSpec.expenseType.value, -flow, expenseName);
       gridYear.flowDetails.add(flowDetail);
       expenseFlowDetails.add(flowDetail);
     });
@@ -431,9 +413,9 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
   }
 
   void _createExpenseInfos() {
-    _expenseInfos = _flowModel.expenseModel.keys.map(
-        (String expenseName) =>
-            _createExpenseInfo(expenseName)).toList(growable: false);
+    _expenseInfos = _flowModel.expenseModel.keys
+        .map((String expenseName) => _createExpenseInfo(expenseName))
+        .toList(growable: false);
   }
 
   void _createAccountInfos() {
@@ -446,8 +428,8 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
       void createAccount() {
         final portfolioAccount = _dossier.portfolioAccount(currentAccount);
         assert(portfolioAccount != null);
-        _accountInfos.add(
-            new AccountInfo(currentAccount, portfolioAccount, startIndex, endIndex));
+        _accountInfos.add(new AccountInfo(
+            currentAccount, portfolioAccount, startIndex, endIndex));
         startIndex = endIndex;
       }
 
@@ -479,13 +461,8 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
     final reinvestmentPolicy =
         _balanceSheetAssumptions.getReinvestmentPolicy(holdingKey);
 
-    return new HoldingInfo(
-        holdingKey,
-        holding,
-        curvesAttribution,
-        reinvestmentPolicy,
-        instrumentPartitions,
-        distanceToTarget);
+    return new HoldingInfo(holdingKey, holding, curvesAttribution,
+        reinvestmentPolicy, instrumentPartitions, distanceToTarget);
   }
 
   void _createHoldingInfos() {
@@ -522,8 +499,8 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
       final assetInfo = _assetInfos[i];
       final initialValue = assetInfo.asset.marketValue(_periodEnd);
       final growth = assetInfo.growth;
-      assetBalances[i].balance =
-          initialValue.value * growth.scaleFromTo(initialValue.date, _periodEnd);
+      assetBalances[i].balance = initialValue.value *
+          growth.scaleFromTo(initialValue.date, _periodEnd);
     }
   }
 
@@ -533,8 +510,8 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
       final liabilityInfo = _liabilityInfos[i];
       final initialValue = liabilityInfo.liability.marketValue(_periodEnd);
       final growth = liabilityInfo.growth;
-      liabilityBalances[i].balance =
-          initialValue.value * growth.scaleFromTo(initialValue.date, _periodEnd);
+      liabilityBalances[i].balance = initialValue.value *
+          growth.scaleFromTo(initialValue.date, _periodEnd);
     }
   }
 
@@ -552,16 +529,15 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
       final initialTotalValue = attribution.totalValue(initialValue.value);
       final isCash = holding.holdingType == HoldingType.CASH;
 
-      final avgCostAccumulator = isCash ?
-          new AvgCostAccumulator(
-              initialTotalValue,
-              initialTotalValue,
-              initialTotalValue) :
-          new AvgCostAccumulator(initialCostBasis, initialTotalValue, initialQuantity);
+      final avgCostAccumulator = isCash
+          ? new AvgCostAccumulator(
+              initialTotalValue, initialTotalValue, initialTotalValue)
+          : new AvgCostAccumulator(
+              initialCostBasis, initialTotalValue, initialQuantity);
 
       holdings[i]
-          ..growthAttribution = attribution
-          ..avgCostAccumulator = avgCostAccumulator;
+        ..growthAttribution = attribution
+        ..avgCostAccumulator = avgCostAccumulator;
     }
   }
 
@@ -583,38 +559,35 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
     _growHoldingsToFirstYear();
   }
 
-  void _updateBalance(GridBalance prevBalance, GridBalance current,
-      RateCurve growth) {
+  void _updateBalance(
+      GridBalance prevBalance, GridBalance current, RateCurve growth) {
     current.prevBalance = prevBalance.balance;
     current.balance =
         current.prevBalance * growth.scaleFromTo(_prevPeriodEnd, _periodEnd);
   }
 
-  void _growAssetsFromPrevious(List<GridBalance> prevBalances,
-      List<GridBalance> balances) {
+  void _growAssetsFromPrevious(
+      List<GridBalance> prevBalances, List<GridBalance> balances) {
     for (int i = 0; i < numAssets; ++i) {
       _updateBalance(prevBalances[i], balances[i], _assetInfos[i].growth);
     }
   }
 
-  void _growLiabilitiesFromPrevious(List<GridBalance> prevBalances,
-      List<GridBalance> balances) {
+  void _growLiabilitiesFromPrevious(
+      List<GridBalance> prevBalances, List<GridBalance> balances) {
     for (int i = 0; i < numLiabilities; ++i) {
       _updateBalance(prevBalances[i], balances[i], _liabilityInfos[i].growth);
     }
   }
 
-  void _pullDistributionsFromAttribution(Attribution attribution,
-      double startValue, GridHolding holding) {
+  void _pullDistributionsFromAttribution(
+      Attribution attribution, double startValue, GridHolding holding) {
     var qd = attribution.contributionDelta(
-        HoldingReturnType.QUALIFIED_DIVIDEND,
-        startValue);
+        HoldingReturnType.QUALIFIED_DIVIDEND, startValue);
     var uqd = attribution.contributionDelta(
-        HoldingReturnType.UNQUALIFIED_DIVIDEND,
-        startValue);
+        HoldingReturnType.UNQUALIFIED_DIVIDEND, startValue);
     var cgd = attribution.contributionDelta(
-        HoldingReturnType.CAPITAL_GAIN_DISTRIBUTION,
-        startValue);
+        HoldingReturnType.CAPITAL_GAIN_DISTRIBUTION, startValue);
     var interest =
         attribution.contributionDelta(HoldingReturnType.INTEREST, startValue);
 
@@ -628,14 +601,14 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
 
     if (reinvestmentPolicy.dividendsReinvested) {
       reinvestedDistributions
-          ..qualified += qd
-          ..unqualified += uqd
-          ..capitalGainDistribution += cgd;
+        ..qualified += qd
+        ..unqualified += uqd
+        ..capitalGainDistribution += cgd;
     } else {
       distributedDistributions
-          ..qualified += qd
-          ..unqualified += uqd
-          ..capitalGainDistribution += cgd;
+        ..qualified += qd
+        ..unqualified += uqd
+        ..capitalGainDistribution += cgd;
     }
 
     if (reinvestmentPolicy.interestReinvested) {
@@ -646,28 +619,23 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
 
     if (distributionsSheltered) {
       shelteredDistributions
-          ..qualified += qd
-          ..unqualified += uqd
-          ..capitalGainDistribution += cgd;
+        ..qualified += qd
+        ..unqualified += uqd
+        ..capitalGainDistribution += cgd;
 
-
-
-
-
-
-          //if(qd > 0 || uqd > 0 || cgd > 0) print("Found sheltered dist $shelteredDistributions");
+      //if(qd > 0 || uqd > 0 || cgd > 0) print("Found sheltered dist $shelteredDistributions");
 
     } else {
       _currentGridYear.taxableIncomeBreakdown
-          ..qualifiedDividends += qd
-          ..unqualifiedDividends += uqd
-          ..capitalGainDistributions += cgd
-          ..interest += interest;
+        ..qualifiedDividends += qd
+        ..unqualifiedDividends += uqd
+        ..capitalGainDistributions += cgd
+        ..interest += interest;
     }
   }
 
-  void _growHoldingsFromPrevious(List<GridHolding> prevHoldings,
-      List<GridHolding> holdings) {
+  void _growHoldingsFromPrevious(
+      List<GridHolding> prevHoldings, List<GridHolding> holdings) {
     for (int i = 0; i < numHoldings; ++i) {
       final holdingInfo = _holdingInfos[i];
       final currentHolding = holdings[i];
@@ -681,9 +649,7 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
       assert(prevHolding.avgCostAccumulator != null);
 
       _pullDistributionsFromAttribution(
-          attribution,
-          previousBalance,
-          currentHolding);
+          attribution, previousBalance, currentHolding);
 
       final fullBalance = attribution.totalValue(previousBalance);
       final growthAttribution = attribution;
@@ -702,17 +668,17 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
       }
 
       _currentGridYear.distributionSummary
-          ..distributed.plusEqual(distributedDistributions)
-          ..reinvested.plusEqual(reinvestedDistributions);
+        ..distributed.plusEqual(distributedDistributions)
+        ..reinvested.plusEqual(reinvestedDistributions);
 
       assert(currentHolding.fullBalance == 0.0);
       assert(attribution.attribution != null);
 
       currentHolding
-          ..prevBalance = previousBalance
-          ..fullBalance = fullBalance
-          ..growthAttribution = growthAttribution
-          ..avgCostAccumulator = avgCostAccumulator;
+        ..prevBalance = previousBalance
+        ..fullBalance = fullBalance
+        ..growthAttribution = growthAttribution
+        ..avgCostAccumulator = avgCostAccumulator;
     }
   }
 
@@ -723,9 +689,8 @@ ${_expenseHoldings.map((i) => _holdingInfos[i]).join("\n\t")}
     final prevReservesBalance = prevReserves.balance;
     reserves.prevBalance = prevReservesBalance;
     reserves.balance = prevReservesBalance *
-        (prevReservesBalance < 0 ?
-            _reserveShortfallRate :
-            _reserveExcessRate).scaleFromTo(_periodDateRange.start, _periodDateRange.end);
+        (prevReservesBalance < 0 ? _reserveShortfallRate : _reserveExcessRate)
+            .scaleFromTo(_periodDateRange.start, _periodDateRange.end);
   }
 
   void _sortHoldingDistances() {
@@ -752,24 +717,19 @@ _holdingDistances
     _processTaxBill();
     _sortHoldingDistances();
     _growAssetsFromPrevious(
-        _prevGridYear.assetBalances,
-        _currentGridYear.assetBalances);
+        _prevGridYear.assetBalances, _currentGridYear.assetBalances);
     _growLiabilitiesFromPrevious(
-        _prevGridYear.liabilityBalances,
-        _currentGridYear.liabilityBalances);
+        _prevGridYear.liabilityBalances, _currentGridYear.liabilityBalances);
     _growHoldingsFromPrevious(
-        _prevGridYear.gridHoldings,
-        _currentGridYear.gridHoldings);
+        _prevGridYear.gridHoldings, _currentGridYear.gridHoldings);
     _growReservesFromPrevious();
     _processFlows();
     _processBuysAndSells();
   }
 
   void _processTaxBill() {
-    _currentGridYear.taxBill =
-        _prevGridYear.taxableIncomeBreakdown.generateTaxBill(
-            _taxRateAssumptions,
-            _currentGridYear.startDate);
+    _currentGridYear.taxBill = _prevGridYear.taxableIncomeBreakdown
+        .generateTaxBill(_taxRateAssumptions, _currentGridYear.startDate);
   }
 
   void _processBuysAndSells() {
@@ -782,11 +742,7 @@ _holdingDistances
       final netTrade = holding.netTrade;
       if (netTrade != 0) {
 
-
-
-
-
-            //print('${_currentGridYear.year} trades occured on ${_holdingInfos[i]} for ${holding.netTrade}\n***\n${holding.avgCostAccumulator}');
+        //print('${_currentGridYear.year} trades occured on ${_holdingInfos[i]} for ${holding.netTrade}\n***\n${holding.avgCostAccumulator}');
         if (netTrade < 0) {
           totalSold -= netTrade;
           final gain = holding.avgCostAccumulator.sell(-netTrade);
@@ -802,26 +758,18 @@ _holdingDistances
           holding.avgCostAccumulator.buy(netTrade);
         }
 
-
-
-
-
-            //        print('${_currentGridYear.year} posttrade\n***\n${holding.avgCostAccumulator}');
+        //        print('${_currentGridYear.year} posttrade\n***\n${holding.avgCostAccumulator}');
         netTraded += netTrade;
       }
       i++;
     }
     _currentGridYear.taxableIncomeBreakdown.capitalGain = taxableGain;
 
-
-
-
-
-        //print('${_currentGridYear.year} Bought $totalBought Sold $totalSold Net Traded $netTraded Net Gain $taxableGain');
+    //print('${_currentGridYear.year} Bought $totalBought Sold $totalSold Net Traded $netTraded Net Gain $taxableGain');
   }
 
-  double _adjustBalances(List<int> sources, FlowDetail flowDetail,
-      double flow) {
+  double _adjustBalances(
+      List<int> sources, FlowDetail flowDetail, double flow) {
     if (sources != null) {
       for (final gridHoldingIndex in sources) {
         final gridHolding = _currentGridYear.gridHoldings[gridHoldingIndex];
@@ -829,9 +777,7 @@ _holdingDistances
         if (_trackDetails) {
           if (newFlow != flow) {
             _currentGridYear.forecastDetails.registerAccountChange(
-                flowDetail,
-                flow - newFlow,
-                gridHolding.holdingKey);
+                flowDetail, flow - newFlow, gridHolding.holdingKey);
           }
         }
         flow = newFlow;
@@ -848,20 +794,15 @@ _holdingDistances
     _pullTaxableIncomes(flowDetail, _currentGridYear.taxableIncomeBreakdown);
 
     flow = _adjustBalances(
-        _incomePreferredLinks[flowDetail.flowKey.name],
-        flowDetail,
-        flow);
+        _incomePreferredLinks[flowDetail.flowKey.name], flowDetail, flow);
     if (flow == 0.0) return;
 
     _currentGridYear.untargetedNetFlow += flow;
 
     if (_trackDetails) {
       _currentGridYear.forecastDetails.registerAccountChange(
-          flowDetail,
-          flow,
-          ReserveHolding);
+          flowDetail, flow, ReserveHolding);
     }
-
   }
 
   void _processTargetedExpenseFlow(FlowDetail flowDetail) {
@@ -869,40 +810,30 @@ _holdingDistances
 
     double flow = flowDetail.flow;
     flow = _adjustBalances(
-        _expensePreferredLinks[flowDetail.flowKey.name],
-        flowDetail,
-        flow);
+        _expensePreferredLinks[flowDetail.flowKey.name], flowDetail, flow);
     if (flow == 0.0) return;
     flow = _adjustBalances(
-        _preferredExpenseSources[flowDetail.flowType],
-        flowDetail,
-        flow);
+        _preferredExpenseSources[flowDetail.flowType], flowDetail, flow);
     if (flow == 0.0) return;
 
     _currentGridYear.untargetedNetFlow += flow;
 
     if (_trackDetails) {
       _currentGridYear.forecastDetails.registerAccountChange(
-          flowDetail,
-          flow,
-          ReserveHolding);
+          flowDetail, flow, ReserveHolding);
     }
-
   }
 
-  Iterable<FlowDetail> get _yearFlows =>
-      concat(
-          [
-              _currentGridYear.flowDetails,
-              _currentGridYear.standardIncomeFlowDetails,
-              _currentGridYear.standardExpenseFlowDetails,]);
+  Iterable<FlowDetail> get _yearFlows => concat([
+    _currentGridYear.flowDetails,
+    _currentGridYear.standardIncomeFlowDetails,
+    _currentGridYear.standardExpenseFlowDetails,
+  ]);
 
   void _processFlows() {
-    _yearFlows.forEach(
-        (FlowDetail flowDetail) =>
-            flowDetail.flow < 0.0 ?
-                _processTargetedExpenseFlow(flowDetail) :
-                _processTargetedIncomeFlow(flowDetail));
+    _yearFlows.forEach((FlowDetail flowDetail) => flowDetail.flow < 0.0
+        ? _processTargetedExpenseFlow(flowDetail)
+        : _processTargetedIncomeFlow(flowDetail));
 
     // Flows have been processed into targeted funds or untargetedNetFlow.
     double flow = _currentGridYear.untargetedNetFlow;
@@ -916,8 +847,7 @@ _holdingDistances
     if (flow != 0.0) {
       assert(flow < 0.0);
       _currentGridYear.reserves.balance += flow;
-      plusLogFine(
-          _logger,
+      plusLogFine(_logger,
           () => '${_currentGridYear.year} Need to adjust reserves with $flow');
     }
   }
@@ -926,29 +856,23 @@ _holdingDistances
     _assetInfos = new List(_dossier.assetKeys.length);
     int i = 0;
     _dossier.visitAssets(
-        (String assetName, Asset asset) =>
-            _assetInfos[i++] = new AssetInfo(
-                assetName,
-                asset,
-                _balanceSheetAssumptions.assetAssumption(assetName)));
+        (String assetName, Asset asset) => _assetInfos[i++] = new AssetInfo(
+            assetName, asset,
+            _balanceSheetAssumptions.assetAssumption(assetName)));
   }
 
   void _createLiabilityInfos() {
     _liabilityInfos = new List(_dossier.liabilityKeys.length);
     int i = 0;
-    _dossier.visitLiabilities(
-        (String liabilityName, Liability liability) =>
-            _liabilityInfos[i++] = new LiabilityInfo(
-                liabilityName,
-                liability,
-                _balanceSheetAssumptions.liabilityAssumption(liabilityName)));
+    _dossier.visitLiabilities((String liabilityName, Liability liability) =>
+        _liabilityInfos[i++] = new LiabilityInfo(liabilityName, liability,
+            _balanceSheetAssumptions.liabilityAssumption(liabilityName)));
   }
 
   // end <class ForecastGrid>
   final Dossier _dossier;
   bool _trackDetails = false;
-
-      /// Range of forecast - *Note* range is user requested range plus additional year
+  /// Range of forecast - *Note* range is user requested range plus additional year
   /// prior to requested start in order to bring assets, liabilities, holdings
   /// up to date for the specified start.
   YearRange _completeYearRange;
@@ -1017,52 +941,37 @@ class TaxBreakdown {
 
   TaxBreakdown.empty();
 
-  double get total =>
-      pension +
-          socialSecurity +
-          rental +
-          labor +
-          capitalGain +
-          qualifiedDividends +
-          unqualifiedDividends +
-          capitalGainDistributions +
-          interest;
+  double get total => pension +
+      socialSecurity +
+      rental +
+      labor +
+      capitalGain +
+      qualifiedDividends +
+      unqualifiedDividends +
+      capitalGainDistributions +
+      interest;
 
-  TaxBreakdown operator +(TaxBreakdown other) =>
-      new TaxBreakdown(
-          pension + other.pension,
-          socialSecurity + other.socialSecurity,
-          rental + other.rental,
-          labor + other.labor,
-          capitalGain + other.capitalGain,
-          qualifiedDividends + other.qualifiedDividends,
-          unqualifiedDividends + other.unqualifiedDividends,
-          capitalGainDistributions + other.capitalGainDistributions,
-          interest + other.interest);
+  TaxBreakdown operator +(TaxBreakdown other) => new TaxBreakdown(
+      pension + other.pension, socialSecurity + other.socialSecurity,
+      rental + other.rental, labor + other.labor,
+      capitalGain + other.capitalGain,
+      qualifiedDividends + other.qualifiedDividends,
+      unqualifiedDividends + other.unqualifiedDividends,
+      capitalGainDistributions + other.capitalGainDistributions,
+      interest + other.interest);
 
-  TaxBreakdown operator -(TaxBreakdown other) =>
-      new TaxBreakdown(
-          pension - other.pension,
-          socialSecurity - other.socialSecurity,
-          rental - other.rental,
-          labor - other.labor,
-          capitalGain - other.capitalGain,
-          qualifiedDividends - other.qualifiedDividends,
-          unqualifiedDividends - other.unqualifiedDividends,
-          capitalGainDistributions - other.capitalGainDistributions,
-          interest - other.interest);
+  TaxBreakdown operator -(TaxBreakdown other) => new TaxBreakdown(
+      pension - other.pension, socialSecurity - other.socialSecurity,
+      rental - other.rental, labor - other.labor,
+      capitalGain - other.capitalGain,
+      qualifiedDividends - other.qualifiedDividends,
+      unqualifiedDividends - other.unqualifiedDividends,
+      capitalGainDistributions - other.capitalGainDistributions,
+      interest - other.interest);
 
-  TaxBreakdown operator -() =>
-      new TaxBreakdown(
-          -pension,
-          -socialSecurity,
-          -rental,
-          -labor,
-          -capitalGain,
-          -qualifiedDividends,
-          -unqualifiedDividends,
-          -capitalGainDistributions,
-          -interest);
+  TaxBreakdown operator -() => new TaxBreakdown(-pension, -socialSecurity,
+      -rental, -labor, -capitalGain, -qualifiedDividends, -unqualifiedDividends,
+      -capitalGainDistributions, -interest);
 
   void plusEqual(TaxBreakdown other) {
     pension += other.pension;
@@ -1077,9 +986,8 @@ class TaxBreakdown {
   }
 
   // Assumes the values stored are taxable incomes
-  TaxBreakdown generateTaxBill(TaxRateAssumptions taxRateAssumptions,
-      Date startOfPeriod) {
-
+  TaxBreakdown generateTaxBill(
+      TaxRateAssumptions taxRateAssumptions, Date startOfPeriod) {
     double taxComponent(double basis, RateCurve taxRate) =>
         (basis != 0.0) ? basis * taxRate.getRate(startOfPeriod) : 0.0;
 
@@ -1091,10 +999,10 @@ class TaxBreakdown {
         taxComponent(capitalGain, taxRateAssumptions.capitalGains),
         taxComponent(qualifiedDividends, taxRateAssumptions.dividends),
         taxComponent(unqualifiedDividends, taxRateAssumptions.ordinaryIncome),
-        taxComponent(capitalGainDistributions, taxRateAssumptions.ordinaryIncome),
+        taxComponent(
+            capitalGainDistributions, taxRateAssumptions.ordinaryIncome),
         taxComponent(interest, taxRateAssumptions.ordinaryIncome));
   }
-
 
   // end <class TaxBreakdown>
 }
@@ -1134,17 +1042,12 @@ class GridYear {
     return new GridBalance(prevBalance, balance);
   }
 
-  DistributionBreakdown get shelteredDistributions =>
-      gridHoldings.fold(
-          new DistributionBreakdown.empty(),
-          (DistributionBreakdown prev, GridHolding holding) =>
-              prev + holding.shelteredDistributions);
+  DistributionBreakdown get shelteredDistributions => gridHoldings.fold(
+      new DistributionBreakdown.empty(), (DistributionBreakdown prev,
+      GridHolding holding) => prev + holding.shelteredDistributions);
 
-
-  double get shelteredCapitalGains =>
-      gridHoldings.fold(
-          0.0,
-          (double prev, GridHolding holding) => prev + holding.shelteredCapitalGain);
+  double get shelteredCapitalGains => gridHoldings.fold(0.0, (double prev,
+      GridHolding holding) => prev + holding.shelteredCapitalGain);
 
   GridBalance get totalNonHoldingAssets => _sumHoldings(assetBalances);
   GridBalance get totalAssets =>
@@ -1153,12 +1056,8 @@ class GridYear {
 
   Iterable<FlowDetail> get standardExpenseFlowDetails {
     List result = [];
-    result.add(
-        new FlowDetail(
-            endDate,
-            ExpenseType.TAXES_FEDERAL.value,
-            -taxBill.total,
-            '^Tax Bill'));
+    result.add(new FlowDetail(
+        endDate, ExpenseType.TAXES_FEDERAL.value, -taxBill.total, '^Tax Bill'));
     return result;
   }
 
@@ -1167,50 +1066,37 @@ class GridYear {
 
     {
       final qualified = distributionSummary.distributed.qualified;
-      result.add(
-          new FlowDetail(
-              endDate,
-              IncomeType.QUALIFIED_DIVIDEND_INCOME.value,
-              qualified,
-              '^Qualified Dividends'));
+      result.add(new FlowDetail(endDate,
+          IncomeType.QUALIFIED_DIVIDEND_INCOME.value, qualified,
+          '^Qualified Dividends'));
     }
 
     {
       final unqualified = distributionSummary.distributed.unqualified;
-      result.add(
-          new FlowDetail(
-              endDate,
-              IncomeType.NONQUALIFIED_DIVIDEND_INCOME.value,
-              unqualified,
-              '^Unqualified Dividends'));
+      result.add(new FlowDetail(endDate,
+          IncomeType.NONQUALIFIED_DIVIDEND_INCOME.value, unqualified,
+          '^Unqualified Dividends'));
     }
 
     {
       final capitalGainDistribution =
           distributionSummary.distributed.capitalGainDistribution;
-      result.add(
-          new FlowDetail(
-              endDate,
-              IncomeType.CAPITAL_GAIN_DISTRIBUTION_INCOME.value,
-              capitalGainDistribution,
-              '^Capital Gain Dist'));
+      result.add(new FlowDetail(endDate,
+          IncomeType.CAPITAL_GAIN_DISTRIBUTION_INCOME.value,
+          capitalGainDistribution, '^Capital Gain Dist'));
     }
 
     {
       final interestDistribution = distributionSummary.distributed.interest;
-      result.add(
-          new FlowDetail(
-              endDate,
-              IncomeType.INTEREST_INCOME.value,
-              interestDistribution,
-              '^Interest'));
+      result.add(new FlowDetail(endDate, IncomeType.INTEREST_INCOME.value,
+          interestDistribution, '^Interest'));
     }
 
     return result;
   }
 
-  _sumHoldings(Iterable<GridBalance> balances) =>
-      balances.fold(new GridBalance.empty(), (GridBalance result, GridBalance elm) {
+  _sumHoldings(Iterable<GridBalance> balances) => balances.fold(
+      new GridBalance.empty(), (GridBalance result, GridBalance elm) {
     result.prevBalance += elm.prevBalance;
     result.balance += elm.balance;
     return result;
@@ -1234,8 +1120,8 @@ class ForecastDetails {
   List<FlowAccountLink> flowAccountLinks = [];
   // custom <class ForecastDetails>
 
-  void registerAccountChange(FlowDetail flowDetail, double flow,
-      HoldingKey holdingKey) {
+  void registerAccountChange(
+      FlowDetail flowDetail, double flow, HoldingKey holdingKey) {
     assert(flowDetail == null ||
         (flowDetail.flow < 0.0 && flow <= 0.0) ||
         (flowDetail.flow > 0.0 && flow >= 0.0));
@@ -1243,8 +1129,7 @@ class ForecastDetails {
     flowAccountLinks.add(new FlowAccountLink(flowDetail, flow, holdingKey));
   }
 
-  toString() {
-  }
+  toString() {}
 
   // end <class ForecastDetails>
 }
@@ -1256,8 +1141,7 @@ class GridHolding {
   bool canCapitalGainBeSheltered = false;
   double prevBalance = 0.0;
   double fullBalance = 0.0;
-
-      /// Details on modeled growth from start to end - (does *not* including sales/investments)
+  /// Details on modeled growth from start to end - (does *not* including sales/investments)
   Attribution growthAttribution;
   double netTrade = 0.0;
   DistributionBreakdown distributedDistributions =
@@ -1276,14 +1160,13 @@ class GridHolding {
   double get balance => avgCostAccumulator.totalValue;
   double get netFullBalance => fullBalance - distributedDistributions.total;
 
-  Map<HoldingReturnType, num> get growthDetails =>
-      valueApply(growthAttribution.attribution, (num factor) => prevBalance * factor);
+  Map<HoldingReturnType, num> get growthDetails => valueApply(
+      growthAttribution.attribution, (num factor) => prevBalance * factor);
 
   double _buyHolding(double amount) {
     netTrade += amount;
     return 0.0;
   }
-
 
   double get _netBalance => avgCostAccumulator.totalValue + netTrade;
 
@@ -1314,14 +1197,14 @@ class GridHolding {
 
   toString() =>
       '$holdingKey (prev:${moneyFormat(prevBalance)},' 'bal:${moneyFormat(balance)},'
-          'fullb:${moneyFormat(fullBalance)},' 'nettr:${moneyFormat(netTrade)},'
-          'q:${moneyFormat(distributedDistributions.qualified)},'
-          'u:${moneyFormat(distributedDistributions.unqualified)},'
-          'c:${moneyFormat(distributedDistributions.capitalGainDistribution)},'
-          'qr:${moneyFormat(reinvestedDistributions.qualified)},'
-          'ur:${moneyFormat(reinvestedDistributions.unqualified)},'
-          'cr:${moneyFormat(reinvestedDistributions.capitalGainDistribution)},'
-          'distributed:${moneyFormat(distributedDistributions.total)}';
+      'fullb:${moneyFormat(fullBalance)},' 'nettr:${moneyFormat(netTrade)},'
+      'q:${moneyFormat(distributedDistributions.qualified)},'
+      'u:${moneyFormat(distributedDistributions.unqualified)},'
+      'c:${moneyFormat(distributedDistributions.capitalGainDistribution)},'
+      'qr:${moneyFormat(reinvestedDistributions.qualified)},'
+      'ur:${moneyFormat(reinvestedDistributions.unqualified)},'
+      'cr:${moneyFormat(reinvestedDistributions.capitalGainDistribution)},'
+      'distributed:${moneyFormat(distributedDistributions.total)}';
 
   // end <class GridHolding>
 }
@@ -1343,8 +1226,8 @@ class GridBalance {
 }
 // custom <part grid>
 
-void _pullTaxableIncomes(FlowDetail flowDetail,
-    TaxBreakdown taxableIncomeBreakdown) {
+void _pullTaxableIncomes(
+    FlowDetail flowDetail, TaxBreakdown taxableIncomeBreakdown) {
   IncomeType incomeType = flowDetail.flowType;
   switch (incomeType) {
     case IncomeType.PENSION_INCOME:
@@ -1370,13 +1253,12 @@ void _pullTaxableIncomes(FlowDetail flowDetail,
 
 typedef GridYearVisitor(GridYear gridYear);
 typedef GridAssetVisitor(AssetInfo assetInfo, GridBalance gridBalance);
-typedef GridLiabilityVisitor(LiabilityInfo liabilityInfo,
-    GridBalance gridBalance);
+typedef GridLiabilityVisitor(
+    LiabilityInfo liabilityInfo, GridBalance gridBalance);
 typedef GridHoldingVisitor(HoldingInfo holdingInfo, GridHolding gridHolding);
-typedef GridHoldingValueVisitor(HoldingInfo holdingInfo, double startValue,
-    double endValue);
+typedef GridHoldingValueVisitor(
+    HoldingInfo holdingInfo, double startValue, double endValue);
 typedef GridFlowVisitor(String flowName, double amount);
 typedef GridAccountVisitor(AccountInfo accountInfo);
 
 // end <part grid>
-

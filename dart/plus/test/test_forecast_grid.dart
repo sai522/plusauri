@@ -33,12 +33,9 @@ main() {
 
     //    print(dossier);
     final grid = new ForecastGrid.fromDossier(
-        dossier,
-        new YearRange(2014, 2084),
-        trackDetails: true);
+        dossier, new YearRange(2014, 2084), trackDetails: true);
   });
 
 // end <main>
 
 }
-

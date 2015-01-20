@@ -51,5 +51,3 @@ class BenchLowerBound extends BenchmarkBase {
 main() {
   BenchLowerBound.main();
 }
-
-

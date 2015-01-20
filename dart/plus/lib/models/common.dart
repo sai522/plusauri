@@ -32,20 +32,20 @@ class AccountType implements Comparable<AccountType> {
   static const MONEY_MARKET = const AccountType._(10);
   static const MATTRESS = const AccountType._(11);
 
-  static get values =>
-      [
-          OTHER,
-          ROTH_IRS401K,
-          TRADITIONAL_IRS401K,
-          COLLEGE_IRS529,
-          TRADITIONAL_IRA,
-          INVESTMENT,
-          BROKERAGE,
-          CHECKING,
-          HEALTH_SAVINGS_ACCOUNT,
-          SAVINGS,
-          MONEY_MARKET,
-          MATTRESS];
+  static get values => [
+    OTHER,
+    ROTH_IRS401K,
+    TRADITIONAL_IRS401K,
+    COLLEGE_IRS529,
+    TRADITIONAL_IRA,
+    INVESTMENT,
+    BROKERAGE,
+    CHECKING,
+    HEALTH_SAVINGS_ACCOUNT,
+    SAVINGS,
+    MONEY_MARKET,
+    MATTRESS
+  ];
 
   final int value;
 
@@ -127,7 +127,6 @@ class AccountType implements Comparable<AccountType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(12)].toString();
   }
-
 }
 
 class AssetType implements Comparable<AssetType> {
@@ -145,21 +144,21 @@ class AssetType implements Comparable<AssetType> {
   static const CASH = const AssetType._(11);
   static const RENTAL_PROPERTY = const AssetType._(12);
 
-  static get values =>
-      [
-          OTHER,
-          INVESTMENT,
-          PRIMARY_RESIDENCE,
-          FAMILY_PROPERTY,
-          FINANCIAL_INSTRUMENT,
-          AUTOMOBILE,
-          LIFE_INSURANCE_POLICY,
-          COMPANY_STOCK_OPTION,
-          SAVINGS,
-          COLLEGE_SAVINGS,
-          RETIREMENT_SAVINGS,
-          CASH,
-          RENTAL_PROPERTY];
+  static get values => [
+    OTHER,
+    INVESTMENT,
+    PRIMARY_RESIDENCE,
+    FAMILY_PROPERTY,
+    FINANCIAL_INSTRUMENT,
+    AUTOMOBILE,
+    LIFE_INSURANCE_POLICY,
+    COMPANY_STOCK_OPTION,
+    SAVINGS,
+    COLLEGE_SAVINGS,
+    RETIREMENT_SAVINGS,
+    CASH,
+    RENTAL_PROPERTY
+  ];
 
   final int value;
 
@@ -245,7 +244,6 @@ class AssetType implements Comparable<AssetType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(13)].toString();
   }
-
 }
 
 class LiabilityType implements Comparable<LiabilityType> {
@@ -310,7 +308,6 @@ class LiabilityType implements Comparable<LiabilityType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(5)].toString();
   }
-
 }
 
 class HoldingType implements Comparable<HoldingType> {
@@ -374,7 +371,6 @@ class HoldingType implements Comparable<HoldingType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(5)].toString();
   }
-
 }
 
 class InterpolationType implements Comparable<InterpolationType> {
@@ -428,7 +424,6 @@ class InterpolationType implements Comparable<InterpolationType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(3)].toString();
   }
-
 }
 
 class PaymentFrequency implements Comparable<PaymentFrequency> {
@@ -487,7 +482,6 @@ class PaymentFrequency implements Comparable<PaymentFrequency> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(4)].toString();
   }
-
 }
 
 class TaxCategory implements Comparable<TaxCategory> {
@@ -504,20 +498,20 @@ class TaxCategory implements Comparable<TaxCategory> {
   static const RENTAL_INCOME = const TaxCategory._(10);
   static const PROPERTY_VALUE = const TaxCategory._(11);
 
-  static get values =>
-      [
-          LABOR_INCOME,
-          INTEREST_INCOME,
-          QUALIFIED_DIVIDEND_INCOME,
-          UNQUALIFIED_DIVIDEND_INCOME,
-          SHORT_TERM_CAPITAL_GAIN,
-          LONG_TERM_CAPITAL_GAIN,
-          SOCIAL_SECURITY_INCOME,
-          PENSION_INCOME,
-          OTHER_ORDINARY_INCOME,
-          INHERITANCE,
-          RENTAL_INCOME,
-          PROPERTY_VALUE];
+  static get values => [
+    LABOR_INCOME,
+    INTEREST_INCOME,
+    QUALIFIED_DIVIDEND_INCOME,
+    UNQUALIFIED_DIVIDEND_INCOME,
+    SHORT_TERM_CAPITAL_GAIN,
+    LONG_TERM_CAPITAL_GAIN,
+    SOCIAL_SECURITY_INCOME,
+    PENSION_INCOME,
+    OTHER_ORDINARY_INCOME,
+    INHERITANCE,
+    RENTAL_INCOME,
+    PROPERTY_VALUE
+  ];
 
   final int value;
 
@@ -599,7 +593,6 @@ class TaxCategory implements Comparable<TaxCategory> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(12)].toString();
   }
-
 }
 
 class TaxType implements Comparable<TaxType> {
@@ -612,16 +605,16 @@ class TaxType implements Comparable<TaxType> {
   static const SOCIAL_SECURITY = const TaxType._(6);
   static const PROPERTY = const TaxType._(7);
 
-  static get values =>
-      [
-          ORDINARY_INCOME,
-          QUALIFIED_DIVIDEND,
-          LONG_TERM_CAPITAL_GAIN,
-          SHORT_TERM_CAPITAL_GAIN,
-          INHERITANCE,
-          MEDICARE,
-          SOCIAL_SECURITY,
-          PROPERTY];
+  static get values => [
+    ORDINARY_INCOME,
+    QUALIFIED_DIVIDEND,
+    LONG_TERM_CAPITAL_GAIN,
+    SHORT_TERM_CAPITAL_GAIN,
+    INHERITANCE,
+    MEDICARE,
+    SOCIAL_SECURITY,
+    PROPERTY
+  ];
 
   final int value;
 
@@ -687,7 +680,6 @@ class TaxType implements Comparable<TaxType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(8)].toString();
   }
-
 }
 
 class TaxingAuthority implements Comparable<TaxingAuthority> {
@@ -736,7 +728,6 @@ class TaxingAuthority implements Comparable<TaxingAuthority> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(2)].toString();
   }
-
 }
 
 class Point {
@@ -756,11 +747,7 @@ class Point {
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
-  Map toJson() => {
-    "x": ebisu_utils.toJson(x),
-    "y": ebisu_utils.toJson(y),
-  };
+  Map toJson() => {"x": ebisu_utils.toJson(x), "y": ebisu_utils.toJson(y),};
 
   static Point fromJson(Object json) {
     if (json == null) return null;
@@ -778,7 +765,6 @@ class Point {
   Point._copy(Point other)
       : x = other.x,
         y = other.y;
-
 }
 
 class CostBasis {
@@ -786,8 +772,8 @@ class CostBasis {
     _init();
   }
 
-  bool operator ==(CostBasis other) =>
-      identical(this, other) || units == other.units && unitValue == other.unitValue;
+  bool operator ==(CostBasis other) => identical(this, other) ||
+      units == other.units && unitValue == other.unitValue;
 
   int get hashCode => hash2(units, unitValue);
 
@@ -811,20 +797,19 @@ class CostBasis {
       double sumUnits = units + other.units;
       if (sumUnits == 0.0) return NoCostBasis;
       return new CostBasis(
-          sumUnits,
-          (marketValue + other.marketValue) / sumUnits);
+          sumUnits, (marketValue + other.marketValue) / sumUnits);
     }
   }
 
-  CostBasis operator -() =>
-      identical(this, NoCostBasis) ? NoCostBasis : new CostBasis(-units, unitValue);
+  CostBasis operator -() => identical(this, NoCostBasis)
+      ? NoCostBasis
+      : new CostBasis(-units, unitValue);
 
   CostBasis operator -(CostBasis other) => this + (-other);
 
   // end <class CostBasis>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "units": ebisu_utils.toJson(units),
@@ -847,26 +832,24 @@ class CostBasis {
   CostBasis._copy(CostBasis other)
       : units = other.units,
         unitValue = other.unitValue;
-
 }
 
 class QuantityBin {
   QuantityBin();
 
-  bool operator ==(QuantityBin other) =>
-      identical(this, other) ||
-          interpolationType == other.interpolationType &&
-              const ListEquality().equals(data, other.data);
+  bool operator ==(QuantityBin other) => identical(this, other) ||
+      interpolationType == other.interpolationType &&
+          const ListEquality().equals(data, other.data);
 
   int get hashCode =>
       hash2(interpolationType, const ListEquality<Point>().hash(data));
 
   copy() => new QuantityBin()
-      ..interpolationType =
-          interpolationType == null ? null : interpolationType.copy()
-      ..data = data == null ?
-          null :
-          (new List.from(data.map((e) => e == null ? null : e.copy())));
+    ..interpolationType =
+    interpolationType == null ? null : interpolationType.copy()
+    ..data = data == null
+        ? null
+        : (new List.from(data.map((e) => e == null ? null : e.copy())));
 
   InterpolationType interpolationType;
   List<Point> data = [];
@@ -874,7 +857,6 @@ class QuantityBin {
   // end <class QuantityBin>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "interpolationType": ebisu_utils.toJson(interpolationType),
@@ -895,8 +877,7 @@ class QuantityBin {
         InterpolationType.fromJson(jsonMap["interpolationType"]);
     // data is List<Point>
     data = ebisu_utils.constructListFromJsonData(
-        jsonMap["data"],
-        (data) => Point.fromJson(data));
+        jsonMap["data"], (data) => Point.fromJson(data));
   }
 }
 
@@ -906,11 +887,10 @@ QuantityBin quantityBin() => new QuantityBin();
 class CapitalizationPartition {
   const CapitalizationPartition(this.smallCap, this.midCap, this.largeCap);
 
-  bool operator ==(CapitalizationPartition other) =>
-      identical(this, other) ||
-          smallCap == other.smallCap &&
-              midCap == other.midCap &&
-              largeCap == other.largeCap;
+  bool operator ==(CapitalizationPartition other) => identical(this, other) ||
+      smallCap == other.smallCap &&
+          midCap == other.midCap &&
+          largeCap == other.largeCap;
 
   int get hashCode => hash3(smallCap, midCap, largeCap);
 
@@ -942,7 +922,6 @@ class CapitalizationPartition {
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
   Map toJson() => {
     "smallCap": ebisu_utils.toJson(smallCap),
     "midCap": ebisu_utils.toJson(midCap),
@@ -967,15 +946,13 @@ class CapitalizationPartition {
       : smallCap = other.smallCap,
         midCap = other.midCap,
         largeCap = other.largeCap;
-
 }
 
 class InvestmentStylePartition {
   const InvestmentStylePartition(this.value, this.blend, this.growth);
 
-  bool operator ==(InvestmentStylePartition other) =>
-      identical(this, other) ||
-          value == other.value && blend == other.blend && growth == other.growth;
+  bool operator ==(InvestmentStylePartition other) => identical(this, other) ||
+      value == other.value && blend == other.blend && growth == other.growth;
 
   int get hashCode => hash3(value, blend, growth);
 
@@ -1007,7 +984,6 @@ class InvestmentStylePartition {
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
   Map toJson() => {
     "value": ebisu_utils.toJson(value),
     "blend": ebisu_utils.toJson(blend),
@@ -1032,18 +1008,16 @@ class InvestmentStylePartition {
       : value = other.value,
         blend = other.blend,
         growth = other.growth;
-
 }
 
 class AllocationPartition {
   const AllocationPartition(this.stock, this.bond, this.cash, this.other);
 
-  bool operator ==(AllocationPartition other) =>
-      identical(this, other) ||
-          stock == other.stock &&
-              bond == other.bond &&
-              cash == other.cash &&
-              this.other == other.other;
+  bool operator ==(AllocationPartition other) => identical(this, other) ||
+      stock == other.stock &&
+          bond == other.bond &&
+          cash == other.cash &&
+          this.other == other.other;
 
   int get hashCode => hash4(stock, bond, cash, other);
 
@@ -1079,7 +1053,6 @@ class AllocationPartition {
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
   Map toJson() => {
     "stock": ebisu_utils.toJson(stock),
     "bond": ebisu_utils.toJson(bond),
@@ -1107,21 +1080,19 @@ class AllocationPartition {
         bond = other.bond,
         cash = other.cash,
         other = other.other;
-
 }
 
 class InstrumentPartitions {
   const InstrumentPartitions(this.allocationPartition,
       this.investmentStylePartition, this.capitalizationPartition);
 
-  bool operator ==(InstrumentPartitions other) =>
-      identical(this, other) ||
-          allocationPartition == other.allocationPartition &&
-              investmentStylePartition == other.investmentStylePartition &&
-              capitalizationPartition == other.capitalizationPartition;
+  bool operator ==(InstrumentPartitions other) => identical(this, other) ||
+      allocationPartition == other.allocationPartition &&
+          investmentStylePartition == other.investmentStylePartition &&
+          capitalizationPartition == other.capitalizationPartition;
 
-  int get hashCode =>
-      hash3(allocationPartition, investmentStylePartition, capitalizationPartition);
+  int get hashCode => hash3(
+      allocationPartition, investmentStylePartition, capitalizationPartition);
 
   copy() => new InstrumentPartitions._copy(this);
   final AllocationPartition allocationPartition;
@@ -1134,22 +1105,17 @@ class InstrumentPartitions {
         investmentStylePartition = const InvestmentStylePartition.empty(),
         capitalizationPartition = const CapitalizationPartition.empty();
 
-  double blendedDistance(InstrumentPartitions other) =>
-      valueDistance(
+  double blendedDistance(InstrumentPartitions other) => valueDistance(
           allocationPartition.partitionMap,
           other.allocationPartition.partitionMap) +
-          valueDistance(
-              investmentStylePartition.partitionMap,
-              other.investmentStylePartition.partitionMap) +
-          valueDistance(
-              capitalizationPartition.partitionMap,
-              other.capitalizationPartition.partitionMap);
-
+      valueDistance(investmentStylePartition.partitionMap,
+          other.investmentStylePartition.partitionMap) +
+      valueDistance(capitalizationPartition.partitionMap,
+          other.capitalizationPartition.partitionMap);
 
   // end <class InstrumentPartitions>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "allocationPartition": ebisu_utils.toJson(allocationPartition),
@@ -1167,24 +1133,23 @@ class InstrumentPartitions {
   }
 
   InstrumentPartitions._fromJsonMapImpl(Map jsonMap)
-      : allocationPartition = AllocationPartition.fromJson(
-          jsonMap["allocationPartition"]),
-        investmentStylePartition = InvestmentStylePartition.fromJson(
-          jsonMap["investmentStylePartition"]),
-        capitalizationPartition = CapitalizationPartition.fromJson(
-          jsonMap["capitalizationPartition"]);
+      : allocationPartition = AllocationPartition
+          .fromJson(jsonMap["allocationPartition"]),
+        investmentStylePartition = InvestmentStylePartition
+            .fromJson(jsonMap["investmentStylePartition"]),
+        capitalizationPartition = CapitalizationPartition
+            .fromJson(jsonMap["capitalizationPartition"]);
 
   InstrumentPartitions._copy(InstrumentPartitions other)
-      : allocationPartition = other.allocationPartition == null ?
-          null :
-          other.allocationPartition.copy(),
-        investmentStylePartition = other.investmentStylePartition == null ?
-          null :
-          other.investmentStylePartition.copy(),
-        capitalizationPartition = other.capitalizationPartition == null ?
-          null :
-          other.capitalizationPartition.copy();
-
+      : allocationPartition = other.allocationPartition == null
+          ? null
+          : other.allocationPartition.copy(),
+        investmentStylePartition = other.investmentStylePartition == null
+            ? null
+            : other.investmentStylePartition.copy(),
+        capitalizationPartition = other.capitalizationPartition == null
+            ? null
+            : other.capitalizationPartition.copy();
 }
 
 /// Specifies a value that has been partitioned by the partition map
@@ -1193,14 +1158,13 @@ class InstrumentPartitions {
 /// as the paritioned values according to the percentages provided.
 ///
 class PartitionMapping {
-  const PartitionMapping(this.partitioned, this.unpartitioned,
-      this.partitionMap);
+  const PartitionMapping(
+      this.partitioned, this.unpartitioned, this.partitionMap);
 
-  bool operator ==(PartitionMapping other) =>
-      identical(this, other) ||
-          partitioned == other.partitioned &&
-              unpartitioned == other.unpartitioned &&
-              const MapEquality().equals(partitionMap, other.partitionMap);
+  bool operator ==(PartitionMapping other) => identical(this, other) ||
+      partitioned == other.partitioned &&
+          unpartitioned == other.unpartitioned &&
+          const MapEquality().equals(partitionMap, other.partitionMap);
 
   int get hashCode =>
       hash3(partitioned, unpartitioned, const MapEquality().hash(partitionMap));
@@ -1211,8 +1175,8 @@ class PartitionMapping {
   final Map<String, double> partitionMap;
   // custom <class PartitionMapping>
 
-  PartitionMapping.validated(this.partitioned, this.unpartitioned,
-      this.partitionMap) {
+  PartitionMapping.validated(
+      this.partitioned, this.unpartitioned, this.partitionMap) {
     if (!isValid) throw new ArgumentError(
         'Partitioning must sum to 1.0 => $partitionMap');
   }
@@ -1244,17 +1208,14 @@ class PartitionMapping {
     final totalValue = totalPartitioned + totalUnpartitioned;
     assert((totalValue - total - other.total).abs() < 0.001);
 
-    if (totalPartitioned ==
-        0.0) return new PartitionMapping(0.0, totalValue, const {});
+    if (totalPartitioned == 0.0) return new PartitionMapping(
+        0.0, totalValue, const {});
 
     final map = {};
     final keys = _keyUnion(other);
 
-    keys.forEach(
-        (key) =>
-            map[key] = (percent(key) * partitioned +
-                other.percent(key) * other.partitioned) /
-                totalPartitioned);
+    keys.forEach((key) => map[key] = (percent(key) * partitioned +
+        other.percent(key) * other.partitioned) / totalPartitioned);
 
     return new PartitionMapping(totalPartitioned, totalUnpartitioned, map);
   }
@@ -1267,17 +1228,15 @@ class PartitionMapping {
 
   PartitionMapping operator -(PartitionMapping other) => this + -other;
 
-  bool get isValid =>
-      partitioned.isFinite &&
-          unpartitioned.isFinite &&
-          ((partitionMap.length == 0) ||
-              (1.0 - partitionMap.values.fold(0.0, (prev, val) => prev + val)).abs() <
-                  0.0001);
+  bool get isValid => partitioned.isFinite &&
+      unpartitioned.isFinite &&
+      ((partitionMap.length == 0) ||
+          (1.0 - partitionMap.values.fold(0.0, (prev, val) => prev + val))
+              .abs() < 0.0001);
 
   // end <class PartitionMapping>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "partitioned": ebisu_utils.toJson(partitioned),
@@ -1298,35 +1257,32 @@ class PartitionMapping {
       : partitioned = jsonMap["partitioned"],
         unpartitioned = jsonMap["unpartitioned"],
         // partitionMap is Map<String,double>
-      partitionMap = ebisu_utils.constructMapFromJsonData(
-          jsonMap["partitionMap"],
-          (value) => value);
+        partitionMap = ebisu_utils.constructMapFromJsonData(
+            jsonMap["partitionMap"], (value) => value);
 
   PartitionMapping._copy(PartitionMapping other)
       : partitioned = other.partitioned,
         unpartitioned = other.unpartitioned,
         partitionMap = valueApply(other.partitionMap, (v) => v);
-
 }
 
 class CFlowSequenceSpec {
   CFlowSequenceSpec();
 
-  bool operator ==(CFlowSequenceSpec other) =>
-      identical(this, other) ||
-          dateRange == other.dateRange &&
-              paymentFrequency == other.paymentFrequency &&
-              initialValue == other.initialValue &&
-              growth == other.growth;
+  bool operator ==(CFlowSequenceSpec other) => identical(this, other) ||
+      dateRange == other.dateRange &&
+          paymentFrequency == other.paymentFrequency &&
+          initialValue == other.initialValue &&
+          growth == other.growth;
 
   int get hashCode => hash4(dateRange, paymentFrequency, initialValue, growth);
 
   copy() => new CFlowSequenceSpec()
-      ..dateRange = dateRange == null ? null : dateRange.copy()
-      ..paymentFrequency =
-          paymentFrequency == null ? null : paymentFrequency.copy()
-      ..initialValue = initialValue == null ? null : initialValue.copy()
-      ..growth = growth == null ? null : growth.copy();
+    ..dateRange = dateRange == null ? null : dateRange.copy()
+    ..paymentFrequency =
+    paymentFrequency == null ? null : paymentFrequency.copy()
+    ..initialValue = initialValue == null ? null : initialValue.copy()
+    ..growth = growth == null ? null : growth.copy();
 
   DateRange dateRange;
   PaymentFrequency paymentFrequency;
@@ -1352,15 +1308,13 @@ class CFlowSequenceSpec {
     List<DateValue> result = [];
     var currentValue = initialValue.copy();
     visitFlows(
-        onRange,
-        (Date date, double flow) => result.add(dateValue(date, flow)));
+        onRange, (Date date, double flow) => result.add(dateValue(date, flow)));
     return new TimeSeries(result);
   }
 
   // end <class CFlowSequenceSpec>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "dateRange": ebisu_utils.toJson(dateRange),
@@ -1392,12 +1346,12 @@ CFlowSequenceSpec cFlowSequenceSpec() => new CFlowSequenceSpec();
 class HoldingKey implements Comparable<HoldingKey> {
   HoldingKey(this.accountName, this.holdingName);
 
-  bool operator ==(HoldingKey other) =>
-      identical(this, other) ||
-          accountName == other.accountName && holdingName == other.holdingName;
+  bool operator ==(HoldingKey other) => identical(this, other) ||
+      accountName == other.accountName && holdingName == other.holdingName;
 
-  int get hashCode => _hashCode != null ? _hashCode : (_hashCode =
-      hash2(accountName, holdingName));
+  int get hashCode => _hashCode != null
+      ? _hashCode
+      : (_hashCode = hash2(accountName, holdingName));
 
   int compareTo(HoldingKey other) {
     int result = 0;
@@ -1408,8 +1362,7 @@ class HoldingKey implements Comparable<HoldingKey> {
 
   copy() => new HoldingKey._copy(this);
   final String accountName;
-
-      /// Name of the holding, a real symbol name or possibly a made up representative name
+  /// Name of the holding, a real symbol name or possibly a made up representative name
   final String holdingName;
   // custom <class HoldingKey>
 
@@ -1459,11 +1412,8 @@ bool isSheltered(AccountType accountType) =>
         accountType == AccountType.TRADITIONAL_IRS401K ||
         accountType == AccountType.COLLEGE_IRS529 ||
         accountType == AccountType.TRADITIONAL_IRS401K ||
-        accountType == AccountType.HEALTH_SAVINGS_ACCOUNT ?
-        true :
-        false;
+        accountType == AccountType.HEALTH_SAVINGS_ACCOUNT ? true : false;
 
 typedef FlowVisitor(Date date, double flow);
 
 // end <library common>
-

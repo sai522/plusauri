@@ -3,7 +3,6 @@ part of plus.repository;
 // custom <part curves>
 
 class _Curves {
-
   final _inflation = alternating(0.03, 0.005);
   get inflation => _inflation;
 
@@ -51,21 +50,19 @@ class _Curves {
   final _reservesExpense = alternating(-0.01, 0.0001);
   get reservesExpense => _reservesExpense;
 
-  get eliteCollegeCostIncreases =>
-      rateCurve(
-          [
-              dv(date(1900, 1, 1), 0.055),
-              dv(date(2000, 1, 1), 0.065),
-              dv(date(2013, 1, 1), 0.055),
-              dv(date(2018, 1, 1), 0.045),
-              dv(date(2025, 1, 1), 0.04),]);
+  get eliteCollegeCostIncreases => rateCurve([
+    dv(date(1900, 1, 1), 0.055),
+    dv(date(2000, 1, 1), 0.065),
+    dv(date(2013, 1, 1), 0.055),
+    dv(date(2018, 1, 1), 0.045),
+    dv(date(2025, 1, 1), 0.04),
+  ]);
 
-  get stateCollegeCostIncreases =>
-      rateCurve(
-          [
-              dv(date(1900, 1, 1), 0.055),
-              dv(date(2000, 1, 1), 0.045),
-              dv(date(2018, 1, 1), 0.04),]);
+  get stateCollegeCostIncreases => rateCurve([
+    dv(date(1900, 1, 1), 0.055),
+    dv(date(2000, 1, 1), 0.045),
+    dv(date(2018, 1, 1), 0.04),
+  ]);
 
   get all => {
     'inflation': inflation,
@@ -85,7 +82,6 @@ class _Curves {
     'reservesIncome': reservesIncome,
     'reservesExpense': reservesExpense,
   };
-
 }
 
 int _startYear = 1990;
@@ -119,4 +115,3 @@ var _curves = new _Curves();
 var curves = _curves;
 
 // end <part curves>
-

@@ -9,8 +9,8 @@ import 'dart:math' as math;
 
 typedef CompareFunc(var a, var b);
 
-int lowerBoundCompare(List list, key, CompareFunc comparator, [int startIndex =
-    0]) {
+int lowerBoundCompare(List list, key, CompareFunc comparator,
+    [int startIndex = 0]) {
   int leftEnd = startIndex;
   int rightEnd = list.length;
 
@@ -42,7 +42,6 @@ int lowerBound(List list, key, [int startIndex = 0]) {
   return leftEnd;
 }
 
-
 List merge(List l1, List l2) {
   List merged = new List.generate(l1.length + l2.length, (i) => null);
   int i = 0,
@@ -64,4 +63,3 @@ List merge(List l1, List l2) {
 }
 
 // end <library binary_search>
-

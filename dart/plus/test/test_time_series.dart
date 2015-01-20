@@ -19,31 +19,32 @@ main() {
   // custom <main>
 
   group('../test/test_time_series.dart', () {
-
     test('out_of_order', () {
       var ts;
       try {
-        ts = timeSeries(
-            [dateValue(date(2001, 2, 1), 2.0), dateValue(date(2001, 1, 1), 1.0),]);
+        ts = timeSeries([
+          dateValue(date(2001, 2, 1), 2.0),
+          dateValue(date(2001, 1, 1), 1.0),
+        ]);
         if (ts != null) expect(ts.isOrdered, false);
       } on AssertionError catch (e) {
         // In debug expected exception out of order
       }
     });
 
-    var ts = timeSeries(
-        [
-            dateValue(date(2001, 1, 1), 1.0),
-            dateValue(date(2001, 2, 1), 2.0),
-            dateValue(date(2001, 3, 1), 3.0),]);
+    var ts = timeSeries([
+      dateValue(date(2001, 1, 1), 1.0),
+      dateValue(date(2001, 2, 1), 2.0),
+      dateValue(date(2001, 3, 1), 3.0),
+    ]);
 
     test('filterOnRange', () {
-      expect(
-          ts.filterOnRange(dateRange(date(2000, 1, 1), date(2001, 1, 1))).toList(),
-          []);
-      expect(
-          ts.filterOnRange(dateRange(date(2000, 1, 1), date(2001, 1, 2))).toList(),
-          [dateValue(date(2001, 1, 1), 1.0)]);
+      expect(ts
+          .filterOnRange(dateRange(date(2000, 1, 1), date(2001, 1, 1)))
+          .toList(), []);
+      expect(ts
+          .filterOnRange(dateRange(date(2000, 1, 1), date(2001, 1, 2)))
+          .toList(), [dateValue(date(2001, 1, 1), 1.0)]);
     });
 
     test('copy produces equal with no sharing', () {
@@ -54,42 +55,37 @@ main() {
 
     test('firstOnOrBefore', () {
       expect(ts.firstOnOrBefore(date(1000, 1, 1)), null);
-      expect(
-          ts.firstOnOrBefore(date(2001, 1, 1)),
+      expect(ts.firstOnOrBefore(date(2001, 1, 1)),
           dateValue(date(2001, 1, 1), 1.0));
-      expect(
-          ts.firstOnOrBefore(date(2001, 1, 2)),
+      expect(ts.firstOnOrBefore(date(2001, 1, 2)),
           dateValue(date(2001, 1, 1), 1.0));
-      expect(
-          ts.firstOnOrBefore(date(2001, 2, 1)),
+      expect(ts.firstOnOrBefore(date(2001, 2, 1)),
           dateValue(date(2001, 2, 1), 2.0));
-      expect(
-          ts.firstOnOrBefore(date(2001, 2, 2)),
+      expect(ts.firstOnOrBefore(date(2001, 2, 2)),
           dateValue(date(2001, 2, 1), 2.0));
-      expect(
-          ts.firstOnOrBefore(date(3001, 1, 1)),
+      expect(ts.firstOnOrBefore(date(3001, 1, 1)),
           dateValue(date(2001, 3, 1), 3.0));
     });
 
     test('filterOnYear', () {
       expect(ts.filterOnYear(2000).toList(), []);
       expect(ts.filterOnYear(2002).toList(), []);
-      expect(
-          ts.filterOnYear(2001).toList(),
-          [
-              dateValue(date(2001, 1, 1), 1.0),
-              dateValue(date(2001, 2, 1), 2.0),
-              dateValue(date(2001, 3, 1), 3.0)]);
+      expect(ts.filterOnYear(2001).toList(), [
+        dateValue(date(2001, 1, 1), 1.0),
+        dateValue(date(2001, 2, 1), 2.0),
+        dateValue(date(2001, 3, 1), 3.0)
+      ]);
     });
 
     test('sumToDateOnCurve', () {
       final curve = new RateCurve([dateValue(date(1900, 1, 1), 0.03)]);
       expect(ts.sumToDateOnCurve(date(2004, 1, 1), ZeroRateCurve), ts.sum);
-      expect(
-          ts.sumToDateOnCurve(date(2004, 1, 1), curve),
-          curve.revalueOn(ts.firstOnOrBefore(date(2001, 1, 1)), date(2004, 1, 1)) +
-              curve.revalueOn(ts.firstOnOrBefore(date(2001, 2, 1)), date(2004, 1, 1)) +
-              curve.revalueOn(ts.firstOnOrBefore(date(2001, 3, 1)), date(2004, 1, 1)));
+      expect(ts.sumToDateOnCurve(date(2004, 1, 1), curve), curve.revalueOn(
+              ts.firstOnOrBefore(date(2001, 1, 1)), date(2004, 1, 1)) +
+          curve.revalueOn(
+              ts.firstOnOrBefore(date(2001, 2, 1)), date(2004, 1, 1)) +
+          curve.revalueOn(
+              ts.firstOnOrBefore(date(2001, 3, 1)), date(2004, 1, 1)));
     });
 
     test('splice', () {
@@ -115,4 +111,3 @@ main() {
   // end <main>
 
 }
-

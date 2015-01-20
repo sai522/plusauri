@@ -18,13 +18,13 @@ class Portfolio {
   toString([bool includeFlat = true]) {
     var details = ['AsOf($_asOf)'];
     _holdings.keys.toList()
-        ..sort()
-        ..forEach((k) {
-          double value = _holdings[k];
-          if (includeFlat || value.abs() > 0.001) {
-            details.add('\t$k ${commifyNum(value)}');
-          }
-        });
+      ..sort()
+      ..forEach((k) {
+        double value = _holdings[k];
+        if (includeFlat || value.abs() > 0.001) {
+          details.add('\t$k ${commifyNum(value)}');
+        }
+      });
     return details.join('\n');
   }
 
@@ -61,8 +61,8 @@ class Portfolio {
   void _fromJsonMapImpl(Map jsonMap) {
     _asOf = Date.fromJson(jsonMap["asOf"]);
     // holdings is Map<String,double>
-    _holdings =
-        ebisu_utils.constructMapFromJsonData(jsonMap["holdings"], (value) => value);
+    _holdings = ebisu_utils.constructMapFromJsonData(
+        jsonMap["holdings"], (value) => value);
   }
   Date _asOf;
   Map<String, double> _holdings = {};
@@ -115,8 +115,9 @@ class PortfolioHistory {
 
   _updateHoldings(TradeJournal journal) {
     bool arePriorTrades = journal.dateRange.isStrictlyBefore(_dateRange);
-    var additions =
-        arePriorTrades ? _walkTradesBackward(journal) : _walkTradesForward(journal);
+    var additions = arePriorTrades
+        ? _walkTradesBackward(journal)
+        : _walkTradesForward(journal);
     additions.forEach((k, v) {
       _holdingHistories[k] = splice(
           _holdingHistories.putIfAbsent(k, () => new TimeSeries([])),
@@ -131,8 +132,9 @@ class PortfolioHistory {
       var symbol = trade.symbol;
       if (!result.containsKey(symbol)) {
         double lastValue = _portfolioSource.holdingOf(symbol);
-        result[symbol] =
-            [dateValue(trade.date, lastValue + trade.signedQuantity)];
+        result[symbol] = [
+          dateValue(trade.date, lastValue + trade.signedQuantity)
+        ];
       } else {
         var tsData = result[symbol];
         var last = tsData.last;
@@ -150,8 +152,7 @@ class PortfolioHistory {
 
     // Track latest holdings per symbol
     var latestHoldings = valueApply(
-        _portfolioSource.holdings,
-        (v) => dateValue(_portfolioSource.asOf, v));
+        _portfolioSource.holdings, (v) => dateValue(_portfolioSource.asOf, v));
 
     ////////////////////////////////////////////////////////////////////////////
     // Timeline of trades up to some day (P) where portfolio quantity is known.
@@ -207,8 +208,8 @@ class PortfolioHistory {
     orderedKeys.forEach((k) {
       var ts = _holdingHistories[k];
       result.add('$k\n\t');
-      ts.data.forEach(
-          (dv) => result.add('\t${dv.date}, ${commifyNum(dv.value)}'));
+      ts.data
+          .forEach((dv) => result.add('\t${dv.date}, ${commifyNum(dv.value)}'));
     });
     return result.join('\n');
   }
@@ -237,8 +238,7 @@ class PortfolioHistory {
     _dateRange = DateRange.fromJson(jsonMap["dateRange"]);
     // holdingHistories is Map<String,TimeSeries>
     _holdingHistories = ebisu_utils.constructMapFromJsonData(
-        jsonMap["holdingHistories"],
-        (value) => TimeSeries.fromJson(value));
+        jsonMap["holdingHistories"], (value) => TimeSeries.fromJson(value));
   }
   Portfolio _portfolioSource;
   TradeJournal _tradeJournal = new TradeJournal.empty();
@@ -246,7 +246,5 @@ class PortfolioHistory {
   Map<String, TimeSeries> _holdingHistories = {};
 }
 
-
 // custom <part portfolio>
 // end <part portfolio>
-

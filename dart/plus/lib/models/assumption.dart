@@ -27,13 +27,13 @@ class HoldingReturnType implements Comparable<HoldingReturnType> {
   static const CAPITAL_GAIN_DISTRIBUTION = const HoldingReturnType._(3);
   static const CAPITAL_APPRECIATION = const HoldingReturnType._(4);
 
-  static get values =>
-      [
-          INTEREST,
-          QUALIFIED_DIVIDEND,
-          UNQUALIFIED_DIVIDEND,
-          CAPITAL_GAIN_DISTRIBUTION,
-          CAPITAL_APPRECIATION];
+  static get values => [
+    INTEREST,
+    QUALIFIED_DIVIDEND,
+    UNQUALIFIED_DIVIDEND,
+    CAPITAL_GAIN_DISTRIBUTION,
+    CAPITAL_APPRECIATION
+  ];
 
   final int value;
 
@@ -87,7 +87,6 @@ class HoldingReturnType implements Comparable<HoldingReturnType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(5)].toString();
   }
-
 }
 
 class LiquidationSortType implements Comparable<LiquidationSortType> {
@@ -136,7 +135,6 @@ class LiquidationSortType implements Comparable<LiquidationSortType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(2)].toString();
   }
-
 }
 
 class InvestmentSortType implements Comparable<InvestmentSortType> {
@@ -185,15 +183,14 @@ class InvestmentSortType implements Comparable<InvestmentSortType> {
   static String randJson() {
     return values[_randomJsonGenerator.nextInt(2)].toString();
   }
-
 }
 
 /// Provides (potentially) a blend of returns based on [HoldingReturnType].
 class HoldingReturns {
   const HoldingReturns(this.returns);
 
-  bool operator ==(HoldingReturns other) =>
-      identical(this, other) || const MapEquality().equals(returns, other.returns);
+  bool operator ==(HoldingReturns other) => identical(this, other) ||
+      const MapEquality().equals(returns, other.returns);
 
   int get hashCode => const MapEquality().hash(returns).hashCode;
 
@@ -202,17 +199,14 @@ class HoldingReturns {
   // custom <class HoldingReturns>
 
   HoldingReturns adjustReturns(CurveAdjuster curveAdjuster) =>
-      new HoldingReturns(
-          valueApply(returns, (RateCurve rateCurve) => curveAdjuster(rateCurve)));
+      new HoldingReturns(valueApply(
+          returns, (RateCurve rateCurve) => curveAdjuster(rateCurve)));
 
   // end <class HoldingReturns>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
-  Map toJson() => {
-    "returns": ebisu_utils.toJson(returns),
-  };
+  Map toJson() => {"returns": ebisu_utils.toJson(returns),};
 
   static HoldingReturns fromJson(Object json) {
     if (json == null) return null;
@@ -223,29 +217,26 @@ class HoldingReturns {
     return new HoldingReturns._fromJsonMapImpl(json);
   }
 
-  HoldingReturns._fromJsonMapImpl(Map jsonMap)
-      : // returns is Map<HoldingReturnType,RateCurve>
-      returns = ebisu_utils.constructMapFromJsonData(
-          jsonMap["returns"],
+  HoldingReturns._fromJsonMapImpl(Map jsonMap) :
+      // returns is Map<HoldingReturnType,RateCurve>
+      returns = ebisu_utils.constructMapFromJsonData(jsonMap["returns"],
           (value) => RateCurve.fromJson(value),
           (key) => HoldingReturnType.fromString(key));
 
   HoldingReturns._copy(HoldingReturns other)
       : returns = valueApply(other.returns, (v) => v == null ? null : v.copy());
-
 }
 
 /// Describes the type of holding (Stock, Bond, ... Blend) and various paritions.
 ///
 class InstrumentAssumptions {
-  const InstrumentAssumptions(this.holdingType, this.holdingReturns,
-      this.instrumentPartitions);
+  const InstrumentAssumptions(
+      this.holdingType, this.holdingReturns, this.instrumentPartitions);
 
-  bool operator ==(InstrumentAssumptions other) =>
-      identical(this, other) ||
-          holdingType == other.holdingType &&
-              holdingReturns == other.holdingReturns &&
-              instrumentPartitions == other.instrumentPartitions;
+  bool operator ==(InstrumentAssumptions other) => identical(this, other) ||
+      holdingType == other.holdingType &&
+          holdingReturns == other.holdingReturns &&
+          instrumentPartitions == other.instrumentPartitions;
 
   int get hashCode => hash3(holdingType, holdingReturns, instrumentPartitions);
 
@@ -255,12 +246,9 @@ class InstrumentAssumptions {
   final InstrumentPartitions instrumentPartitions;
   // custom <class InstrumentAssumptions>
 
-  InstrumentAssumptions
-      adjustHoldingReturnCurves(CurveAdjuster curveAdjuster) =>
-      new InstrumentAssumptions(
-          holdingType,
-          holdingReturns.adjustReturns(curveAdjuster),
-          instrumentPartitions);
+  InstrumentAssumptions adjustHoldingReturnCurves(
+      CurveAdjuster curveAdjuster) => new InstrumentAssumptions(holdingType,
+          holdingReturns.adjustReturns(curveAdjuster), instrumentPartitions);
 
   /*
   InstrumentAssumptions.fromHoldingType(this.holdingType) {
@@ -296,7 +284,6 @@ class InstrumentAssumptions {
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
   Map toJson() => {
     "holdingType": ebisu_utils.toJson(holdingType),
     "holdingReturns": ebisu_utils.toJson(holdingReturns),
@@ -315,28 +302,26 @@ class InstrumentAssumptions {
   InstrumentAssumptions._fromJsonMapImpl(Map jsonMap)
       : holdingType = HoldingType.fromJson(jsonMap["holdingType"]),
         holdingReturns = HoldingReturns.fromJson(jsonMap["holdingReturns"]),
-        instrumentPartitions = InstrumentPartitions.fromJson(
-          jsonMap["instrumentPartitions"]);
+        instrumentPartitions = InstrumentPartitions
+            .fromJson(jsonMap["instrumentPartitions"]);
 
   InstrumentAssumptions._copy(InstrumentAssumptions other)
-      : holdingType = other.holdingType == null ?
-          null :
-          other.holdingType.copy(),
-        holdingReturns = other.holdingReturns == null ?
-          null :
-          other.holdingReturns.copy(),
-        instrumentPartitions = other.instrumentPartitions == null ?
-          null :
-          other.instrumentPartitions.copy();
-
+      : holdingType = other.holdingType == null
+          ? null
+          : other.holdingType.copy(),
+        holdingReturns = other.holdingReturns == null
+            ? null
+            : other.holdingReturns.copy(),
+        instrumentPartitions = other.instrumentPartitions == null
+            ? null
+            : other.instrumentPartitions.copy();
 }
 
 class ReserveAssumptions {
   const ReserveAssumptions(this.excess, this.shortfall);
 
-  bool operator ==(ReserveAssumptions other) =>
-      identical(this, other) ||
-          excess == other.excess && shortfall == other.shortfall;
+  bool operator ==(ReserveAssumptions other) => identical(this, other) ||
+      excess == other.excess && shortfall == other.shortfall;
 
   int get hashCode => hash2(excess, shortfall);
 
@@ -347,7 +332,6 @@ class ReserveAssumptions {
   // end <class ReserveAssumptions>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "excess": ebisu_utils.toJson(excess),
@@ -370,16 +354,14 @@ class ReserveAssumptions {
   ReserveAssumptions._copy(ReserveAssumptions other)
       : excess = other.excess == null ? null : other.excess.copy(),
         shortfall = other.shortfall == null ? null : other.shortfall.copy();
-
 }
 
 class ReinvestmentPolicy {
   const ReinvestmentPolicy(this.dividendsReinvested, this.interestReinvested);
 
-  bool operator ==(ReinvestmentPolicy other) =>
-      identical(this, other) ||
-          dividendsReinvested == other.dividendsReinvested &&
-              interestReinvested == other.interestReinvested;
+  bool operator ==(ReinvestmentPolicy other) => identical(this, other) ||
+      dividendsReinvested == other.dividendsReinvested &&
+          interestReinvested == other.interestReinvested;
 
   int get hashCode => hash2(dividendsReinvested, interestReinvested);
 
@@ -390,7 +372,6 @@ class ReinvestmentPolicy {
   // end <class ReinvestmentPolicy>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "dividendsReinvested": ebisu_utils.toJson(dividendsReinvested),
@@ -413,21 +394,19 @@ class ReinvestmentPolicy {
   ReinvestmentPolicy._copy(ReinvestmentPolicy other)
       : dividendsReinvested = other.dividendsReinvested,
         interestReinvested = other.interestReinvested;
-
 }
 
 class DateAssumptions {
   DateAssumptions();
 
-  bool operator ==(DateAssumptions other) =>
-      identical(this, other) ||
-          deathDate == other.deathDate && retirementDate == other.retirementDate;
+  bool operator ==(DateAssumptions other) => identical(this, other) ||
+      deathDate == other.deathDate && retirementDate == other.retirementDate;
 
   int get hashCode => hash2(deathDate, retirementDate);
 
   copy() => new DateAssumptions()
-      ..deathDate = deathDate
-      ..retirementDate = retirementDate;
+    ..deathDate = deathDate
+    ..retirementDate = retirementDate;
 
   Date deathDate;
   Date retirementDate;
@@ -435,7 +414,6 @@ class DateAssumptions {
   // end <class DateAssumptions>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "deathDate": ebisu_utils.toJson(deathDate),
@@ -464,19 +442,15 @@ class AccountAssumptions {
   const AccountAssumptions(this.otherInstrumentAssumptions,
       this.defaultReinvestmentPolicy, this.holdingReinvestmentPolicies);
 
-  bool operator ==(AccountAssumptions other) =>
-      identical(this, other) ||
-          otherInstrumentAssumptions == other.otherInstrumentAssumptions &&
-              defaultReinvestmentPolicy == other.defaultReinvestmentPolicy &&
-              const MapEquality().equals(
-                  holdingReinvestmentPolicies,
-                  other.holdingReinvestmentPolicies);
+  bool operator ==(AccountAssumptions other) => identical(this, other) ||
+      otherInstrumentAssumptions == other.otherInstrumentAssumptions &&
+          defaultReinvestmentPolicy == other.defaultReinvestmentPolicy &&
+          const MapEquality().equals(
+              holdingReinvestmentPolicies, other.holdingReinvestmentPolicies);
 
-  int get hashCode =>
-      hash3(
-          otherInstrumentAssumptions,
-          defaultReinvestmentPolicy,
-          const MapEquality().hash(holdingReinvestmentPolicies));
+  int get hashCode => hash3(otherInstrumentAssumptions,
+      defaultReinvestmentPolicy,
+      const MapEquality().hash(holdingReinvestmentPolicies));
 
   copy() => new AccountAssumptions._copy(this);
   final InstrumentAssumptions otherInstrumentAssumptions;
@@ -485,7 +459,6 @@ class AccountAssumptions {
   // custom <class AccountAssumptions>
 
   ReinvestmentPolicy getReinvestmentPolicy(String holdingName) {
-
     if (holdingReinvestmentPolicies != null) {
       final result = holdingReinvestmentPolicies[holdingName];
       if (result != null) {
@@ -504,22 +477,19 @@ class AccountAssumptions {
       copy = copy.adjustHoldingReturnCurves(curveAdjuster);
     }
     return new AccountAssumptions(
-        copy,
-        defaultReinvestmentPolicy,
-        holdingReinvestmentPolicies);
+        copy, defaultReinvestmentPolicy, holdingReinvestmentPolicies);
   }
 
   // end <class AccountAssumptions>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
   Map toJson() => {
-    "otherInstrumentAssumptions": ebisu_utils.toJson(
-        otherInstrumentAssumptions),
+    "otherInstrumentAssumptions":
+        ebisu_utils.toJson(otherInstrumentAssumptions),
     "defaultReinvestmentPolicy": ebisu_utils.toJson(defaultReinvestmentPolicy),
-    "holdingReinvestmentPolicies": ebisu_utils.toJson(
-        holdingReinvestmentPolicies),
+    "holdingReinvestmentPolicies":
+        ebisu_utils.toJson(holdingReinvestmentPolicies),
   };
 
   static AccountAssumptions fromJson(Object json) {
@@ -532,45 +502,45 @@ class AccountAssumptions {
   }
 
   AccountAssumptions._fromJsonMapImpl(Map jsonMap)
-      : otherInstrumentAssumptions = InstrumentAssumptions.fromJson(
-          jsonMap["otherInstrumentAssumptions"]),
-        defaultReinvestmentPolicy = ReinvestmentPolicy.fromJson(
-          jsonMap["defaultReinvestmentPolicy"]),
+      : otherInstrumentAssumptions = InstrumentAssumptions
+          .fromJson(jsonMap["otherInstrumentAssumptions"]),
+        defaultReinvestmentPolicy = ReinvestmentPolicy
+            .fromJson(jsonMap["defaultReinvestmentPolicy"]),
         // holdingReinvestmentPolicies is Map<String,ReinvestmentPolicy>
-      holdingReinvestmentPolicies = ebisu_utils.constructMapFromJsonData(
-          jsonMap["holdingReinvestmentPolicies"],
-          (value) => ReinvestmentPolicy.fromJson(value));
+        holdingReinvestmentPolicies = ebisu_utils.constructMapFromJsonData(
+            jsonMap["holdingReinvestmentPolicies"],
+            (value) => ReinvestmentPolicy.fromJson(value));
 
   AccountAssumptions._copy(AccountAssumptions other)
-      : otherInstrumentAssumptions = other.otherInstrumentAssumptions == null ?
-          null :
-          other.otherInstrumentAssumptions.copy(),
-        defaultReinvestmentPolicy = other.defaultReinvestmentPolicy == null ?
-          null :
-          other.defaultReinvestmentPolicy.copy(),
+      : otherInstrumentAssumptions = other.otherInstrumentAssumptions == null
+          ? null
+          : other.otherInstrumentAssumptions.copy(),
+        defaultReinvestmentPolicy = other.defaultReinvestmentPolicy == null
+            ? null
+            : other.defaultReinvestmentPolicy.copy(),
         holdingReinvestmentPolicies = valueApply(
-          other.holdingReinvestmentPolicies,
-          (v) => v == null ? null : v.copy());
-
+            other.holdingReinvestmentPolicies,
+            (v) => v == null ? null : v.copy());
 }
 
 class BalanceSheetAssumptions {
   const BalanceSheetAssumptions(this.assetAssumptions,
-      this.liabilityAssumptions, this.accountAssumptions, this.instrumentAssumptions);
+      this.liabilityAssumptions, this.accountAssumptions,
+      this.instrumentAssumptions);
 
-  bool operator ==(BalanceSheetAssumptions other) =>
-      identical(this, other) ||
-          const MapEquality().equals(assetAssumptions, other.assetAssumptions) &&
-              const MapEquality().equals(liabilityAssumptions, other.liabilityAssumptions) &&
-              const MapEquality().equals(accountAssumptions, other.accountAssumptions) &&
-              const MapEquality().equals(instrumentAssumptions, other.instrumentAssumptions);
+  bool operator ==(BalanceSheetAssumptions other) => identical(this, other) ||
+      const MapEquality().equals(assetAssumptions, other.assetAssumptions) &&
+          const MapEquality().equals(
+              liabilityAssumptions, other.liabilityAssumptions) &&
+          const MapEquality().equals(
+              accountAssumptions, other.accountAssumptions) &&
+          const MapEquality().equals(
+              instrumentAssumptions, other.instrumentAssumptions);
 
-  int get hashCode =>
-      hash4(
-          const MapEquality().hash(assetAssumptions),
-          const MapEquality().hash(liabilityAssumptions),
-          const MapEquality().hash(accountAssumptions),
-          const MapEquality().hash(instrumentAssumptions));
+  int get hashCode => hash4(const MapEquality().hash(assetAssumptions),
+      const MapEquality().hash(liabilityAssumptions),
+      const MapEquality().hash(accountAssumptions),
+      const MapEquality().hash(instrumentAssumptions));
 
   copy() => new BalanceSheetAssumptions._copy(this);
   final Map<String, RateCurve> assetAssumptions;
@@ -597,9 +567,9 @@ class BalanceSheetAssumptions {
 
   ReinvestmentPolicy getReinvestmentPolicy(HoldingKey holdingKey) {
     final userSpecified = accountAssumptions[holdingKey.accountName];
-    return userSpecified == null ?
-        DefaultAccountAssumptions.defaultReinvestmentPolicy :
-        userSpecified.getReinvestmentPolicy(holdingKey.holdingName);
+    return userSpecified == null
+        ? DefaultAccountAssumptions.defaultReinvestmentPolicy
+        : userSpecified.getReinvestmentPolicy(holdingKey.holdingName);
   }
 
   InstrumentAssumptions _getRealInstrumentAssumptions(String holdingName) {
@@ -609,9 +579,9 @@ class BalanceSheetAssumptions {
 
   InstrumentAssumptions _getAccountInstrumentAssumptions(String accountName) {
     final assumptions = accountAssumptions[accountName];
-    return (assumptions != null) ?
-        assumptions.otherInstrumentAssumptions :
-        null;
+    return (assumptions != null)
+        ? assumptions.otherInstrumentAssumptions
+        : null;
   }
 
   InstrumentAssumptions _getInstrumentAssumptions(HoldingKey holdingKey) {
@@ -632,7 +602,6 @@ class BalanceSheetAssumptions {
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
   Map toJson() => {
     "assetAssumptions": ebisu_utils.toJson(assetAssumptions),
     "liabilityAssumptions": ebisu_utils.toJson(liabilityAssumptions),
@@ -650,37 +619,32 @@ class BalanceSheetAssumptions {
   }
 
   BalanceSheetAssumptions._fromJsonMapImpl(Map jsonMap)
-      : // assetAssumptions is Map<String,RateCurve>
+      :
+      // assetAssumptions is Map<String,RateCurve>
       assetAssumptions = ebisu_utils.constructMapFromJsonData(
-          jsonMap["assetAssumptions"],
-          (value) => RateCurve.fromJson(value)),
+          jsonMap["assetAssumptions"], (value) => RateCurve.fromJson(value)),
         // liabilityAssumptions is Map<String,RateCurve>
-      liabilityAssumptions = ebisu_utils.constructMapFromJsonData(
-          jsonMap["liabilityAssumptions"],
-          (value) => RateCurve.fromJson(value)),
+        liabilityAssumptions = ebisu_utils.constructMapFromJsonData(
+            jsonMap["liabilityAssumptions"],
+            (value) => RateCurve.fromJson(value)),
         // accountAssumptions is Map<String,AccountAssumptions>
-      accountAssumptions = ebisu_utils.constructMapFromJsonData(
-          jsonMap["accountAssumptions"],
-          (value) => AccountAssumptions.fromJson(value)),
+        accountAssumptions = ebisu_utils.constructMapFromJsonData(
+            jsonMap["accountAssumptions"],
+            (value) => AccountAssumptions.fromJson(value)),
         // instrumentAssumptions is Map<String,InstrumentAssumptions>
-      instrumentAssumptions = ebisu_utils.constructMapFromJsonData(
-          jsonMap["instrumentAssumptions"],
-          (value) => InstrumentAssumptions.fromJson(value));
+        instrumentAssumptions = ebisu_utils.constructMapFromJsonData(
+            jsonMap["instrumentAssumptions"],
+            (value) => InstrumentAssumptions.fromJson(value));
 
   BalanceSheetAssumptions._copy(BalanceSheetAssumptions other)
       : assetAssumptions = valueApply(
-          other.assetAssumptions,
-          (v) => v == null ? null : v.copy()),
+          other.assetAssumptions, (v) => v == null ? null : v.copy()),
         liabilityAssumptions = valueApply(
-          other.liabilityAssumptions,
-          (v) => v == null ? null : v.copy()),
+            other.liabilityAssumptions, (v) => v == null ? null : v.copy()),
         accountAssumptions = valueApply(
-          other.accountAssumptions,
-          (v) => v == null ? null : v.copy()),
+            other.accountAssumptions, (v) => v == null ? null : v.copy()),
         instrumentAssumptions = valueApply(
-          other.instrumentAssumptions,
-          (v) => v == null ? null : v.copy());
-
+            other.instrumentAssumptions, (v) => v == null ? null : v.copy());
 }
 
 class BalanceSheetAssumptionsBuilder {
@@ -692,12 +656,9 @@ class BalanceSheetAssumptionsBuilder {
   Map<String, InstrumentAssumptions> instrumentAssumptions = {};
   // custom <class BalanceSheetAssumptionsBuilder>
   // end <class BalanceSheetAssumptionsBuilder>
-  BalanceSheetAssumptions buildInstance() =>
-      new BalanceSheetAssumptions(
-          assetAssumptions,
-          liabilityAssumptions,
-          accountAssumptions,
-          instrumentAssumptions);
+  BalanceSheetAssumptions buildInstance() => new BalanceSheetAssumptions(
+      assetAssumptions, liabilityAssumptions, accountAssumptions,
+      instrumentAssumptions);
 
   factory BalanceSheetAssumptionsBuilder.copyFrom(BalanceSheetAssumptions _) =>
       new BalanceSheetAssumptionsBuilder._copyImpl(_.copy());
@@ -707,40 +668,32 @@ class BalanceSheetAssumptionsBuilder {
         liabilityAssumptions = _.liabilityAssumptions,
         accountAssumptions = _.accountAssumptions,
         instrumentAssumptions = _.instrumentAssumptions;
-
-
 }
 
 /// Create a BalanceSheetAssumptionsBuilder sans new, for more declarative construction
 BalanceSheetAssumptionsBuilder balanceSheetAssumptionsBuilder() =>
     new BalanceSheetAssumptionsBuilder();
 
-
 class StrategyAssumptions {
   StrategyAssumptions();
 
-  bool operator ==(StrategyAssumptions other) =>
-      identical(this, other) ||
-          targetPartitions == other.targetPartitions &&
-              emergencyReserves == other.emergencyReserves &&
-              liquidationSortType == other.liquidationSortType &&
-              investmentSortType == other.investmentSortType;
+  bool operator ==(StrategyAssumptions other) => identical(this, other) ||
+      targetPartitions == other.targetPartitions &&
+          emergencyReserves == other.emergencyReserves &&
+          liquidationSortType == other.liquidationSortType &&
+          investmentSortType == other.investmentSortType;
 
-  int get hashCode =>
-      hash4(
-          targetPartitions,
-          emergencyReserves,
-          liquidationSortType,
-          investmentSortType);
+  int get hashCode => hash4(targetPartitions, emergencyReserves,
+      liquidationSortType, investmentSortType);
 
   copy() => new StrategyAssumptions()
-      ..targetPartitions =
-          targetPartitions == null ? null : targetPartitions.copy()
-      ..emergencyReserves = emergencyReserves
-      ..liquidationSortType =
-          liquidationSortType == null ? null : liquidationSortType.copy()
-      ..investmentSortType =
-          investmentSortType == null ? null : investmentSortType.copy();
+    ..targetPartitions =
+    targetPartitions == null ? null : targetPartitions.copy()
+    ..emergencyReserves = emergencyReserves
+    ..liquidationSortType =
+    liquidationSortType == null ? null : liquidationSortType.copy()
+    ..investmentSortType =
+    investmentSortType == null ? null : investmentSortType.copy();
 
   InstrumentPartitions targetPartitions;
   /// Desired amount to keep in reserves before investing any excesses
@@ -751,7 +704,6 @@ class StrategyAssumptions {
   // end <class StrategyAssumptions>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "targetPartitions": ebisu_utils.toJson(targetPartitions),
@@ -785,26 +737,25 @@ StrategyAssumptions strategyAssumptions() => new StrategyAssumptions();
 
 class TaxRateAssumptions {
   const TaxRateAssumptions(this.pensionIncome, this.socialSecurityIncome,
-      this.capitalGains, this.dividends, this.rentalIncome, this.ordinaryIncome);
+      this.capitalGains, this.dividends, this.rentalIncome,
+      this.ordinaryIncome);
 
-  bool operator ==(TaxRateAssumptions other) =>
-      identical(this, other) ||
-          pensionIncome == other.pensionIncome &&
-              socialSecurityIncome == other.socialSecurityIncome &&
-              capitalGains == other.capitalGains &&
-              dividends == other.dividends &&
-              rentalIncome == other.rentalIncome &&
-              ordinaryIncome == other.ordinaryIncome;
+  bool operator ==(TaxRateAssumptions other) => identical(this, other) ||
+      pensionIncome == other.pensionIncome &&
+          socialSecurityIncome == other.socialSecurityIncome &&
+          capitalGains == other.capitalGains &&
+          dividends == other.dividends &&
+          rentalIncome == other.rentalIncome &&
+          ordinaryIncome == other.ordinaryIncome;
 
-  int get hashCode =>
-      hashObjects(
-          [
-              pensionIncome,
-              socialSecurityIncome,
-              capitalGains,
-              dividends,
-              rentalIncome,
-              ordinaryIncome]);
+  int get hashCode => hashObjects([
+    pensionIncome,
+    socialSecurityIncome,
+    capitalGains,
+    dividends,
+    rentalIncome,
+    ordinaryIncome
+  ]);
 
   copy() => new TaxRateAssumptions._copy(this);
   final RateCurve pensionIncome;
@@ -817,7 +768,6 @@ class TaxRateAssumptions {
   // end <class TaxRateAssumptions>
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
-
 
   Map toJson() => {
     "pensionIncome": ebisu_utils.toJson(pensionIncome),
@@ -839,64 +789,62 @@ class TaxRateAssumptions {
 
   TaxRateAssumptions._fromJsonMapImpl(Map jsonMap)
       : pensionIncome = RateCurve.fromJson(jsonMap["pensionIncome"]),
-        socialSecurityIncome = RateCurve.fromJson(
-          jsonMap["socialSecurityIncome"]),
+        socialSecurityIncome = RateCurve
+            .fromJson(jsonMap["socialSecurityIncome"]),
         capitalGains = RateCurve.fromJson(jsonMap["capitalGains"]),
         dividends = RateCurve.fromJson(jsonMap["dividends"]),
         rentalIncome = RateCurve.fromJson(jsonMap["rentalIncome"]),
         ordinaryIncome = RateCurve.fromJson(jsonMap["ordinaryIncome"]);
 
   TaxRateAssumptions._copy(TaxRateAssumptions other)
-      : pensionIncome = other.pensionIncome == null ?
-          null :
-          other.pensionIncome.copy(),
-        socialSecurityIncome = other.socialSecurityIncome == null ?
-          null :
-          other.socialSecurityIncome.copy(),
-        capitalGains = other.capitalGains == null ?
-          null :
-          other.capitalGains.copy(),
+      : pensionIncome = other.pensionIncome == null
+          ? null
+          : other.pensionIncome.copy(),
+        socialSecurityIncome = other.socialSecurityIncome == null
+            ? null
+            : other.socialSecurityIncome.copy(),
+        capitalGains = other.capitalGains == null
+            ? null
+            : other.capitalGains.copy(),
         dividends = other.dividends == null ? null : other.dividends.copy(),
-        rentalIncome = other.rentalIncome == null ?
-          null :
-          other.rentalIncome.copy(),
-        ordinaryIncome = other.ordinaryIncome == null ?
-          null :
-          other.ordinaryIncome.copy();
-
+        rentalIncome = other.rentalIncome == null
+            ? null
+            : other.rentalIncome.copy(),
+        ordinaryIncome = other.ordinaryIncome == null
+            ? null
+            : other.ordinaryIncome.copy();
 }
 
 class AssumptionModel {
   AssumptionModel(this.inflation, this.balanceSheetAssumptions,
-      this.incomeModelOverrides, this.expenseModelOverrides, this.dateAssumptions,
-      this.strategyAssumptions, this.taxRateAssumptions, this.reserveAssumptions) {
+      this.incomeModelOverrides, this.expenseModelOverrides,
+      this.dateAssumptions, this.strategyAssumptions, this.taxRateAssumptions,
+      this.reserveAssumptions) {
     _init();
   }
 
-  bool operator ==(AssumptionModel other) =>
-      identical(this, other) ||
-          inflation == other.inflation &&
-              balanceSheetAssumptions == other.balanceSheetAssumptions &&
-              const MapEquality().equals(incomeModelOverrides, other.incomeModelOverrides) &&
-              const MapEquality().equals(
-                  expenseModelOverrides,
-                  other.expenseModelOverrides) &&
-              const MapEquality().equals(dateAssumptions, other.dateAssumptions) &&
-              strategyAssumptions == other.strategyAssumptions &&
-              taxRateAssumptions == other.taxRateAssumptions &&
-              reserveAssumptions == other.reserveAssumptions;
+  bool operator ==(AssumptionModel other) => identical(this, other) ||
+      inflation == other.inflation &&
+          balanceSheetAssumptions == other.balanceSheetAssumptions &&
+          const MapEquality().equals(
+              incomeModelOverrides, other.incomeModelOverrides) &&
+          const MapEquality().equals(
+              expenseModelOverrides, other.expenseModelOverrides) &&
+          const MapEquality().equals(dateAssumptions, other.dateAssumptions) &&
+          strategyAssumptions == other.strategyAssumptions &&
+          taxRateAssumptions == other.taxRateAssumptions &&
+          reserveAssumptions == other.reserveAssumptions;
 
-  int get hashCode =>
-      hashObjects(
-          [
-              inflation,
-              balanceSheetAssumptions,
-              const MapEquality().hash(incomeModelOverrides),
-              const MapEquality().hash(expenseModelOverrides),
-              const MapEquality().hash(dateAssumptions),
-              strategyAssumptions,
-              taxRateAssumptions,
-              reserveAssumptions]);
+  int get hashCode => hashObjects([
+    inflation,
+    balanceSheetAssumptions,
+    const MapEquality().hash(incomeModelOverrides),
+    const MapEquality().hash(expenseModelOverrides),
+    const MapEquality().hash(dateAssumptions),
+    strategyAssumptions,
+    taxRateAssumptions,
+    reserveAssumptions
+  ]);
 
   copy() => new AssumptionModel._copy(this);
   final RateCurve inflation;
@@ -920,7 +868,6 @@ class AssumptionModel {
 
   toString() => '(${runtimeType}) => ${ebisu_utils.prettyJsonMap(toJson())}';
 
-
   Map toJson() => {
     "inflation": ebisu_utils.toJson(inflation),
     "balanceSheetAssumptions": ebisu_utils.toJson(balanceSheetAssumptions),
@@ -943,51 +890,47 @@ class AssumptionModel {
 
   AssumptionModel._fromJsonMapImpl(Map jsonMap)
       : inflation = RateCurve.fromJson(jsonMap["inflation"]),
-        balanceSheetAssumptions = BalanceSheetAssumptions.fromJson(
-          jsonMap["balanceSheetAssumptions"]),
+        balanceSheetAssumptions = BalanceSheetAssumptions
+            .fromJson(jsonMap["balanceSheetAssumptions"]),
         // incomeModelOverrides is Map<String,IncomeSpec>
-      incomeModelOverrides = ebisu_utils.constructMapFromJsonData(
-          jsonMap["incomeModelOverrides"],
-          (value) => IncomeSpec.fromJson(value)),
+        incomeModelOverrides = ebisu_utils.constructMapFromJsonData(
+            jsonMap["incomeModelOverrides"],
+            (value) => IncomeSpec.fromJson(value)),
         // expenseModelOverrides is Map<String,ExpenseSpec>
-      expenseModelOverrides = ebisu_utils.constructMapFromJsonData(
-          jsonMap["expenseModelOverrides"],
-          (value) => ExpenseSpec.fromJson(value)),
+        expenseModelOverrides = ebisu_utils.constructMapFromJsonData(
+            jsonMap["expenseModelOverrides"],
+            (value) => ExpenseSpec.fromJson(value)),
         // dateAssumptions is Map<String,DateAssumptions>
-      dateAssumptions = ebisu_utils.constructMapFromJsonData(
-          jsonMap["dateAssumptions"],
-          (value) => DateAssumptions.fromJson(value)),
-        strategyAssumptions = StrategyAssumptions.fromJson(
-          jsonMap["strategyAssumptions"]),
-        taxRateAssumptions = TaxRateAssumptions.fromJson(
-          jsonMap["taxRateAssumptions"]),
-        reserveAssumptions = ReserveAssumptions.fromJson(
-          jsonMap["reserveAssumptions"]);
+        dateAssumptions = ebisu_utils.constructMapFromJsonData(
+            jsonMap["dateAssumptions"],
+            (value) => DateAssumptions.fromJson(value)),
+        strategyAssumptions = StrategyAssumptions
+            .fromJson(jsonMap["strategyAssumptions"]),
+        taxRateAssumptions = TaxRateAssumptions
+            .fromJson(jsonMap["taxRateAssumptions"]),
+        reserveAssumptions = ReserveAssumptions
+            .fromJson(jsonMap["reserveAssumptions"]);
 
   AssumptionModel._copy(AssumptionModel other)
       : inflation = other.inflation == null ? null : other.inflation.copy(),
-        balanceSheetAssumptions = other.balanceSheetAssumptions == null ?
-          null :
-          other.balanceSheetAssumptions.copy(),
+        balanceSheetAssumptions = other.balanceSheetAssumptions == null
+            ? null
+            : other.balanceSheetAssumptions.copy(),
         incomeModelOverrides = valueApply(
-          other.incomeModelOverrides,
-          (v) => v == null ? null : v.copy()),
+            other.incomeModelOverrides, (v) => v == null ? null : v.copy()),
         expenseModelOverrides = valueApply(
-          other.expenseModelOverrides,
-          (v) => v == null ? null : v.copy()),
+            other.expenseModelOverrides, (v) => v == null ? null : v.copy()),
         dateAssumptions = valueApply(
-          other.dateAssumptions,
-          (v) => v == null ? null : v.copy()),
-        strategyAssumptions = other.strategyAssumptions == null ?
-          null :
-          other.strategyAssumptions.copy(),
-        taxRateAssumptions = other.taxRateAssumptions == null ?
-          null :
-          other.taxRateAssumptions.copy(),
-        reserveAssumptions = other.reserveAssumptions == null ?
-          null :
-          other.reserveAssumptions.copy();
-
+            other.dateAssumptions, (v) => v == null ? null : v.copy()),
+        strategyAssumptions = other.strategyAssumptions == null
+            ? null
+            : other.strategyAssumptions.copy(),
+        taxRateAssumptions = other.taxRateAssumptions == null
+            ? null
+            : other.taxRateAssumptions.copy(),
+        reserveAssumptions = other.reserveAssumptions == null
+            ? null
+            : other.reserveAssumptions.copy();
 }
 
 class AssumptionModelBuilder {
@@ -1003,16 +946,10 @@ class AssumptionModelBuilder {
   ReserveAssumptions reserveAssumptions;
   // custom <class AssumptionModelBuilder>
   // end <class AssumptionModelBuilder>
-  AssumptionModel buildInstance() =>
-      new AssumptionModel(
-          inflation,
-          balanceSheetAssumptions,
-          incomeModelOverrides,
-          expenseModelOverrides,
-          dateAssumptions,
-          strategyAssumptions,
-          taxRateAssumptions,
-          reserveAssumptions);
+  AssumptionModel buildInstance() => new AssumptionModel(inflation,
+      balanceSheetAssumptions, incomeModelOverrides, expenseModelOverrides,
+      dateAssumptions, strategyAssumptions, taxRateAssumptions,
+      reserveAssumptions);
 
   factory AssumptionModelBuilder.copyFrom(AssumptionModel _) =>
       new AssumptionModelBuilder._copyImpl(_.copy());
@@ -1026,13 +963,10 @@ class AssumptionModelBuilder {
         strategyAssumptions = _.strategyAssumptions,
         taxRateAssumptions = _.taxRateAssumptions,
         reserveAssumptions = _.reserveAssumptions;
-
-
 }
 
 /// Create a AssumptionModelBuilder sans new, for more declarative construction
 AssumptionModelBuilder assumptionModelBuilder() => new AssumptionModelBuilder();
-
 
 Random _randomJsonGenerator = new Random(0);
 // custom <library assumption>
@@ -1075,32 +1009,28 @@ final DefaultHoldingReturns = new HoldingReturns({
 });
 
 final DefaultAccountInstrumentAssumptions = new InstrumentAssumptions(
-    HoldingType.BLEND,
-    DefaultHoldingReturns,
-    DefaultTargetPartitions);
+    HoldingType.BLEND, DefaultHoldingReturns, DefaultTargetPartitions);
 
 final DefaultAccountAssumptions = new AccountAssumptions(
-    DefaultAccountInstrumentAssumptions,
-    ReinvestForGrowth,
-    const {});
+    DefaultAccountInstrumentAssumptions, ReinvestForGrowth, const {});
 
 final DefaultStrategyAssumptions = new StrategyAssumptions()
-    ..targetPartitions = DefaultTargetPartitions
-    ..emergencyReserves = 30000.0
-    ..liquidationSortType = LiquidationSortType.SELL_FARTHEST_PARTITION
-    ..investmentSortType = InvestmentSortType.BUY_CLOSEST_PARTITION;
+  ..targetPartitions = DefaultTargetPartitions
+  ..emergencyReserves = 30000.0
+  ..liquidationSortType = LiquidationSortType.SELL_FARTHEST_PARTITION
+  ..investmentSortType = InvestmentSortType.BUY_CLOSEST_PARTITION;
 
-FlowModel overrideFlowModel(FlowModel original, AssumptionModel assumptionModel)
-    {
+FlowModel overrideFlowModel(
+    FlowModel original, AssumptionModel assumptionModel) {
   FlowModel result = original;
   final incomeOverrides = assumptionModel.incomeModelOverrides;
   final expenseOverrides = assumptionModel.expenseModelOverrides;
   if (incomeOverrides.length > 0 || expenseOverrides.length > 0) {
     result = result.copy();
-    incomeOverrides.keys.forEach((k) => result.incomeModel[k] =
-        incomeOverrides[k]);
-    expenseOverrides.keys.forEach((k) => result.expenseModel[k] =
-        expenseOverrides[k]);
+    incomeOverrides.keys
+        .forEach((k) => result.incomeModel[k] = incomeOverrides[k]);
+    expenseOverrides.keys
+        .forEach((k) => result.expenseModel[k] = expenseOverrides[k]);
   }
   return result;
 }
@@ -1118,19 +1048,13 @@ final DefaultOrdinaryIncomeTaxRate =
     rateCurve([dateValue(date(1900, 1, 1), 0.25)]);
 
 final DefaultTaxRateAssumptions = new TaxRateAssumptions(
-    DefaultPensionIncomeTaxRate,
-    DefaultSocialSecurityTaxRate,
-    DefaultCapitalGainsTaxRate,
-    DefaultDividendsTaxRate,
-    DefaultRentalIncomeTaxRate,
-    DefaultOrdinaryIncomeTaxRate);
+    DefaultPensionIncomeTaxRate, DefaultSocialSecurityTaxRate,
+    DefaultCapitalGainsTaxRate, DefaultDividendsTaxRate,
+    DefaultRentalIncomeTaxRate, DefaultOrdinaryIncomeTaxRate);
 
 main() {
-
   print(ebisu_utils.prettyJsonMap(ZeroHoldingReturns));
   print(ebisu_utils.prettyJsonMap(ZeroGrowthBalanceSheetAssumptions));
-
 }
 
 // end <library assumption>
-

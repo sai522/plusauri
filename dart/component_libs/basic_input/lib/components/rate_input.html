@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <rateInput head> -->
+<link rel="import" href="../../../packages/paper_elements/paper_input.html">
+<!-- end <rateInput head> -->
+
+
+<polymer-element name="plus-rate-input">
+  <template>
+    <style>
+    /* custom <rateInput style> */
+    /* end <rateInput style> */
+    </style>
+
+    <!-- custom <rateInput template> -->
+
+    <paper-input floatingLabel
+                 id="rate-input"
+                 type="text"
+                 label="{{placeholder}}"
+                 validateImmediately
+                 >
+    </paper-input>
+
+
+    <!-- end <rateInput template> -->
+
+  </template>
+  <script type="application/dart" src="rate_input.dart"></script>
+</polymer-element>

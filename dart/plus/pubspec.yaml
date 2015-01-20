@@ -20,7 +20,7 @@ dependencies:
     git: git://github.com/patefacio/simple_schema
 
   basic_input:
-    git: git://github.com/patefacio/basic_input
+    path: ../component_libs/basic_input
 
 # end <plus dependencies>
 

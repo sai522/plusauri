@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <simpleStringInput head> -->
+<link rel="import" href="../../../packages/paper_elements/paper_input.html">
+<!-- end <simpleStringInput head> -->
+
+
+<polymer-element name="plus-simple-string-input">
+  <template>
+    <style>
+    /* custom <simpleStringInput style> */
+    /* end <simpleStringInput style> */
+    </style>
+
+    <!-- custom <simpleStringInput template> -->
+
+    <paper-input floatingLabel
+                 id="simple-string"
+                 type="text"
+                 label="{{placeholder}}"
+                 validateImmediately
+                 >
+    </paper-input>
+
+    <!-- end <simpleStringInput template> -->
+
+  </template>
+  <script type="application/dart" src="simple_string_input.dart"></script>
+</polymer-element>

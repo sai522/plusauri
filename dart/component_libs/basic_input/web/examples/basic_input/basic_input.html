@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>basicInput example showing usage of basicInput component library</title>
+    <!-- custom <forehead basicInput> -->
+    <!-- end <forehead basicInput> -->
+    <script src="packages/web_components/platform.js"></script>
+    <link rel="import" href="packages/basic_input/components/money_input.html">
+    <link rel="import" href="packages/basic_input/components/simple_string_input.html">
+    <link rel="import" href="packages/basic_input/components/rate_input.html">
+    <link rel="import" href="packages/basic_input/components/num_with_units_input.html">
+    <link rel="import" href="packages/basic_input/components/date_input.html">
+    <link rel="import" href="packages/basic_input/components/year_input.html">
+    <link rel="import" href="packages/basic_input/components/menu_selector.html">
+    <link rel="stylesheet" href="packages/basic_input/components/basic_input.css">
+    <!-- custom <additional polymer imports basicInput> -->
+    <!-- end <additional polymer imports basicInput> -->
+
+    <style>
+      /* custom <style basicInput> */
+      /* end <style basicInput> */
+    </style>
+
+    <!-- custom <chin basicInput> -->
+    <!-- end <chin basicInput> -->
+    <script type="application/dart" src="basic_input.dart"></script>
+  </head>
+  <body unresolved>
+    <!-- custom <body basicInput> -->
+    <plus-money-input id="sample-money-input" error="Whatt!">
+    </plus-money-input>
+
+    <plus-rate-input id="sample-rate-input" placeholder="Enter interest rate">
+    </plus-rate-input>
+
+    <plus-num-with-units-input id="num-with-units-input" placeholder="Enter number of foo" units="ms">
+    </plus-num-with-units-input>
+
+    <plus-date-input id="sample-date-input" placeholder="Enter date">
+    </plus-date-input>
+
+    <plus-simple-string-input id="simple-string-input" placeholder="Enter the name">
+    </plus-simple-string-input>
+
+    <plus-menu-selector id="sample-selector"></plus-menu-selector>
+
+    <!-- end <body basicInput> -->
+
+  </body>
+</html>

@@ -13,10 +13,12 @@ dependencies:
     path: ../../plus
     
   tooltip:
-    path: /home/dbdavidson/dev/open_source/tooltip
-    
-#    git: git://github.com/patefacio/tooltip    
+    path: ../tooltip
 
+  basic_input:
+    path: ../basic_input
+
+    
 # end <timeline_forecast dependencies>
 
 dev_dependencies:

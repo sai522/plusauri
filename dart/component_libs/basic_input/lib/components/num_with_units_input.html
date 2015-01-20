@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <numWithUnitsInput head> -->
+<link rel="import" href="../../../packages/paper_elements/paper_input.html">
+<!-- end <numWithUnitsInput head> -->
+
+
+<polymer-element name="plus-num-with-units-input">
+  <template>
+    <style>
+    /* custom <numWithUnitsInput style> */
+    /* end <numWithUnitsInput style> */
+    </style>
+
+    <!-- custom <numWithUnitsInput template> -->
+
+    <paper-input floatingLabel
+                 id="num-with-units-input"
+                 type="text"
+                 label="{{placeholder}}"
+                 validateImmediately
+                 >
+    </paper-input>
+
+    <!-- end <numWithUnitsInput template> -->
+
+  </template>
+  <script type="application/dart" src="num_with_units_input.dart"></script>
+</polymer-element>

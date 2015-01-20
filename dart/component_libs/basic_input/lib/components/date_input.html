@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <dateInput head> -->
+<link rel="import" href="../../../packages/paper_elements/paper_input.html">
+<!-- end <dateInput head> -->
+
+
+<polymer-element name="plus-date-input">
+  <template>
+    <style>
+    /* custom <dateInput style> */
+    /* end <dateInput style> */
+    </style>
+
+    <!-- custom <dateInput template> -->
+
+    <paper-input floatingLabel
+                 id="date-input"
+                 type="text"
+                 label="{{placeholder}}"
+                 validateImmediately
+                 >
+    </paper-input>
+
+    <!-- end <dateInput template> -->
+
+  </template>
+  <script type="application/dart" src="date_input.dart"></script>
+</polymer-element>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <menuSelector head> -->
+<link rel="import" href="../../../packages/core_elements/core_icon_button.html">
+<link rel="import" href="../../../packages/core_elements/core_icons.html">
+<link rel="import" href="../../../packages/paper_elements/paper_menu_button.html">
+<link rel="import" href="../../../packages/paper_elements/paper_icon_button.html">
+<link rel="import" href="../../../packages/paper_elements/paper_item.html">
+<!-- end <menuSelector head> -->
+
+
+<polymer-element name="plus-menu-selector">
+  <template>
+    <style>
+      /* custom <menuSelector style> */
+
+        paper-menu-button {
+        padding: 10px 2px 2px 0px;
+        }
+
+    /* end <menuSelector style> */
+    </style>
+
+    <!-- custom <menuSelector template> -->
+
+    <div class="inner paper-shadow-bottom-z-1"></div>
+    <div horizontal layout class="toolbar paper-shadow-top-z-1">
+      <paper-menu-button icon="add-circle-outline">
+        <template repeat="{{option in options}}">
+          <paper-item on-click="{{onSelection}}" selection="{{option}}">{{option}}</paper-item>
+        </template>
+      </paper-menu-button>
+      <paper-item id="label" label="{{selection}}" ></paper-item>
+    </div>
+
+    <!-- end <menuSelector template> -->
+
+  </template>
+  <script type="application/dart" src="menu_selector.dart"></script>
+</polymer-element>

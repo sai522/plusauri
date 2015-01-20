@@ -1,0 +1,33 @@
+name: tooltip
+version: 0.0.1
+author: Daniel Davidson <dbdavidson@yahoo.com>
+dependencies:
+  polymer: ">=0.15.0"
+  logging: ">=0.9.2 <0.10.0"
+  collection: ">=1.0.0"
+
+# custom <tooltip dependencies>
+# end <tooltip dependencies>
+
+dev_dependencies:
+  unittest: ">=0.11.0"
+  browser: "any"
+
+# custom <tooltip dev dependencies>
+# end <tooltip dev dependencies>
+
+transformers:
+  - polymer:
+      entry_points:
+        - web/examples/tooltip/tooltip.html
+
+# custom <tooltip transformers>
+
+  - polymer:
+     entry_points:
+      - web/examples/tooltip/tooltip.html
+  - $dart2js:
+     minify: false
+
+# end <tooltip transformers>
+

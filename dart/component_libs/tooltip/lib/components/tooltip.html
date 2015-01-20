@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+
+<!-- custom <tooltip head> -->
+
+<!-- end <tooltip head> -->
+
+
+<polymer-element name="plus-tooltip">
+  <template>
+    <style>
+      /* custom <tooltip style> */
+
+        #container {
+        background-color: white;
+        overflow:hidden;
+        border: 1px solid;
+        border-radius: 10px;
+        position:absolute;
+        top: 300px;
+        left: 150px;
+        display: none;
+        user-select: none;
+        }
+
+        #header {
+/*        background-color: #00A383;*/
+        }
+
+        #header-content {
+        display:inline;
+        }
+
+        .closer {
+        float:right;
+        margin-right: 5px;
+        margin-left: 5px;
+        }
+/*
+        .arrow-down {
+        background-color: red;
+        position:absolute;
+        height: 20px;
+        width: 40px;
+        top:110%;
+        left:50%;
+	border-left: 20px solid blue;
+	border-right: 20px solid transparent;
+	border-top: 20px solid green;
+        }
+
+        #inner-container > i:before, #inner-container > i:after {
+	content: "";
+	position: absolute;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	top: 100%;
+	left: 10%;
+	margin-left: -10px;
+        }
+
+        #inner-container > i:before {
+	border-top: 5px solid yellow;
+	margin-top: 5px;
+        }
+
+        #inner-container > i:after{
+	border-top: 5px solid peachpuff;
+	margin-top: -2px;
+	z-index: 1;
+        }
+*/
+    /* end <tooltip style> */
+    </style>
+
+    <!-- custom <tooltip template> -->
+    <div id="hidden">
+      <content></content>
+    </div>
+
+    <div id="container">
+      <header id="header" class="tooltip-header">
+        <div id="header-content">
+          <span class="closer"><i class="fa fa-times-circle"></i></span>
+        </div>
+      </header>
+      <div id="tip-content" class="tooltip-content"></div>
+      <footer id="footer-content" class="tooltip-footer"></footer>
+
+    </div>
+    <!-- end <tooltip template> -->
+
+  </template>
+  <script type="application/dart" src="tooltip.dart"></script>
+</polymer-element>

@@ -14,7 +14,6 @@ final _logger = new Logger("simpleStringInput");
 
 @CustomTag("plus-simple-string-input")
 class SimpleStringInput extends CheckedInputField {
-
   StringValueConstraint valueConstraint;
 
   SimpleStringInput.created() : super.created() {
@@ -68,7 +67,6 @@ class SimpleStringInput extends CheckedInputField {
       _onAttachedHandlers.add(onAttachedHandler);
     }
   }
-
 
   // custom <class SimpleStringInput>
 

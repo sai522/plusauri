@@ -13,7 +13,6 @@ final _logger = new Logger("dateInput");
 
 @CustomTag("plus-date-input")
 class DateInput extends CheckedInputField {
-
   DateTime get date => _date;
 
   DateInput.created() : super.created() {
@@ -67,7 +66,6 @@ class DateInput extends CheckedInputField {
       _onAttachedHandlers.add(onAttachedHandler);
     }
   }
-
 
   // custom <class DateInput>
 

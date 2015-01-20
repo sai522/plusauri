@@ -14,7 +14,6 @@ final _logger = new Logger("rateInput");
 
 @CustomTag("plus-rate-input")
 class RateInput extends CheckedInputField {
-
   num get rate => _rate;
 
   RateInput.created() : super.created() {
@@ -68,7 +67,6 @@ class RateInput extends CheckedInputField {
       _onAttachedHandlers.add(onAttachedHandler);
     }
   }
-
 
   // custom <class RateInput>
 

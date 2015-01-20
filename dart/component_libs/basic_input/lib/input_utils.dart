@@ -9,13 +9,11 @@ import 'dart:html';
 
 /// Wraps a PaperInput with consistent API supporting required
 abstract class CheckedInputField extends PolymerElement {
-
   /// Label/placeholder text
   @observable String placeholder = 'Enter amount';
   /// If true this is a requried field
   @observable bool required = true;
   @observable String error;
-
   // custom <class CheckedInputField>
 
   CheckedInputField.created() : super.created();

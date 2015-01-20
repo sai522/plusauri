@@ -12,7 +12,6 @@ final _logger = new Logger("menuSelector");
 
 @CustomTag("plus-menu-selector")
 class MenuSelector extends PolymerElement {
-
   @observable String selection;
   List<Object> options = toObservable([]);
 
@@ -63,7 +62,6 @@ class MenuSelector extends PolymerElement {
       _onAttachedHandlers.add(onAttachedHandler);
     }
   }
-
 
   // custom <class MenuSelector>
 

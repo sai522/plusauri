@@ -14,7 +14,6 @@ final _logger = new Logger("numWithUnitsInput");
 
 @CustomTag("plus-num-with-units-input")
 class NumWithUnitsInput extends CheckedInputField {
-
   String units;
   num get number => _number;
 
@@ -71,7 +70,6 @@ class NumWithUnitsInput extends CheckedInputField {
       _onAttachedHandlers.add(onAttachedHandler);
     }
   }
-
 
   // custom <class NumWithUnitsInput>
 

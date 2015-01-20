@@ -16,7 +16,6 @@ final _logger = new Logger("moneyInput");
 
 @CustomTag("plus-money-input")
 class MoneyInput extends CheckedInputField {
-
   num get amount => _amount;
 
   MoneyInput.created() : super.created() {
@@ -70,7 +69,6 @@ class MoneyInput extends CheckedInputField {
       _onAttachedHandlers.add(onAttachedHandler);
     }
   }
-
 
   // custom <class MoneyInput>
 

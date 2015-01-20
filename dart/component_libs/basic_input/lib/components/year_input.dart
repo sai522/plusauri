@@ -12,7 +12,6 @@ final _logger = new Logger("yearInput");
 
 @CustomTag("plus-year-input")
 class YearInput extends PolymerElement {
-
   int get year => _year;
 
   YearInput.created() : super.created() {
@@ -62,7 +61,6 @@ class YearInput extends PolymerElement {
       _onAttachedHandlers.add(onAttachedHandler);
     }
   }
-
 
   // custom <class YearInput>
   // end <class YearInput>

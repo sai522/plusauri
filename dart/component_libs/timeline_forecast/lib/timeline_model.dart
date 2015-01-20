@@ -53,20 +53,19 @@ class TimelineComparisonModel {
 
   TimelineComparisonModel.fromDossierAssumptionsGrid(Dossier dossier,
       this._dateRange, Map<String, AssumptionModel> assumptionModels) {
-
-    final yearRange = new YearRange(_dateRange.start.year,
-        _dateRange.end.year);
+    final yearRange = new YearRange(_dateRange.start.year, _dateRange.end.year);
 
     assumptionModels.forEach((String key, AssumptionModel assumptionModel) {
       final sw = new Stopwatch()..start();
-      final grid = new ForecastGrid.fromDossier(dossier,
-          yearRange, trackDetails:true, assumptionModelOverride:assumptionModel);
+      final grid = new ForecastGrid.fromDossier(dossier, yearRange,
+          trackDetails: true, assumptionModelOverride: assumptionModel);
       final millis = sw.elapsedMilliseconds;
       sw.reset();
-      timelineModels[key] = new GridTimelineModel(grid, assumptionModel.inflation);
+      timelineModels[key] =
+          new GridTimelineModel(grid, assumptionModel.inflation);
       sw.stop();
       plusLogWarning(_logger, () => 'Forecast $key took ${millis} ms '
-                     'TimelineModel creation took ${sw.elapsedMilliseconds} ms');
+          'TimelineModel creation took ${sw.elapsedMilliseconds} ms');
     });
   }
 
@@ -83,13 +82,15 @@ abstract class IBalanceSheetModel {
   void visitAssets(BSMBalanceVisitor visitor);
   void visitLiabilities(BSMBalanceVisitor visitor);
   void visitAccounts(BSMAccountHoldingVisitor visitor);
-  void visitAccountOtherHoldings(String accountName, BSMHoldingValueVisitor visitor);
+  void visitAccountOtherHoldings(
+      String accountName, BSMHoldingValueVisitor visitor);
 
   /// Visits each symbol holding in account
   void visitAccountHoldings(String accountName, BSMHoldingValueVisitor visitor);
 
   /// Visits account, calls back with totals
-  void visitAccountTotalHoldings(String accountName, BSMHoldingValueVisitor visitor);
+  void visitAccountTotalHoldings(
+      String accountName, BSMHoldingValueVisitor visitor);
 
   PeriodBalance get totalHoldings;
   PeriodBalance get totalNonHoldingAssets;
@@ -97,7 +98,8 @@ abstract class IBalanceSheetModel {
   PeriodBalance get reserves;
   PeriodBalance get totalLiabilities;
 
-  HoldingPeriodBalance createHoldingPeriodBalance(String accountName, String holdingName);
+  HoldingPeriodBalance createHoldingPeriodBalance(
+      String accountName, String holdingName);
   HoldingPeriodBalance createAccountHoldingPeriodBalance(String accountName);
   HoldingPeriodBalance createTotalHoldingPeriodBalance();
 
@@ -114,7 +116,8 @@ abstract class IIncomeStatementModel {
   void visitIncomes(visitor(String incomeName, double amount));
   void visitExpenses(visitor(String expenseName, double amount));
   void visitObligatoryExpenses(visitor(String expenseName, double amount));
-  void visitPVObligatoryExpenses(RateCurve rateCurve, visitor(String expenseName, double amount));
+  void visitPVObligatoryExpenses(
+      RateCurve rateCurve, visitor(String expenseName, double amount));
 
   // end <class IIncomeStatementModel>
 }
@@ -172,7 +175,7 @@ abstract class IAnnualForecastModel {
 class ForecastBalances {
   ForecastBalances(this._title, this._periodBalances) {
     // custom <ForecastBalances>
-    if(_periodBalances != null) findMinMax();
+    if (_periodBalances != null) findMinMax();
     // end <ForecastBalances>
   }
 
@@ -187,19 +190,19 @@ class ForecastBalances {
   findMinMax() => _periodBalances.forEach((pb) {
     _minBalance = min(_minBalance, pb.end.value);
     _maxBalance = max(_maxBalance, pb.end.value);
-    });
+  });
 
   double scaleBalance(double balance, double minTarget, double maxTarget,
-                      [double minBalance, double maxBalance]) {
-    if(minBalance == null) minBalance = _minBalance;
-    if(maxBalance == null) maxBalance = _maxBalance;
+      [double minBalance, double maxBalance]) {
+    if (minBalance == null) minBalance = _minBalance;
+    if (maxBalance == null) maxBalance = _maxBalance;
 
-    return (maxBalance == minBalance)? (maxTarget - minTarget)/2.0 :
-    minTarget +
-    ((balance - minBalance)/(maxBalance - minBalance)) *
-    (maxTarget - minTarget);
+    return (maxBalance == minBalance)
+        ? (maxTarget - minTarget) / 2.0
+        : minTarget +
+            ((balance - minBalance) / (maxBalance - minBalance)) *
+                (maxTarget - minTarget);
   }
-
 
   // end <class ForecastBalances>
   String _title;
@@ -209,11 +212,9 @@ class ForecastBalances {
 }
 
 /// Create a ForecastBalances sans new, for more declarative construction
-ForecastBalances
-forecastBalances([String _title,
-  List<PeriodBalance> _periodBalances]) =>
-  new ForecastBalances(_title,
-      _periodBalances);
+ForecastBalances forecastBalances(
+    [String _title, List<PeriodBalance> _periodBalances]) =>
+        new ForecastBalances(_title, _periodBalances);
 
 class YearIncomeFlows {
   int year = 0;
@@ -237,7 +238,7 @@ class ForecastFlows {
   findMinMax() => _flowsByYear.forEach((fby) {
     _minFlow = min(_minFlow, fby.netFlow);
     _maxFlow = max(_maxFlow, fby.netFlow);
-    });
+  });
 
   // end <class ForecastFlows>
   String _title;
@@ -247,41 +248,46 @@ class ForecastFlows {
 }
 
 /// Create a ForecastFlows sans new, for more declarative construction
-ForecastFlows
-forecastFlows([String _title,
-  List<YearIncomeFlows> _flowsByYear]) =>
-  new ForecastFlows(_title,
-      _flowsByYear);
+ForecastFlows forecastFlows(
+    [String _title, List<YearIncomeFlows> _flowsByYear]) =>
+        new ForecastFlows(_title, _flowsByYear);
 
 // custom <library timeline_model>
 
-ForecastBalances balancesByType(ITimelineModel model,
-    BalanceDisplayType displayType) {
-  switch(displayType) {
-    case NET_WORTH_BALANCE: return model.netWorth;
-    case TOTAL_ASSETS_BALANCE: return model.netAssets;
-    case TOTAL_LIABILITIES_BALANCE: return model.netLiabilities;
+ForecastBalances balancesByType(
+    ITimelineModel model, BalanceDisplayType displayType) {
+  switch (displayType) {
+    case NET_WORTH_BALANCE:
+      return model.netWorth;
+    case TOTAL_ASSETS_BALANCE:
+      return model.netAssets;
+    case TOTAL_LIABILITIES_BALANCE:
+      return model.netLiabilities;
   }
 }
 
-ForecastFlows flowsByType(ITimelineModel model,
-    FlowDisplayType displayType) {
-  switch(displayType) {
-    case NET_INCOME_FLOW: return model.netFlows;
-    case TOTAL_INCOME_FLOW: return model.netIncomes;
-    case TOTAL_EXPENSE_FLOW: return model.netExpenses;
+ForecastFlows flowsByType(ITimelineModel model, FlowDisplayType displayType) {
+  switch (displayType) {
+    case NET_INCOME_FLOW:
+      return model.netFlows;
+    case TOTAL_INCOME_FLOW:
+      return model.netIncomes;
+    case TOTAL_EXPENSE_FLOW:
+      return model.netExpenses;
   }
   assert(false);
 }
 
-
-typedef BSMBalanceVisitor(String balanceName, double startValue, double endValue);
+typedef BSMBalanceVisitor(
+    String balanceName, double startValue, double endValue);
 typedef BSMHoldingVisitor(String holdingName, HoldingPeriodBalance hpb);
-typedef BSMHoldingValueVisitor(HoldingKey holdingKey, double startValue, double endValue);
+typedef BSMHoldingValueVisitor(
+    HoldingKey holdingKey, double startValue, double endValue);
 typedef BSMAccountHoldingVisitor(String accountName, int numHoldings);
 
 // Annula Forecast Visitor
-typedef AFVisitor(String itemName, double startValue, double endValue, bool isExtended);
+typedef AFVisitor(
+    String itemName, double startValue, double endValue, bool isExtended);
 
 typedef CreditVisitor(HoldingKey holdingKey, String incomeName,
     double creditAmount, double holdingBalance);
@@ -290,6 +296,5 @@ typedef DebitVisitor(HoldingKey holdingKey, String expenseName,
     double expenseAmount, double holdingBalance);
 
 typedef TaxSummaryVisitor(double basis, double assessedTax);
-
 
 // end <library timeline_model>

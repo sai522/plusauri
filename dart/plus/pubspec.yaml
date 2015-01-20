@@ -25,7 +25,7 @@ dependencies:
 # end <plus dependencies>
 
 dev_dependencies:
-  unittest: ">=0.9.0 < 0.10.0"
+  unittest: ">=0.11.0 < 0.12.0"
   browser: "any"
   hop: "any"
   hop_docgen: "any"

@@ -13,16 +13,6 @@ packages:
     description: barback
     source: hosted
     version: "0.15.2+2"
-  basic_input:
-    description:
-      path: "../basic_input"
-      relative: true
-    source: path
-    version: "0.0.1"
-  benchmark_harness:
-    description: benchmark_harness
-    source: hosted
-    version: "1.0.4"
   browser:
     description: browser
     source: hosted
@@ -35,61 +25,14 @@ packages:
     description: collection
     source: hosted
     version: "1.1.0"
-  core_elements:
-    description: core_elements
-    source: hosted
-    version: "0.6.0+4"
   csslib:
     description: csslib
     source: hosted
     version: "0.11.0+2"
-  custom_element_apigen:
-    description: custom_element_apigen
-    source: hosted
-    version: "0.1.3"
-  dart_style:
-    description:
-      ref: null
-      resolved-ref: "1b3f0f7a27db72a374f0ae8cd9ac7f56e998b346"
-      url: "git://github.com/dart-lang/dart_style"
-    source: git
-    version: "0.1.3-dev"
-  ebisu:
-    description:
-      ref: null
-      resolved-ref: "4d68e8069a579fe29589791e922a5aba859a30fa"
-      url: "git://github.com/patefacio/ebisu"
-    source: git
-    version: "0.0.11"
-  ebisu_web_ui:
-    description:
-      ref: null
-      resolved-ref: "16404903f21ed8f772ba4affb0fcf5d9e270f60f"
-      url: "git://github.com/patefacio/ebisu_web_ui"
-    source: git
-    version: "0.0.1"
   html5lib:
     description: html5lib
     source: hosted
     version: "0.12.0"
-  id:
-    description:
-      ref: null
-      resolved-ref: "9042d3b7c386f8077e536f1a678e205d435b7e5d"
-      url: "git://github.com/patefacio/id"
-    source: git
-    version: "1.0.3"
-  intl:
-    description: intl
-    source: hosted
-    version: "0.12.0+1"
-  json_schema:
-    description:
-      ref: null
-      resolved-ref: "828c984c3980895c7e2a5f6d18f99a0b9ef82a31"
-      url: "git://github.com/patefacio/json_schema"
-    source: git
-    version: "1.0.1"
   logging:
     description: logging
     source: hosted
@@ -102,24 +45,10 @@ packages:
     description: observe
     source: hosted
     version: "0.12.2"
-  paper_elements:
-    description: paper_elements
-    source: hosted
-    version: "0.6.0+4"
   path:
     description: path
     source: hosted
     version: "1.3.1"
-  petitparser:
-    description: petitparser
-    source: hosted
-    version: "1.3.3"
-  plus:
-    description:
-      path: "../../plus"
-      relative: true
-    source: path
-    version: "0.0.1"
   polymer:
     description: polymer
     source: hosted
@@ -132,17 +61,6 @@ packages:
     description: pool
     source: hosted
     version: "1.0.1"
-  quiver:
-    description: quiver
-    source: hosted
-    version: "0.18.2"
-  simple_schema:
-    description:
-      ref: null
-      resolved-ref: d1c1f837eeaaac0f1fbeb20762e904a0b1f955da
-      url: "git://github.com/patefacio/simple_schema"
-    source: git
-    version: "0.0.2"
   smoke:
     description: smoke
     source: hosted
@@ -158,7 +76,7 @@ packages:
   stack_trace:
     description: stack_trace
     source: hosted
-    version: "0.9.3+2"
+    version: "1.1.1"
   string_scanner:
     description: string_scanner
     source: hosted
@@ -167,12 +85,6 @@ packages:
     description: template_binding
     source: hosted
     version: "0.14.0"
-  tooltip:
-    description:
-      path: "../tooltip"
-      relative: true
-    source: path
-    version: "0.0.1"
   unittest:
     description: unittest
     source: hosted

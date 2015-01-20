@@ -13,11 +13,13 @@ class CompositeTable {
 
   // custom <class CompositeTable>
 
-  CompositeRow addTopRow(String rowKey, [RowFactory rowFactory]) => (_topRows
-      ..add(_addRow(rowKey, rowFactory))).last;
+  CompositeRow addTopRow(String rowKey, [RowFactory rowFactory]) =>
+      (_topRows..add(_addRow(rowKey, rowFactory))).last;
 
-  CompositeRow addChildRow(CompositeRow parent, String rowKey, [RowFactory rowFactory]) {
-    final child = _addRow(rowKey, rowFactory).._indentLevel = parent.indentLevel + 1;
+  CompositeRow addChildRow(CompositeRow parent, String rowKey,
+      [RowFactory rowFactory]) {
+    final child = _addRow(rowKey, rowFactory)
+      .._indentLevel = parent.indentLevel + 1;
     parent.add(child);
     return child;
   }
@@ -36,10 +38,10 @@ class CompositeTable {
   _expandAllImpl(CompositeRow row) => row.expand();
 
   static CompositeRow _defaultRowFactory(TableRowElement row) =>
-    new CompositeRow(row);
+      new CompositeRow(row);
 
   _addRow(String rowKey, [RowFactory rowFactory]) {
-    if(rowFactory == null) rowFactory = _defaultRowFactory;
+    if (rowFactory == null) rowFactory = _defaultRowFactory;
     assert(_rows[rowKey] == null);
     var row = new TableRowElement();
     _table.children.add(row);
@@ -71,8 +73,7 @@ class CompositeRow {
     _row.cells[i].innerHtml = html;
   }
 
-  cellChildElement(int i, HtmlElement elm) =>
-    _row.cells[i].children = [ elm ];
+  cellChildElement(int i, HtmlElement elm) => _row.cells[i].children = [elm];
 
   add(CompositeRow child) => _children.add(child);
   addColumns(int i) => quiver.range(i).forEach((_) => _row.addCell());
@@ -101,7 +102,7 @@ class CompositeRow {
     _updateVisual();
   }
 
-  toggle() => _isCollapsed? expand() : collapse();
+  toggle() => _isCollapsed ? expand() : collapse();
 
   visit(VisitAction action) {
     action(this);
@@ -116,19 +117,19 @@ class CompositeRow {
 
   _collapseShow() {
     _isCollapseHidden = false;
-    if(!_isCollapsed) {
+    if (!_isCollapsed) {
       _children.forEach((child) => child._collapseShow());
     }
     _updateVisual();
   }
 
   _updateVisual() {
-    if(_isHidden || _isCollapseHidden) {
+    if (_isHidden || _isCollapseHidden) {
       _row.style.setProperty('display', 'none');
     } else {
       _row.style.removeProperty('display');
     }
-    if(collapseVisual != null) {
+    if (collapseVisual != null) {
       collapseVisual(this, _isCollapsed);
     }
   }
@@ -151,41 +152,34 @@ typedef CompositeRow RowFactory(TableRowElement row);
 typedef void VisitAction(CompositeRow row);
 typedef void CollapseVisual(CompositeRow row, bool collapsed);
 
-
 const _expandIcon = 'add-circle';
 const _collapseIcon = 'remove-circle';
 
 CoreIconButton createCollapseIcon() =>
-  new Element.tag('core-icon-button')
-  ..attributes['icon'] = _collapseIcon;
+    new Element.tag('core-icon-button')..attributes['icon'] = _collapseIcon;
 
 CoreIconButton createExpandIcon() =>
-  new Element.tag('core-icon-button')
-  ..attributes['icon'] = _expandIcon;
+    new Element.tag('core-icon-button')..attributes['icon'] = _expandIcon;
 
 CoreIconButton createCurrentDollarsIcon() =>
-  new Element.tag('core-icon-button')
-  ..attributes['icon'] = 'arrow-back';
+    new Element.tag('core-icon-button')..attributes['icon'] = 'arrow-back';
 
 CoreIconButton createFutureDollarsIcon() =>
-  new Element.tag('core-icon-button')
-  ..attributes['icon'] = 'arrow-forward';
+    new Element.tag('core-icon-button')..attributes['icon'] = 'arrow-forward';
 
-Element createLabel(String label) =>
-  new DivElement()..text = label;
+Element createLabel(String label) => new DivElement()..text = label;
 
-DivElement createRowCollapser(String label) =>
-  new DivElement()
+DivElement createRowCollapser(String label) => new DivElement()
   ..attributes['horizontal'] = ''
   ..attributes['layout'] = ''
-  ..children  = [ createCollapseIcon(), createLabel(label) ];
+  ..children = [createCollapseIcon(), createLabel(label)];
 
 attachExpandHandler(CompositeRow row) {
   row.collapseVisual = visualCollapser;
   getExpander(row).onClick.listen((me) {
-        row.toggle();
-        me.stopImmediatePropagation();
-      });
+    row.toggle();
+    me.stopImmediatePropagation();
+  });
 }
 
 getExpander(CompositeRow row) => row.cells[0].children[0].children[0];
@@ -193,8 +187,7 @@ getExpander(CompositeRow row) => row.cells[0].children[0].children[0];
 visualCollapser(CompositeRow row, bool isCollapsed) {
   final elm = getExpander(row);
   final icon = elm.attributes['icon'];
-  elm.attributes['icon'] = (_expandIcon == icon)? _collapseIcon: _expandIcon;
+  elm.attributes['icon'] = (_expandIcon == icon) ? _collapseIcon : _expandIcon;
 }
-
 
 // end <library composite_table>

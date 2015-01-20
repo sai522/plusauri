@@ -3,6 +3,7 @@ library plus.codegen.dart.component_libs.timeline_components;
 import "dart:io";
 import "dart:math";
 import "package:id/id.dart";
+import "package:ebisu/ebisu.dart";
 import "package:ebisu/ebisu_dart_meta.dart";
 import "package:ebisu_web_ui/ebisu_web_ui.dart";
 import "package:path/path.dart";
@@ -824,4 +825,7 @@ Can show one or more models perview.
   ]
   ..finalize();
 
-main() => timeline_components.generate();
+main() {
+  useDartFormatter = true;
+  timeline_components.generate();
+}

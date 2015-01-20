@@ -30,7 +30,6 @@ main() {
         expect(pullNum(r"--234"), null);
         expect(pullNum(r"--234", 0), 0);
         expect(pullNum(r"-234%"), -234);
-
       });
       test('pullInteger', () {
         expect(pullInteger(r"$324,2334x"), 3242334);
@@ -76,12 +75,12 @@ main() {
       });
 
       test('pullDate', () {
-        expect(pullDate("2001-01-05"), new DateTime.utc(2001,1,5));
-        expect(pullDate("01/05/2001"), new DateTime.utc(2001,1,5));
-        expect(pullDate("1/5/2001"), new DateTime.utc(2001,1,5));
+        expect(pullDate("2001-01-05"), new DateTime.utc(2001, 1, 5));
+        expect(pullDate("01/05/2001"), new DateTime.utc(2001, 1, 5));
+        expect(pullDate("1/5/2001"), new DateTime.utc(2001, 1, 5));
         expect(pullDate("garbage"), null);
-        expect(pullDate("garbage", new DateTime.utc(1929,10,29)),
-            new DateTime.utc(1929,10,29));
+        expect(pullDate("garbage", new DateTime.utc(1929, 10, 29)),
+            new DateTime.utc(1929, 10, 29));
       });
 
       test('numDigits', () {
@@ -125,7 +124,6 @@ main() {
         expect(roundToNearest(-1499999.0), -1500000);
         expect(roundToCeil(-1499999.0, 4), -1499000);
         expect(roundToFloor(-1499999.0, 4), -1500000);
-
       });
 
       test('moneyShortForm', () {

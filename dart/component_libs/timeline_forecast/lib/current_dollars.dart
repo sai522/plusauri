@@ -16,10 +16,9 @@ class CurrentDollarsToggler {
 
   toggle() => _showingCurrentDollars = !_showingCurrentDollars;
 
-  showDollarsPair(Date date, double value) =>
-    _showingCurrentDollars?
-    value * _inflation.scaleFromTo(date, today) :
-    value;
+  showDollarsPair(Date date, double value) => _showingCurrentDollars
+      ? value * _inflation.scaleFromTo(date, today)
+      : value;
 
   showDollars(DateValue dv) => showDollarsPair(dv.date, dv.value);
 

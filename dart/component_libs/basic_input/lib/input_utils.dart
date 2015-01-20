@@ -23,15 +23,13 @@ abstract class CheckedInputField extends PolymerElement {
     _input.jsElement.callMethod('setCustomValidity', [error]);
   }
 
-  bool get isValid =>
-    error == null &&
-    _input.inputValue != null &&
-    (!required || _input.inputValue.length > 0);
+  bool get isValid => error == null &&
+      _input.inputValue != null &&
+      (!required || _input.inputValue.length > 0);
 
   String get inputText => _input.inputValue;
 
-  set inputText(String text) =>
-    _input.inputValue = text;
+  set inputText(String text) => _input.inputValue = text;
 
   set input(PaperInput paperInput) => _input = paperInput;
 
@@ -55,10 +53,9 @@ abstract class CheckedInputField extends PolymerElement {
     return txt != null && txt.length > 0;
   }
 
-  onUpdate(observer) =>
-    _input.onInput.listen((Event event) {
-      observer(event);
-    });
+  onUpdate(observer) => _input.onInput.listen((Event event) {
+    observer(event);
+  });
 
   // end <class CheckedInputField>
   PaperInput _input;
@@ -66,11 +63,9 @@ abstract class CheckedInputField extends PolymerElement {
 
 // custom <library input_utils>
 
-clearPaperInput(PaperInput paperInput) =>
-  (paperInput
-      ..jsElement.callMethod('setCustomValidity', [])
-      ..inputValue = '')
-      .querySelector('* /deep/ #input')
+clearPaperInput(PaperInput paperInput) => (paperInput
+  ..jsElement.callMethod('setCustomValidity', [])
+  ..inputValue = '').querySelector('* /deep/ #input')
   ..focus()
   ..blur();
 

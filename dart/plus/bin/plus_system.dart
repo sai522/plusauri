@@ -18,6 +18,7 @@ import 'dart_libs/lib_strategy.dart' as strategy;
 import 'dart_libs/lib_test_utils.dart' as test_utils;
 import 'dart_libs/lib_time_series.dart' as time_series;
 import 'all_schema.dart' as all_schema;
+import 'all_component_libs.dart' as all_component_libs;
 
 System plus = () {
   useDartFormatter = true;
@@ -41,7 +42,7 @@ void main() {
   strategy.updateSystem(plus);  
   test_utils.updateSystem(plus);
   time_series.updateSystem(plus);
-  all_schema.updateSystem(plus);
-  
+  all_schema.updateSystem(plus);  
   plus.generate(generateHop : true);
+  all_component_libs.main();  
 }

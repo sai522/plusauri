@@ -50,23 +50,17 @@ class TFNavContentSelector extends PolymerElement {
     assert(shadowRoot != null);
     // custom <TFNavContentSelector attached>
     _netWorthButton = $['net-worth-button']
-      //        ..innerHtml = _netWorthIconHtml
       ..onClick.listen((_) => _buttonClicked(NET_WORTH_CONTENT));
     _totalAssetsButton = $['total-assets-button']
-      //        ..innerHtml = _totalAssetsIconHtml
       ..onClick.listen((_) => _buttonClicked(TOTAL_ASSETS_CONTENT));
     _totalLiabilitiesButton = $['total-liabilities-button']
-      //        ..innerHtml = _totalLiabilitiesIconHtml
       ..onClick.listen((_) => _buttonClicked(TOTAL_LIABILITIES_CONTENT));
 
     _netIncomeButton = $['net-income-button']
-      ..innerHtml = _netIncomeIconHtml
       ..onClick.listen((_) => _buttonClicked(NET_INCOME_CONTENT));
     _totalIncomeButton = $['total-income-button']
-      ..innerHtml = _totalIncomeIconHtml
       ..onClick.listen((_) => _buttonClicked(TOTAL_INCOME_CONTENT));
     _totalExpenseButton = $['total-expense-button']
-      ..innerHtml = _totalExpenseIconHtml
       ..onClick.listen((_) => _buttonClicked(TOTAL_EXPENSE_CONTENT));
 
     _buttonClicked(NET_WORTH_CONTENT);
@@ -85,13 +79,6 @@ class TFNavContentSelector extends PolymerElement {
   }
 
   // custom <class TFNavContentSelector>
-
-  get _netWorthIconHtml => '<i></i><span> NW</span>';
-  get _totalAssetsIconHtml => '<i></i><span> TA</span>';
-  get _totalLiabilitiesIconHtml => '<i></i><span> TL</span>';
-  get _netIncomeIconHtml => '<i></i><span> NI</span>';
-  get _totalIncomeIconHtml => '<i></i><span> TI</span>';
-  get _totalExpenseIconHtml => '<i></i><span> TE</span>';
 
   _buttonClicked(NavContentType type) {
     navContentType = type;

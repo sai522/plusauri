@@ -5,6 +5,7 @@
 <!-- custom <tFNavContentSelector head> -->
 <link rel="import" href="../../../packages/paper_elements/paper_button.html">
 <link rel="import" href="../../../packages/paper_elements/paper_radio_button.html">
+<link rel="import" href="../../../packages/paper_elements/paper_radio_group.html">
 <!-- end <tFNavContentSelector head> -->
 
 
@@ -13,30 +14,12 @@
     <style>
       /* custom <tFNavContentSelector style> */
 
-        paper-button::shadow #content span {
-        margin: 2px 3px 2px 3px;
-        padding: 2px 2px 2px 2px;
+        paper-radio-button {
+        margin: 1px 1px 1px 1px;
+        font-weight: bold;
         }
 
-        paper-button {
-        text-transform: none;
-        background: #4285f4;
-        color: #fff;
-        }
-
-        paper-button:hover {
-        background: #2a56c6;
-        }
-
-        paper-button::shadow #ripple {
-        color: #2a56c6;
-        }
-
-        paper-button {
-        margin: 2px 2px 2px 2px;
-        padding: 2px 2px 2px 2px;
-        }
-
+ 
     /* end <tFNavContentSelector style> */
     </style>
 
@@ -47,20 +30,22 @@
 
     <div horizontal layout>
 
-      <div horizontal layout style="margin: 5px;">
-          <div horizontal layout end>
-            <paper-button id="net-worth-button" label="Net Worth" toggles></paper-button>
-            <paper-button id="total-assets-button" label="Assets" toggles></paper-button>
-            <paper-button id="total-liabilities-button" label="Liabilities" toggles></paper-button>
-          </div>
+      <div horizontal layout style="margin: 1px;">
+
+          <paper-radio-group selected="nw">
+            <paper-radio-button name="nw" id="net-worth-button" label="NW"></paper-radio-button>
+            <paper-radio-button id="total-assets-button" label="A"></paper-radio-button>
+            <paper-radio-button id="total-liabilities-button" label="L"></paper-radio-button>
+                      
+            <paper-radio-button id="net-income-button" label="NI"></paper-radio-button>
+            <paper-radio-button id="total-income-button" label="I"></paper-radio-button>
+            <paper-radio-button id="total-expense-button" label="E"></paper-radio-button>      
+         </paper-radio-group>
+
       </div>
 
       <div horizontal layout style="margin: 5px;">
-          <div horizontal layout end>
-            <paper-button id="net-income-button" label="Net Income"></paper-button>
-            <paper-button id="total-income-button" label="Income"></paper-button>
-            <paper-button id="total-expense-button" label="Expxpense"></paper-button>
-          </div>
+
       </div>
 
     </div>

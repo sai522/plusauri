@@ -4,6 +4,7 @@
 
 <!-- custom <tFAnnualComponentToggler head> -->
 <link rel="import" href="../../../packages/paper_elements/paper_button.html">
+<link rel="import" href="../../../packages/paper_elements/paper_checkbox.html">
 <!-- end <tFAnnualComponentToggler head> -->
 
 
@@ -11,28 +12,10 @@
   <template>
     <style>
       /* custom <tFAnnualComponentToggler style> */
-        paper-button::shadow #content span {
+        paper-checkbox {
         margin: 2px 3px 2px 3px;
         padding: 2px 2px 2px 2px;
-        }
-
-        paper-button {
-        text-transform: none;
-        background: #4285f4;
-        color: #fff;
-        }
-
-        paper-button:hover {
-        background: #2a56c6;
-        }
-
-        paper-button::shadow #ripple {
-        color: #2a56c6;
-        }
-
-        paper-button {
-        margin: 2px 2px 2px 2px;
-        padding: 2px 2px 2px 2px;
+        font-weight: bold;
         }
 
     /* end <tFAnnualComponentToggler style> */
@@ -44,12 +27,12 @@
 
 
     <div horizontal layout style="margin: 5px;">
-      <h4 flex self-start style="white-space: nowrap;">Annual Forecast Display</h4>
+      <h4 flex self-start style="white-space: nowrap;"></h4>
         <div horizontal layout end>
-          <paper-button id="balance-sheet" label="BS"></paper-button>
-          <paper-button id="income-statement" label="IS"></paper-button>
-          <paper-button id="tax-summary" label="TS"></paper-button>
-          <paper-button id="liquidation-summary" label="LS"></paper-button>
+          <paper-checkbox id="balance-sheet" label="BS" checked></paper-checkbox>
+          <paper-checkbox id="income-statement" label="IS" checked></paper-checkbox>
+          <paper-checkbox id="tax-summary" label="TS" checked></paper-checkbox>
+          <paper-checkbox id="liquidation-summary" label="LS" checked></paper-checkbox>
         </div>
     </div>
 
